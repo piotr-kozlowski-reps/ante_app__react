@@ -4,6 +4,13 @@ import type from "../shared/utils/type";
 
 import ProjectsList from "../components/Projects/ProjectsList";
 import Carousel from "../components/Projects/Carousel";
+import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
+import { useSelector } from "react-redux";
+
+import ico1 from "../images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg";
+import ico2 from "../images/2019_08_obiekt_biurowy_leverkusen_niemcy_ico.jpg";
+import ico3 from "../images/2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico.jpg";
+import ico4 from "../images/2020_07_osiedle_mieszkaniowe_aachen_niemcy_ico.jpg";
 
 const DUMMY_PROJECTS = [
   {
@@ -16,7 +23,7 @@ const DUMMY_PROJECTS = [
     cityEn: "cityEn1",
     countryPL: "countryPL1",
     countryEn: "countryEn1",
-    icoImg: "url",
+    icoImg: ico1,
     type: [type.ANIMATION, type.COMPETITION],
   },
   {
@@ -29,7 +36,7 @@ const DUMMY_PROJECTS = [
     cityEn: "cityEn2",
     countryPL: "countryPL2",
     countryEn: "countryEn2",
-    icoImg: "url",
+    icoImg: ico2,
     type: [type.ANIMATION],
   },
   {
@@ -42,7 +49,7 @@ const DUMMY_PROJECTS = [
     cityEn: "cityEn3",
     countryPL: "countryPL3",
     countryEn: "countryEn3",
-    icoImg: "url",
+    icoImg: ico3,
     type: [type.EXTERIOR, type.INTERIOR, type.COMPETITION],
   },
   {
@@ -55,19 +62,47 @@ const DUMMY_PROJECTS = [
     cityEn: "cityEn4",
     countryPL: "countryPL4",
     countryEn: "countryEn4",
-    icoImg: "url",
+    icoImg: ico4,
     type: [type.APP],
   },
 ];
 
 const Projects = () => {
+  const lang = useSelector((state) => state.language.lang);
+  const projectsInProperLanguage = DUMMY_PROJECTS.map((project) => {
+    if (lang === "pl") {
+      return {
+        id: project.id,
+        genre: project.genre,
+        projName: project.projNamePl,
+        completionDate: project.completionDate,
+        city: project.cityPL,
+        country: project.countryPL,
+        icoImg: project.icoImg,
+        type: project.type,
+      };
+    } else {
+      return {
+        id: project.id,
+        genre: project.genre,
+        projName: project.projNameEn,
+        completionDate: project.completionDate,
+        city: project.cityEn,
+        country: project.countryEn,
+        icoImg: project.icoImg,
+        type: project.type,
+      };
+    }
+  });
+
   //
   //jsx
   return (
     <Fragment>
       <div data-testid="projects-page"></div>
       <Carousel />
-      <ProjectsList projectsList={DUMMY_PROJECTS} />
+      <ProjectsTypeNavigation />
+      <ProjectsList projectsList={projectsInProperLanguage} />
     </Fragment>
   );
 };

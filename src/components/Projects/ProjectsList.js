@@ -8,11 +8,13 @@ const ProjectsList = ({ projectsList }) => {
   }
 
   return (
-    <ul>
-      {projectsList.map((project) => (
-        <ProjectItem key={project.id} project={project} />
-      ))}
-    </ul>
+    <div id="portfolio" className="container">
+      <div className="row" id="parent">
+        {projectsList.map((project) => (
+          <ProjectItem key={project.id} project={project} />
+        ))}
+      </div>
+    </div>
   );
 };
 

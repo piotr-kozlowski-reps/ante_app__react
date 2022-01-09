@@ -73,7 +73,7 @@ h4,
   display: inline-block;
 }
 .navbar-nav > li a {
-  padding: 14px 20px 0 20px;
+  padding: 14px 18px 0 20px;
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
@@ -511,7 +511,6 @@ div.project {
 .main-nav-link-active {
   color: #000;
   cursor: not-allowed;
-  /* border-bottom: 2px solid #000; */
 }
 /* .main-nav-link-active::after {
   bottom: 0;
@@ -528,7 +527,6 @@ div.project {
 } */
 
 /* .main-nav-link-active::after {
-  TODO: maybe that gradient graphic for bottom active
   background: url("../src/images/navlinks-active.png");
   bottom: 0;
   content: "";
@@ -539,8 +537,6 @@ div.project {
   width: 50px;
   opacity: 0.08;
 } */
-
-/* TODO: make also hover - animated with gsap? */
 
 .button {
   display: inline-block;
