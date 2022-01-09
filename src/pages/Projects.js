@@ -3,6 +3,7 @@ import genre from "../shared/utils/genre";
 import type from "../shared/utils/type";
 
 import ProjectsList from "../components/Projects/ProjectsList";
+import Carousel from "../components/Projects/Carousel";
 
 const DUMMY_PROJECTS = [
   {
@@ -64,6 +65,8 @@ const Projects = () => {
   //jsx
   return (
     <Fragment>
+      <div data-testid="projects-page"></div>
+      <Carousel />
       <ProjectsList projectsList={DUMMY_PROJECTS} />
     </Fragment>
   );

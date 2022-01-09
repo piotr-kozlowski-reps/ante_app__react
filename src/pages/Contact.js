@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { languageActions } from "../shared/store/language-slice";
@@ -22,7 +22,12 @@ const Contact = () => {
 
   //
   //jsx
-  return <div>{`Contact, language: ${lang}`}</div>;
+  return (
+    <Fragment>
+      <div data-testid="contact-page"></div>
+      <div>{`Contact, language: ${lang}`}</div>
+    </Fragment>
+  );
 };
 
 export default Contact;

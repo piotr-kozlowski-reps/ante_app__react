@@ -8,6 +8,7 @@ import NotFound from "./pages/NotFound";
 import Header from "./shared/Navigation/Header";
 import MainNavigation from "./shared/Navigation/MainNavigation";
 import BackgroundTopElements from "./components/BackgroundTopElements";
+import Login from "./pages/Login";
 
 function App() {
   //
@@ -112,6 +113,7 @@ function App() {
         <Route path="/en/contact" element={<Contact />} />
         <Route path="/pl/about" element={<About />} />
         <Route path="/en/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Fragment>

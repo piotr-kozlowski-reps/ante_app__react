@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { Fragment, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { languageActions } from "../shared/store/language-slice";
@@ -22,7 +22,12 @@ const About = () => {
 
   //
   //jsx
-  return <div>{`About, language: ${lang}`}</div>;
+  return (
+    <Fragment>
+      <div data-testid="about-page"></div>
+      <div>{`About, language: ${lang}`}</div>
+    </Fragment>
+  );
 };
 
 export default About;
