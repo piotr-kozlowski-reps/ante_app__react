@@ -65,6 +65,19 @@ const DUMMY_PROJECTS = [
     icoImg: ico4,
     type: [type.APP],
   },
+  {
+    id: "5",
+    genre: genre.APP,
+    projNamePl: "projNamePl5",
+    projNameEn: "projNameEn5",
+    completionDate: new Date("2014-4"),
+    cityPL: "cityPL5",
+    cityEn: "cityEn5",
+    countryPL: "countryPL5",
+    countryEn: "countryEn5",
+    icoImg: ico4,
+    type: [type.EXTERIOR, type.INTERIOR],
+  },
 ];
 
 const Projects = () => {

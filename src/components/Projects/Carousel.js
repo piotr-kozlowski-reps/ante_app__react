@@ -56,12 +56,6 @@ const Carousel = () => {
     currentArrayByLanguage[0]
   );
 
-  //refs
-  // let slider1 = useRef(null);
-
-  //logic
-  //animating function
-
   useLayoutEffect(() => {
     // fadeFromRight(0.8, 0.5, 80, 0, slider1);
 
@@ -76,10 +70,8 @@ const Carousel = () => {
         setCarouselCurrentItem(currentArrayByLanguage[index]);
         index = 0;
       }
-
-      // console.log(`change slide. index: ${index}`);
     };
-    const changeSlideInterval = setInterval(changeSlide, 2000);
+    const changeSlideInterval = setInterval(changeSlide, 4000);
 
     return () => {
       clearInterval(changeSlideInterval);

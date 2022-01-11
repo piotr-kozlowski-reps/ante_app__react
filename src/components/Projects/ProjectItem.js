@@ -1,8 +1,8 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import { format } from "date-fns";
 
-const ProjectItem = ({ project }) => {
-  const { id, projName, completionDate, city, country, icoImg } = project;
+const ProjectItem = forwardRef((props, ref) => {
+  const { id, projName, completionDate, city, country, icoImg } = props.project;
 
   const alt = `${format(
     completionDate,
@@ -10,7 +10,10 @@ const ProjectItem = ({ project }) => {
   )}. ${projName}, ${city}, ${country}.`;
 
   return (
-    <div className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext">
+    <div
+      ref={ref}
+      className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext"
+    >
       <div className="box">
         <img src={icoImg} alt={alt} />
         <div className="more">
@@ -34,7 +37,7 @@ const ProjectItem = ({ project }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ProjectItem;
 
