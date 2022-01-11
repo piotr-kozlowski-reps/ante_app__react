@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { fadeFromRight } from "../../shared/utils/animations";
 
@@ -57,7 +57,6 @@ const Carousel = () => {
   );
 
   useLayoutEffect(() => {
-    // fadeFromRight(0.8, 0.5, 80, 0, slider1);
 
     let index = 1;
     const changeSlide = () => {
@@ -71,12 +70,16 @@ const Carousel = () => {
         index = 0;
       }
     };
-    const changeSlideInterval = setInterval(changeSlide, 4000);
+    const changeSlideInterval = setInterval(changeSlide, 6000);
 
     return () => {
       clearInterval(changeSlideInterval);
     };
   }, [currentArrayByLanguage]);
+
+  useEffect(() => {
+    setCurrentArrayByLanguage( lang === "pl" ? carouselPL : carouselEN)
+  }, [lang])
 
   //
   //jsx

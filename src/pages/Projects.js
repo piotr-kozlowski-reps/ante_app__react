@@ -11,6 +11,7 @@ import ico1 from "../images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg";
 import ico2 from "../images/2019_08_obiekt_biurowy_leverkusen_niemcy_ico.jpg";
 import ico3 from "../images/2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico.jpg";
 import ico4 from "../images/2020_07_osiedle_mieszkaniowe_aachen_niemcy_ico.jpg";
+import Footer from "../components/Footer";
 
 const DUMMY_PROJECTS = [
   {
@@ -116,6 +117,7 @@ const Projects = () => {
       <Carousel />
       <ProjectsTypeNavigation />
       <ProjectsList projectsList={projectsInProperLanguage} />
+      <Footer />
     </Fragment>
   );
 };

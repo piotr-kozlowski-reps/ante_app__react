@@ -5,45 +5,56 @@ import React, {
   useRef,
   useState,
 } from "react";
-import gsap from "gsap";
+import { CSSTransition } from "react-transition-group";
 
-import { fadeFromRight } from "../../shared/utils/animations";
+
 
 const CarouselItem = ({ carouselCurrentItem }) => {
   //
   //vars
+  const [isShowSlide, setIsShowSlide] = useState(false);
   const [slide, slideWithDescription, description] = carouselCurrentItem;
-  const [isVisibleOverlay, setIsVisibleOverlay] = useState(false);
+  // const [isVisibleOverlay, setIsVisibleOverlay] = useState(false);
   //refs
   let slider1 = useRef(null);
+
+  useLayoutEffect(() => {
+    setIsShowSlide(true);
+  }, [])
+
+  // useEffect(() => {
+  //   setIsShowSlide(false);
+  // }, [carouselCurrentItem])
 
   //content
   let content = null;
   if (!carouselCurrentItem) content = null;
   else
     content = (
+      <CSSTransition in={isShowSlide} timeout={4000} classNames="slide-transition">
       <img
         // style={{ opacity: 0 }}
         ref={(el) => (slider1 = el)}
-        src={isVisibleOverlay ? slide : slideWithDescription}
+        src={slideWithDescription}
         alt={description}
-        style={{ opacity: 0 }}
+        // style={{ opacity: 0 }}
         // onMouseEnter={changeGraphicToFullHandler}
         // onMouseLeave={changeGraphicToNameHandler}
       />
+      </CSSTransition>
     );
 
   //
   //logic
 
-  function changeGraphicToFullHandler() {
-    console.log("changeGraphicToFullHandler");
-    setIsVisibleOverlay(true);
-  }
-  function changeGraphicToNameHandler() {
-    console.log("changeGraphicToNameHandler");
-    setIsVisibleOverlay(false);
-  }
+  // function changeGraphicToFullHandler() {
+  //   console.log("changeGraphicToFullHandler");
+  //   setIsVisibleOverlay(true);
+  // }
+  // function changeGraphicToNameHandler() {
+  //   console.log("changeGraphicToNameHandler");
+  //   setIsVisibleOverlay(false);
+  // }
 
   //
   //jsx
