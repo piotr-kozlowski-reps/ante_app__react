@@ -7,13 +7,10 @@ import About from "./pages/About";
 import NotFound from "./pages/NotFound";
 import Header from "./shared/Navigation/Header";
 import MainNavigation from "./shared/Navigation/MainNavigation";
-import BackgroundTopElements from "./components/BackgroundTopElements";
+import BackgroundTopElements from "./shared/components/BackgroundTopElements";
 import Login from "./pages/Login";
 
-
 function App(props) {
-
-
   //
   //jsx
   return (
@@ -25,19 +22,18 @@ function App(props) {
           <MainNavigation />
         </Header>
       </nav>
- 
+
       <Routes>
-           <Route path="/" element={<Navigate to={`/pl/projects`} />} />
-           <Route path="/pl/projects" element={<Projects />} />
-           <Route path="/en/projects" element={<Projects />} />
-           <Route path="/pl/contact" element={<Contact />} />
-           <Route path="/en/contact" element={<Contact />} />
-           <Route path="/pl/about" element={<About />} />
-           <Route path="/en/about" element={<About />} />
-           <Route path="/login" element={<Login />} />
-           <Route path="*" element={<NotFound />} />
-        </Routes>
-        
+        <Route path="/" element={<Navigate to={`/pl/projects`} />} />
+        <Route path="/pl/projects" element={<Projects />} />
+        <Route path="/en/projects" element={<Projects />} />
+        <Route path="/pl/contact" element={<Contact />} />
+        <Route path="/en/contact" element={<Contact />} />
+        <Route path="/pl/about" element={<About />} />
+        <Route path="/en/about" element={<About />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
     </Fragment>
   );
 }

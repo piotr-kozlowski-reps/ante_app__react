@@ -1,6 +1,6 @@
 import React, { Fragment, useRef, useEffect } from "react";
 
-import { backgroundRevealDown } from "../shared/utils/animations";
+import { backgroundRevealDown } from "../utils/animations";
 
 const BackgroundTopElements = () => {
   //

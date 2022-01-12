@@ -66,9 +66,6 @@ describe("ProjectsTypeNavigation", () => {
     render(<MockApp />);
 
     const leftClick = { button: 0 };
-    //go to Polish Version
-    // const languageButton = screen.getByRole("button", { name: /pl/i });
-    // userEvent.click(languageButton, leftClick);
 
     let linkAll = screen.getByRole("link", { name: "Wszystkie" });
     let linkCompetition = screen.getByRole("link", { name: "Konkursy" });

@@ -1,4 +1,5 @@
 const type = {
+  ALL: "ALL",
   COMPETITION: "COMPETITION",
   INTERIOR: "INTERIOR",
   EXTERIOR: "EXTERIOR",
