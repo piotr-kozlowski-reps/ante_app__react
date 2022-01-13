@@ -37,21 +37,21 @@ const MainNavigation = () => {
   //logic
 
   //initialAnimation
-  useEffect(() => {
-    fadeFromRight(
-      0.6,
-      0.2,
-      40,
-      0.3,
-      projectsLink,
-      aboutLink,
-      contactLink,
-      loginLink,
-      logoutLink
-    );
-    fadeInUp(0.4, 0.6, 20, 0.1, logo);
-    fadeFromRightPlusScale(0.8, 0.5, 20, 1.2, 0.3, languageLink);
-  }, []);
+  // useEffect(() => {
+  //   fadeFromRight(
+  //     0.6,
+  //     0.2,
+  //     40,
+  //     0.3,
+  //     projectsLink,
+  //     aboutLink,
+  //     contactLink,
+  //     loginLink,
+  //     logoutLink
+  //   );
+  //   fadeInUp(0.4, 0.6, 20, 0.1, logo);
+  //   fadeFromRightPlusScale(0.8, 0.5, 20, 1.2, 0.3, languageLink);
+  // }, []);
 
   //animation of links when location changed
   useEffect(() => {
@@ -59,37 +59,37 @@ const MainNavigation = () => {
       setInitialRender(false);
     }
     if (!initialRender) {
-      fadeOutToLeft(
-        0.3,
-        0,
-        -90,
-        0,
-        projectsLink,
-        aboutLink,
-        contactLink,
-        loginLink,
-        logoutLink
-      );
-      fadeFromRight(
-        0.4,
-        0,
-        40,
-        0.3,
-        projectsLink,
-        aboutLink,
-        contactLink,
-        loginLink,
-        logoutLink
-      );
+      // fadeOutToLeft(
+      //   0.3,
+      //   0,
+      //   -90,
+      //   0,
+      //   projectsLink,
+      //   aboutLink,
+      //   contactLink,
+      //   loginLink,
+      //   logoutLink
+      // );
+      // fadeFromRight(
+      //   0.4,
+      //   0,
+      //   40,
+      //   0.3,
+      //   projectsLink,
+      //   aboutLink,
+      //   contactLink,
+      //   loginLink,
+      //   logoutLink
+      // );
 
       //animation of language button when really language changed
       if (locationPrefix === "pl" && lang === "en") {
         setLocationPrefix("en");
-        fadeFromRightPlusScale(0.4, 0, 20, 1.2, 0.3, languageLink);
+        // fadeFromRightPlusScale(0.4, 0, 20, 1.2, 0.3, languageLink);
       }
       if (locationPrefix === "en" && lang === "pl") {
         setLocationPrefix("pl");
-        fadeFromRightPlusScale(0.4, 0, 20, 1.2, 0.3, languageLink);
+        // fadeFromRightPlusScale(0.4, 0, 20, 1.2, 0.3, languageLink);
       }
     }
   }, [location.pathname, initialRender]);
@@ -99,10 +99,10 @@ const MainNavigation = () => {
   const toggleLanguageHandler = () => {
     if (lang === "pl") {
       dispatch(languageActions.setLanguageToEN());
-      navigate("/en/projects");
+      navigate(`/en/projects${location.search}`);
     } else {
       dispatch(languageActions.setLanguageToPL());
-      navigate("/pl/projects");
+      navigate(`/pl/projects${location.search}`);
     }
   };
 
