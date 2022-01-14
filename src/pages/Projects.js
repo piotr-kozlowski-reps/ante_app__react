@@ -379,8 +379,11 @@ const Projects = () => {
   //vars
   const lang = useSelector((state) => state.language.lang);
   const [currentType, setCurrentType] = useState(type.ALL);
-  const [currentProjectsArray, setCurrentProjectsArray] = useState([]);
+  const [currentProjectsArray, setCurrentProjectsArray] = useState([
+    ...DUMMY_PROJECTS,
+  ]);
   const [paginationNumber, setPaginationNumber] = useState(8);
+  const [isShowMoreButtonShown, setIsShowMoreButtonShown] = useState(true);
   //params
   const location = useLocation();
   const typeGotFromQuery =
@@ -416,10 +419,11 @@ const Projects = () => {
   }, [typeGotFromQuery]);
 
   //setting array of projects with desired type and language
-  const projectsFiltered = DUMMY_PROJECTS.filter((project) => {
-    if (currentType === type.ALL) return true;
-    if (project.type.some((type) => type === currentType)) return true;
-  })
+  const projectsFiltered = currentProjectsArray
+    .filter((project) => {
+      if (currentType === type.ALL) return true;
+      if (project.type.some((type) => type === currentType)) return true;
+    })
     .sort((a, b) => b.completionDate - a.completionDate)
     .map((project) => {
       if (lang === "pl") {
@@ -443,7 +447,23 @@ const Projects = () => {
       }
     });
 
+  //add more projects to be shown
   const projectsPaginated = projectsFiltered.splice(0, paginationNumber);
+  const allProjectsNumber = currentProjectsArray.length;
+  const currentProjectsNumberToBeShown = projectsPaginated.length;
+  const showMoreHandler = () => {
+    if (currentProjectsNumberToBeShown < allProjectsNumber) {
+      setPaginationNumber(
+        (paginationNumber) => currentProjectsNumberToBeShown + paginationNumber
+      );
+    }
+  };
+  useEffect(() => {
+    if (allProjectsNumber === currentProjectsNumberToBeShown)
+      setIsShowMoreButtonShown(false);
+  }, [allProjectsNumber, currentProjectsNumberToBeShown]);
+
+  console.log(isShowMoreButtonShown);
 
   //
   //jsx
@@ -452,10 +472,19 @@ const Projects = () => {
       <div data-testid="projects-page"></div>
       <Carousel />
       <ProjectsTypeNavigation />
-      <ProjectsList projectsList={projectsPaginated} lang={lang} />
+      <ProjectsList
+        projectsList={projectsPaginated}
+        lang={lang}
+        onClick={showMoreHandler}
+        isShowMoreButtonShown={isShowMoreButtonShown}
+      />
       <Footer />
     </Fragment>
   );
 };
 
 export default Projects;
+
+//TODO: tests Projects: tests of choosing TYPES in Menu i pass proper array further
+//TODO: tests Projects: tests if changing language also changes passed Array further
+//TODO: tests Projects: tests of project 'pagination' - SHOW MORE button

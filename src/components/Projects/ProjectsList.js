@@ -5,9 +5,14 @@ import PropTypes from "prop-types";
 import ProjectItem from "./ProjectItem";
 import Button from "../../shared/components/Button";
 
-const ProjectsList = ({ projectsList, lang }) => {
+const ProjectsList = ({
+  projectsList,
+  lang,
+  onClick,
+  isShowMoreButtonShown,
+}) => {
   const el = useRef();
-  const query = gsap.utils.selector(el);
+  // const query = gsap.utils.selector(el);
 
   // const renderProjectsElements = (delay, duration) => {
   //   gsap.from(query(".box-outer"), {
@@ -39,8 +44,12 @@ const ProjectsList = ({ projectsList, lang }) => {
           <ProjectItem key={project.id} project={project} />
         ))}
       </div>
-      <div className="">
-        <Button>{lang === "pl" ? "ZOBACZ WIĘCEJ" : "SEE MORE"}</Button>
+      <div className="text-center">
+        {isShowMoreButtonShown && (
+          <Button onClick={onClick} additionalClass="see-more-button">
+            {lang === "pl" ? "ZOBACZ WIĘCEJ" : "SEE MORE"}
+          </Button>
+        )}
       </div>
     </div>
   );
@@ -51,13 +60,15 @@ ProjectsList.propTypes = {
     PropTypes.exact({
       id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
       projName: PropTypes.string,
-      completionDate: PropTypes.object,
+      completionDate: PropTypes.instanceOf(Date),
       city: PropTypes.string,
       country: PropTypes.string,
       icoImg: PropTypes.string,
     })
   ).isRequired,
   lang: PropTypes.oneOf(["pl", "en"]).isRequired,
+  onClick: PropTypes.func,
+  isShowMoreButtonShown: PropTypes.bool,
 };
 
 export default ProjectsList;
