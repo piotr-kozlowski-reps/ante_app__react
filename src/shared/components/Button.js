@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 //Button
 
@@ -59,6 +60,18 @@ const Button = (props) => {
       {props.children}
     </button>
   );
+};
+
+Button.propTypes = {
+  size: PropTypes.string,
+  additionalClass: PropTypes.string,
+  href: PropTypes.string,
+  children: PropTypes.any.isRequired,
+  to: PropTypes.string,
+  exact: PropTypes.bool,
+  type: PropTypes.string,
+  onClick: PropTypes.func,
+  disabled: PropTypes.bool,
 };
 
 export default Button;

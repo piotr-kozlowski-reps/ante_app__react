@@ -24,40 +24,41 @@ const ProjectsTypeNavigation = () => {
   //
   //logic
   // initial animation effect
-  useLayoutEffect(() => {
-    fadeFromRight(
-      0.6,
-      0.8,
-      40,
-      0.3,
-      link1,
-      link2,
-      link3,
-      link4,
-      link5,
-      link6,
-      link7,
-      link8
-    );
-    fadeInUp(0.4, 0.8, 20, 0.1, portfolioElement);
-  }, []);
+  // useLayoutEffect(() => {
+  //   fadeFromRight(
+  //     0.6,
+  //     0.8,
+  //     40,
+  //     0.3,
+  //     link1,
+  //     link2,
+  //     link3,
+  //     link4,
+  //     link5,
+  //     link6,
+  //     link7,
+  //     link8
+  //   );
+  //   fadeInUp(0.4, 0.8, 20, 0.1, portfolioElement);
+  // }, []);
+
   // link clicked animation effect
-  useEffect(() => {
-    fadeFromRight(
-      0.4,
-      0,
-      40,
-      0.3,
-      link1,
-      link2,
-      link3,
-      link4,
-      link5,
-      link6,
-      link7,
-      link8
-    );
-  }, [queryTypeExtracted, lang]);
+  // useEffect(() => {
+  //   fadeFromRight(
+  //     0.4,
+  //     0,
+  //     40,
+  //     0.3,
+  //     link1,
+  //     link2,
+  //     link3,
+  //     link4,
+  //     link5,
+  //     link6,
+  //     link7,
+  //     link8
+  //   );
+  // }, [queryTypeExtracted, lang]);
 
   //
   //jsx

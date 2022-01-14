@@ -127,6 +127,251 @@ const DUMMY_PROJECTS = [
       type.APP,
     ],
   },
+  {
+    id: "8",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl8",
+    projNameEn: "projNameEn8",
+    completionDate: new Date("2013-11"),
+    cityPL: "cityPL8",
+    cityEn: "cityEn8",
+    countryPL: "countryPL8",
+    countryEn: "countryEn8",
+    icoImg: ico1,
+    type: [type.COMPETITION],
+  },
+  {
+    id: "9",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl9",
+    projNameEn: "projNameEn9",
+    completionDate: new Date("2018-11"),
+    cityPL: "cityPL9",
+    cityEn: "cityEn9",
+    countryPL: "countryPL9",
+    countryEn: "countryEn9",
+    icoImg: ico2,
+    type: [type.COMPETITION, type.INTERIOR],
+  },
+  {
+    id: "10",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl10",
+    projNameEn: "projNameEn10",
+    completionDate: new Date("2020-11"),
+    cityPL: "cityPL10",
+    cityEn: "cityEn10",
+    countryPL: "countryPL10",
+    countryEn: "countryEn10",
+    icoImg: ico3,
+    type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR],
+  },
+  {
+    id: "11",
+    genre: genre.APP,
+    projNamePl: "projNamePl11",
+    projNameEn: "projNameEn11",
+    completionDate: new Date("2021-4"),
+    cityPL: "cityPL11",
+    cityEn: "cityEn11",
+    countryPL: "countryPL11",
+    countryEn: "countryEn11",
+    icoImg: ico4,
+    type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR, type.ANIMATION],
+  },
+  {
+    id: "12",
+    genre: genre.APP,
+    projNamePl: "projNamePl12",
+    projNameEn: "projNameEn12",
+    completionDate: new Date("2014-4"),
+    cityPL: "cityPL12",
+    cityEn: "cityEn12",
+    countryPL: "countryPL12",
+    countryEn: "countryEn12",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+    ],
+  },
+  {
+    id: "13",
+    genre: genre.APP,
+    projNamePl: "projNamePl13",
+    projNameEn: "projNameEn13",
+    completionDate: new Date("2012-4"),
+    cityPL: "cityPL13",
+    cityEn: "cityEn13",
+    countryPL: "countryPL13",
+    countryEn: "countryEn13",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+      type.PANORAMA,
+    ],
+  },
+  {
+    id: "14",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl14",
+    projNameEn: "projNameEn14",
+    completionDate: new Date("2012-4"),
+    cityPL: "cityPL14",
+    cityEn: "cityEn14",
+    countryPL: "countryPL14",
+    countryEn: "countryEn14",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+      type.PANORAMA,
+      type.APP,
+    ],
+  },
+  {
+    id: "15",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl15",
+    projNameEn: "projNameEn15",
+    completionDate: new Date("2012-4"),
+    cityPL: "cityPL15",
+    cityEn: "cityEn15",
+    countryPL: "countryPL15",
+    countryEn: "countryEn15",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+      type.PANORAMA,
+      type.APP,
+    ],
+  },
+  {
+    id: "16",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl16",
+    projNameEn: "projNameEn16",
+    completionDate: new Date("2013-11"),
+    cityPL: "cityPL16",
+    cityEn: "cityEn16",
+    countryPL: "countryPL16",
+    countryEn: "countryEn16",
+    icoImg: ico1,
+    type: [type.COMPETITION],
+  },
+  {
+    id: "17",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl17",
+    projNameEn: "projNameEn17",
+    completionDate: new Date("2018-11"),
+    cityPL: "cityPL17",
+    cityEn: "cityEn17",
+    countryPL: "countryPL17",
+    countryEn: "countryEn17",
+    icoImg: ico2,
+    type: [type.COMPETITION, type.INTERIOR],
+  },
+  {
+    id: "18",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl18",
+    projNameEn: "projNameEn18",
+    completionDate: new Date("2020-11"),
+    cityPL: "cityPL18",
+    cityEn: "cityEn18",
+    countryPL: "countryPL18",
+    countryEn: "countryEn18",
+    icoImg: ico3,
+    type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR],
+  },
+  {
+    id: "19",
+    genre: genre.APP,
+    projNamePl: "projNamePl19",
+    projNameEn: "projNameEn19",
+    completionDate: new Date("2021-4"),
+    cityPL: "cityPL19",
+    cityEn: "cityEn19",
+    countryPL: "countryPL19",
+    countryEn: "countryEn19",
+    icoImg: ico4,
+    type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR, type.ANIMATION],
+  },
+  {
+    id: "20",
+    genre: genre.APP,
+    projNamePl: "projNamePl20",
+    projNameEn: "projNameEn20",
+    completionDate: new Date("2014-4"),
+    cityPL: "cityPL20",
+    cityEn: "cityEn20",
+    countryPL: "countryPL20",
+    countryEn: "countryEn20",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+    ],
+  },
+  {
+    id: "21",
+    genre: genre.APP,
+    projNamePl: "projNamePl21",
+    projNameEn: "projNameEn21",
+    completionDate: new Date("2012-4"),
+    cityPL: "cityPL21",
+    cityEn: "cityEn21",
+    countryPL: "countryPL21",
+    countryEn: "countryEn21",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+      type.PANORAMA,
+    ],
+  },
+  {
+    id: "22",
+    genre: genre.GRAPHIC,
+    projNamePl: "projNamePl22",
+    projNameEn: "projNameEn22",
+    completionDate: new Date("2012-4"),
+    cityPL: "cityPL22",
+    cityEn: "cityEn22",
+    countryPL: "countryPL22",
+    countryEn: "countryEn22",
+    icoImg: ico4,
+    type: [
+      type.COMPETITION,
+      type.INTERIOR,
+      type.EXTERIOR,
+      type.ANIMATION,
+      type.PRODUCT_MODELING,
+      type.PANORAMA,
+      type.APP,
+    ],
+  },
 ];
 
 const Projects = () => {
@@ -134,12 +379,17 @@ const Projects = () => {
   //vars
   const lang = useSelector((state) => state.language.lang);
   const [currentType, setCurrentType] = useState(type.ALL);
+  const [currentProjectsArray, setCurrentProjectsArray] = useState([
+    ...DUMMY_PROJECTS,
+  ]);
+  const [paginationNumber, setPaginationNumber] = useState(8);
+  const [isShowMoreButtonShown, setIsShowMoreButtonShown] = useState(true);
   //params
   const location = useLocation();
   const typeGotFromQuery =
     new URLSearchParams(location.search).get("type") || "all";
 
-  //seting current type of prjects to be shown
+  //setting current type of projects to be shown
   useEffect(() => {
     switch (typeGotFromQuery) {
       case "competitions":
@@ -168,50 +418,52 @@ const Projects = () => {
     }
   }, [typeGotFromQuery]);
 
-  const projectsFiltered = DUMMY_PROJECTS.map((project) => {
-    if (currentType === type.ALL) return project;
-    if (
-      project.type.some((type) => {
-        console.log(
-          `currentType: ${currentType}; type: ${type}; finalOfSome: ${
-            type === currentType
-          }`
-        );
+  //setting array of projects with desired type and language
+  const projectsFiltered = currentProjectsArray
+    .filter((project) => {
+      if (currentType === type.ALL) return true;
+      if (project.type.some((type) => type === currentType)) return true;
+    })
+    .sort((a, b) => b.completionDate - a.completionDate)
+    .map((project) => {
+      if (lang === "pl") {
+        return {
+          id: project.id,
+          projName: project.projNamePl,
+          completionDate: project.completionDate,
+          city: project.cityPL,
+          country: project.countryPL,
+          icoImg: project.icoImg,
+        };
+      } else {
+        return {
+          id: project.id,
+          projName: project.projNameEn,
+          completionDate: project.completionDate,
+          city: project.cityEn,
+          country: project.countryEn,
+          icoImg: project.icoImg,
+        };
+      }
+    });
 
-        return type === currentType;
-      })
-    ) {
-      return project;
+  //add more projects to be shown
+  const projectsPaginated = projectsFiltered.splice(0, paginationNumber);
+  const allProjectsNumber = currentProjectsArray.length;
+  const currentProjectsNumberToBeShown = projectsPaginated.length;
+  const showMoreHandler = () => {
+    if (currentProjectsNumberToBeShown < allProjectsNumber) {
+      setPaginationNumber(
+        (paginationNumber) => currentProjectsNumberToBeShown + paginationNumber
+      );
     }
-  });
+  };
+  useEffect(() => {
+    if (allProjectsNumber === currentProjectsNumberToBeShown)
+      setIsShowMoreButtonShown(false);
+  }, [allProjectsNumber, currentProjectsNumberToBeShown]);
 
-  console.log(projectsFiltered);
-
-  const projectsInProperLanguage = projectsFiltered.map((project) => {
-    if (lang === "pl") {
-      return {
-        id: project.id,
-        genre: project.genre,
-        projName: project.projNamePl,
-        completionDate: project.completionDate,
-        city: project.cityPL,
-        country: project.countryPL,
-        icoImg: project.icoImg,
-        type: project.type,
-      };
-    } else {
-      return {
-        id: project.id,
-        genre: project.genre,
-        projName: project.projNameEn,
-        completionDate: project.completionDate,
-        city: project.cityEn,
-        country: project.countryEn,
-        icoImg: project.icoImg,
-        type: project.type,
-      };
-    }
-  });
+  console.log(isShowMoreButtonShown);
 
   //
   //jsx
@@ -220,10 +472,19 @@ const Projects = () => {
       <div data-testid="projects-page"></div>
       <Carousel />
       <ProjectsTypeNavigation />
-      <ProjectsList projectsList={projectsInProperLanguage} />
+      <ProjectsList
+        projectsList={projectsPaginated}
+        lang={lang}
+        onClick={showMoreHandler}
+        isShowMoreButtonShown={isShowMoreButtonShown}
+      />
       <Footer />
     </Fragment>
   );
 };
 
 export default Projects;
+
+//TODO: tests Projects: tests of choosing TYPES in Menu i pass proper array further
+//TODO: tests Projects: tests if changing language also changes passed Array further
+//TODO: tests Projects: tests of project 'pagination' - SHOW MORE button
