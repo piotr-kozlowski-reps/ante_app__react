@@ -161,17 +161,17 @@ describe("ProjectsTypeNavigation", () => {
     expect(linkApps).toBeInTheDocument();
   });
 
-  it("changes query in link to type=all when link(all) clicked", async () => {
-    const history = createMemoryHistory();
-    render(
-      <BrowserRouter history={history}>
-        <App />
-      </BrowserRouter>
-    );
+  // it("changes query in link to type=all when link(all) clicked", async () => {
+  //   const history = createMemoryHistory();
+  //   render(
+  //     <BrowserRouter history={history}>
+  //       <App />
+  //     </BrowserRouter>
+  //   );
 
-    let linkAll = screen.getByRole("link", { name: "Animations" });
-    userEvent.click(linkAll);
+  //   // let linkAll = screen.getByRole("link", { name: "Animations" });
+  //   // userEvent.click(linkAll);
 
-    //TODO: test all links changing type of Projects if the query in url (?type=....) is equal to desired one
-  });
+  //   //TODO: test all links changing type of Projects if the query in url (?type=....) is equal to desired one
+  // });
 });
