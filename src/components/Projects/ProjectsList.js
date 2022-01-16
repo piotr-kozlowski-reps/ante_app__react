@@ -41,7 +41,7 @@ const ProjectsList = ({
     <div id="portfolio" className="container">
       <div className="row" id="parent" ref={el}>
         {projectsList.map((project) => (
-          <ProjectItem key={project.id} project={project} />
+          <ProjectItem key={project.id} project={project} lang={lang} />
         ))}
       </div>
       <div className="text-center">

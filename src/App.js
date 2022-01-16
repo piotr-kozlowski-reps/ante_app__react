@@ -9,6 +9,8 @@ import Header from "./shared/Navigation/Header";
 import MainNavigation from "./shared/Navigation/MainNavigation";
 import BackgroundTopElements from "./shared/components/BackgroundTopElements";
 import Login from "./pages/Login";
+import ProjectShowcase from "./pages/ProjectShowcase";
+import NewProject from "./pages/NewProject";
 
 function App(props) {
   //
@@ -27,11 +29,14 @@ function App(props) {
         <Route path="/" element={<Navigate to={`/pl/projects`} />} />
         <Route path="/pl/projects" element={<Projects />} />
         <Route path="/en/projects" element={<Projects />} />
+        <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
+        <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
         <Route path="/pl/contact" element={<Contact />} />
         <Route path="/en/contact" element={<Contact />} />
         <Route path="/pl/about" element={<About />} />
         <Route path="/en/about" element={<About />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/admin/new-project" element={<NewProject />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Fragment>

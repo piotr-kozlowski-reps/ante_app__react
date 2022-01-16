@@ -1,8 +1,11 @@
 import React, { forwardRef } from "react";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const ProjectItem = forwardRef((props, ref) => {
   const { id, projName, completionDate, city, country, icoImg } = props.project;
+  const lang = props.lang;
 
   const alt = `${format(
     completionDate,
@@ -18,10 +21,7 @@ const ProjectItem = forwardRef((props, ref) => {
         <img src={icoImg} alt={alt} />
         <div className="more">
           <div className="project">
-            <a
-              href="en_2020_07_housing_estate_aachen_germany.html"
-              className="link"
-            >
+            <Link to={`/${lang}/projects/${id}`} className="link">
               <div className="desc">
                 <h3>{projName.toUpperCase()}</h3>
                 <h4>
@@ -31,7 +31,7 @@ const ProjectItem = forwardRef((props, ref) => {
                   )}/ ${city.toUpperCase()} [${country.toUpperCase()}]`}
                 </h4>
               </div>
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -39,26 +39,16 @@ const ProjectItem = forwardRef((props, ref) => {
   );
 });
 
-export default ProjectItem;
+ProjectItem.propTypes = {
+  project: PropTypes.exact({
+    id: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    projName: PropTypes.string,
+    completionDate: PropTypes.instanceOf(Date),
+    city: PropTypes.string,
+    country: PropTypes.string,
+    icoImg: PropTypes.string,
+  }).isRequired,
+  lang: PropTypes.oneOf(["pl", "en"]).isRequired,
+};
 
-//  <div class="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext">
-//    <div class="box">
-//      <img
-//        src="images/2020_07_osiedle_mieszkaniowe_aachen_niemcy_ico.jpg"
-//        alt="April, 2019. Housing estate, Aachen, Germany."
-//      />
-//      <div class="more">
-//        <div class="project">
-//          <a
-//            href="en_2020_07_housing_estate_aachen_germany.html"
-//            class="link"
-//          >
-//            <div class="desc">
-//              <h3>HOUSING ESTATE</h3>
-//              <h4>2020/ AACHEN [GERMANY]</h4>
-//            </div>
-//          </a>
-//        </div>
-//      </div>
-//    </div>
-//  </div>;
+export default ProjectItem;

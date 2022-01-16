@@ -24,8 +24,13 @@ const About = () => {
   //jsx
   return (
     <Fragment>
-      <div data-testid="about-page"></div>
-      <div>{`About, language: ${lang}`}</div>
+      <div id="about" className="container" data-testid="about-page">
+        <div className="row">
+          <div className="col-lg-12">
+            <div>{`About, language: ${lang}`}</div>
+          </div>
+        </div>
+      </div>
     </Fragment>
   );
 };

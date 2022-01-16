@@ -99,10 +99,14 @@ const MainNavigation = () => {
   const toggleLanguageHandler = () => {
     if (lang === "pl") {
       dispatch(languageActions.setLanguageToEN());
-      navigate(`/en/projects${location.search}`);
+      const currentPath = location.pathname;
+      const desiredPathName = currentPath.replace("pl", "en");
+      navigate(desiredPathName);
     } else {
       dispatch(languageActions.setLanguageToPL());
-      navigate(`/pl/projects${location.search}`);
+      const currentPath = location.pathname;
+      const desiredPathName = currentPath.replace("en", "pl");
+      navigate(desiredPathName);
     }
   };
 

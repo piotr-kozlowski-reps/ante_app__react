@@ -1,5 +1,10 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Semi+Condensed:wght@300;500;600&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&display=swap");
 
+:root {
+  --main-gray: rgb(233, 233, 233);
+  --links-not-active: #656565;
+}
+
 body {
   /* background: url("./images/body-bg.png") no-repeat top center; */
   margin: 0;
@@ -25,7 +30,7 @@ body .video-responsive iframe {
 }
 a {
   font-weight: 900;
-  color: #555;
+  color: var(--links-not-active);
 }
 a:hover,
 li.active a {
@@ -38,7 +43,7 @@ h3,
 h4,
 .nav a {
   text-transform: uppercase;
-  /* color: #555; */
+  color: var(--links-not-active);
   margin-top: 0;
   margin-bottom: 0;
 }
@@ -513,7 +518,7 @@ div.project {
 .main-nav-link:hover {
   color: #000;
 }
-.main-nav-link-active {
+.cat .main-nav-link-active {
   color: #000;
   cursor: not-allowed;
 }
@@ -548,7 +553,7 @@ div.project {
   background: #fff;
   text-decoration: none;
   font-weight: 900;
-  color: #555;
+  color: var(--links-not-active);
   outline: none;
   border: none;
   cursor: pointer;
@@ -578,7 +583,88 @@ div.project {
 }
 
 .see-more-button {
-  padding: 0 auto;
+  text-align: center;
+  border: var(--main-gray) solid 1px;
+  width: 100%;
+  margin-bottom: 26px;
+}
+
+/* modal */
+.backdrop-mine {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(233, 233, 233, 0.75);
+  z-index: 10;
+}
+.modal--mine {
+  z-index: 100;
+  position: fixed;
+  top: 22vh;
+  left: 10%;
+  width: 80%;
+  background: white;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.02);
+  /* border-radius: 8px; */
+}
+
+.modal__header--mine {
+  width: 100%;
+  padding: 1rem 0.5rem;
+  background: #2a006e;
+  color: white;
+}
+
+.modal__header--mine h2 {
+  margin: 0.5rem;
+}
+
+.modal__content--mine {
+  /* padding: 1rem 0.5rem; */
+}
+
+.modal__footer--mine {
+  padding: 1rem 0.5rem;
+}
+
+.modal-header-mine__panorama {
+  display: none;
+}
+
+@media (min-width: 768px) {
+  .modal {
+    left: calc(50% - 20rem);
+    width: 40rem;
+  }
+}
+
+.modal-enter {
+  transform: translateY(-10rem);
+  opacity: 0;
+}
+
+.modal-enter-active {
+  transform: translateY(0);
+  opacity: 1;
+  transition: all 200ms;
+}
+
+.modal-exit {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.modal-exit-active {
+  transform: translateY(-10rem);
+  opacity: 0;
+  transition: all 200ms;
+}
+//
+
+.py-admin {
+  padding-top: 300px;
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {

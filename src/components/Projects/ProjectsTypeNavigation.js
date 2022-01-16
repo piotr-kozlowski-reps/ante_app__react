@@ -90,7 +90,7 @@ const ProjectsTypeNavigation = () => {
         <div className="col-lg-12">
           <div className="collapse navbar-collapse" id="defaultNavbar1">
             <ul className="nav navbar-nav">
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link1 = el)}
                   to={`?type=all`}
@@ -104,7 +104,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link2 = el)}
                   to={`?type=competitions`}
@@ -118,7 +118,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link3 = el)}
                   to={`?type=interiors`}
@@ -132,7 +132,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link4 = el)}
                   to={`?type=exteriors`}
@@ -146,7 +146,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link5 = el)}
                   to={`?type=animations`}
@@ -160,7 +160,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link6 = el)}
                   to={`?type=3dmodeling`}
@@ -176,7 +176,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link7 = el)}
                   to={`?type=panoramas`}
@@ -190,7 +190,7 @@ const ProjectsTypeNavigation = () => {
                 </NavLink>
               </li>
 
-              <li className="active cat">
+              <li className="cat">
                 <NavLink
                   ref={(el) => (link8 = el)}
                   to={`?type=apps`}
