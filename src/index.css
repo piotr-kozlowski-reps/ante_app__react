@@ -661,10 +661,83 @@ div.project {
   opacity: 0;
   transition: all 200ms;
 }
-//
 
 .py-admin {
-  padding-top: 300px;
+  padding-top: 90px;
+}
+
+/* form */
+#portfolio form {
+  margin: 20px 0 12px 0;
+  padding: 25px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Lato", Georgia, serif;
+}
+
+#portfolio .details {
+  font-size: 1.3rem;
+  font-weight: 900;
+  display: block;
+}
+
+#portfolio .form-row {
+  display: flex;
+  justify-content: space-between;
+  flex: 1;
+  padding-bottom: 1rem;
+}
+
+#portfolio .project-details {
+  width: 100%;
+  padding: 0 3rem 1.5rem 1rem;
+}
+
+#portfolio .details-title {
+  font-size: 2rem;
+  font-weight: 900;
+  display: block;
+}
+
+#portfolio .input-box input {
+  height: 45px;
+  width: 100%;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #999;
+  padding-left: 15px;
+  font-size: 1.3rem;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+}
+
+/* #portfolio .input-box input:valid {
+  border: 2px solid #eee;
+  background: #f9f9f9;
+} */
+
+#portfolio .input-box input:focus {
+  border: 2px solid rgb(61, 61, 61);
+}
+
+#portfolio .separator {
+  margin: 2rem 3rem 2.5rem 1.3rem;
+  border-bottom: 3px dotted #ccc;
+}
+
+#portfolio .project-types {
+  font-size: 1.2rem;
+  margin: 2rem 3rem 2.5rem 1.3rem;
+}
+
+#portfolio .p-invalid {
+  background-color: red;
+}
+
+#portfolio .input-box input .input-invalid {
+  border: 1px solid red;
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {
