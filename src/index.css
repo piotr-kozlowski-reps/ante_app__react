@@ -3,6 +3,9 @@
 :root {
   --main-gray: rgb(233, 233, 233);
   --links-not-active: #656565;
+  --color-invalid-100proc: rgb(232, 28, 36);
+  --color-invalid-faded: rgb(232, 28, 36, 0.1);
+  --color-invalid-button: rgb(232, 28, 36, 0.7);
 }
 
 body {
@@ -612,25 +615,40 @@ div.project {
 
 .modal__header--mine {
   width: 100%;
-  padding: 1rem 0.5rem;
-  background: #2a006e;
-  color: white;
+  background: #fff;
+  color: var(--main-gray);
+  padding: 2rem 0 1rem 0;
+  border-bottom: 3px dotted var(--main-gray);
+  font-weight: 900;
+  text-align: center;
 }
 
 .modal__header--mine h2 {
   margin: 0.5rem;
 }
 
-.modal__content--mine {
-  /* padding: 1rem 0.5rem; */
+.modal-mine__content {
+  padding: 2rem 0 1rem 0;
+  font-size: 1.8rem;
 }
 
 .modal__footer--mine {
   padding: 1rem 0.5rem;
 }
 
+.warning-color {
+  color: var(--color-invalid-button);
+}
+.warning-color:hover {
+  color: var(--color-invalid-100proc);
+}
+
 .modal-header-mine__panorama {
   display: none;
+}
+
+.modal-header-mine__show-header {
+  display: block;
 }
 
 @media (min-width: 768px) {
@@ -733,11 +751,20 @@ div.project {
 }
 
 #portfolio .p-invalid {
-  background-color: red;
+  /* background-color: var(--color-invalid-100proc); */
+  color: var(--color-invalid-100proc);
+  font-size: 1.3rem;
+  font-weight: 900;
+  margin-top: 2px;
 }
 
-#portfolio .input-box input .input-invalid {
+/* #portfolio .input-box input .input-invalid {
   border: 1px solid red;
+} */
+
+#portfolio .input-box .input-invalid {
+  border: 1px solid var(--color-invalid-100proc);
+  background-color: var(--color-invalid-faded);
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {

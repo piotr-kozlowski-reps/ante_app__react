@@ -27,7 +27,7 @@ const Button = (props) => {
     return (
       <a
         className={`button button--${props.size || "default"} ${
-          props.additionalClass || null
+          props.additionalClass ? props.additionalClass : ""
         }`}
         href={props.href}
       >
@@ -41,7 +41,7 @@ const Button = (props) => {
         to={props.to}
         exact={props.exact}
         className={`button button--${props.size || "default"} ${
-          props.additionalClass || null
+          props.additionalClass ? props.additionalClass : ""
         }`}
       >
         {props.children}
@@ -51,7 +51,7 @@ const Button = (props) => {
   return (
     <button
       className={`button button--${props.size || "default"} ${
-        props.additionalClass || null
+        props.additionalClass ? props.additionalClass : ""
       }`}
       type={props.type}
       onClick={props.onClick}

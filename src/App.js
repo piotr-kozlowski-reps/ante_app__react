@@ -11,6 +11,8 @@ import BackgroundTopElements from "./shared/components/BackgroundTopElements";
 import Login from "./pages/Login";
 import ProjectShowcase from "./pages/ProjectShowcase";
 import NewProject from "./pages/NewProject";
+import UpdateProject from "./pages/UpdateProject";
+import AdminProjectsList from "./pages/AdminProjectsList";
 
 function App(props) {
   //
@@ -36,7 +38,9 @@ function App(props) {
         <Route path="/pl/about" element={<About />} />
         <Route path="/en/about" element={<About />} />
         <Route path="/login" element={<Login />} />
-        <Route path="/admin/new-project" element={<NewProject />} />
+        <Route path="/api/projects/new-project" element={<NewProject />} />
+        <Route path="/api/projects/:projectId" element={<UpdateProject />} />
+        <Route path="/api/projects" element={<AdminProjectsList />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </Fragment>

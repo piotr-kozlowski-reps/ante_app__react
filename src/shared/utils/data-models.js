@@ -3,15 +3,24 @@ import type from "./type";
 
 // tymczas grafiki
 import ico1 from "../../images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg";
+import ico1Thumb from "../../images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg";
 import ico2 from "../../images/2019_08_obiekt_biurowy_leverkusen_niemcy_ico.jpg";
+import ico2Thumb from "../../images/2019_08_obiekt_biurowy_leverkusen_niemcy_ico__thumb.jpg";
 import ico3 from "../../images/2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico.jpg";
+import ico3Thumb from "../../images/2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico__thumb.jpg";
 import ico4 from "../../images/2020_07_osiedle_mieszkaniowe_aachen_niemcy_ico.jpg";
+import ico4Thumb from "../../images/2020_07_osiedle_mieszkaniowe_aachen_niemcy_ico__thumb.jpg";
 
 import image1big from "../../images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001.jpg";
+import image1bigThumb from "../../images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001__thumb.jpg";
 import image2 from "../../images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002.jpg";
+import image2Thumb from "../../images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002__thumb.jpg";
 import phoneImage from "../../images/phone_melbeck.png";
+import phoneImageThumb from "../../images/phone_melbeck__thumb.jpg";
 import panoramaIco from "../../images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01.jpg";
+import panoramaIcoThumb from "../../images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb.jpg";
 import panoramaFull from "../../images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big.jpg";
+import panoramaFullThumb from "../../images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big__thumb.jpg";
 
 export const DUMMY_PROJECTS = [
   {
@@ -24,7 +33,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn1",
     countryPL: "countryPL1",
     countryEn: "countryEn1",
-    icoImg: ico1,
+    icoImgFull: ico1,
+    icoImgThumb: ico1Thumb,
     type: [type.COMPETITION],
   },
   {
@@ -37,7 +47,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn2",
     countryPL: "countryPL2",
     countryEn: "countryEn2",
-    icoImg: ico2,
+    icoImgFull: ico2,
+    icoImgThumb: ico2Thumb,
     type: [type.COMPETITION, type.INTERIOR],
   },
   {
@@ -50,7 +61,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn3",
     countryPL: "countryPL3",
     countryEn: "countryEn3",
-    icoImg: ico3,
+    icoImgFull: ico3,
+    icoImgThumb: ico3Thumb,
     type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR],
   },
   {
@@ -63,7 +75,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn4",
     countryPL: "countryPL4",
     countryEn: "countryEn4",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR, type.ANIMATION],
   },
   {
@@ -76,7 +89,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn5",
     countryPL: "countryPL5",
     countryEn: "countryEn5",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -95,7 +109,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn7",
     countryPL: "countryPL7",
     countryEn: "countryEn7",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -115,7 +130,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn6",
     countryPL: "countryPL6",
     countryEn: "countryEn6",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -136,7 +152,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn8",
     countryPL: "countryPL8",
     countryEn: "countryEn8",
-    icoImg: ico1,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [type.COMPETITION],
   },
   {
@@ -149,7 +166,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn9",
     countryPL: "countryPL9",
     countryEn: "countryEn9",
-    icoImg: ico2,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [type.COMPETITION, type.INTERIOR],
   },
   {
@@ -162,7 +180,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn10",
     countryPL: "countryPL10",
     countryEn: "countryEn10",
-    icoImg: ico3,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR],
   },
   {
@@ -175,7 +194,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn11",
     countryPL: "countryPL11",
     countryEn: "countryEn11",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR, type.ANIMATION],
   },
   {
@@ -188,7 +208,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn12",
     countryPL: "countryPL12",
     countryEn: "countryEn12",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -207,7 +228,7 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn13",
     countryPL: "countryPL13",
     countryEn: "countryEn13",
-    icoImg: ico4,
+    icoImgFull: ico4,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -227,7 +248,7 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn14",
     countryPL: "countryPL14",
     countryEn: "countryEn14",
-    icoImg: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -248,7 +269,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn15",
     countryPL: "countryPL15",
     countryEn: "countryEn15",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -269,7 +291,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn16",
     countryPL: "countryPL16",
     countryEn: "countryEn16",
-    icoImg: ico1,
+    icoImgFull: ico1,
+    icoImgThumb: ico1Thumb,
     type: [type.COMPETITION],
   },
   {
@@ -282,7 +305,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn17",
     countryPL: "countryPL17",
     countryEn: "countryEn17",
-    icoImg: ico2,
+    icoImgFull: ico2,
+    icoImgThumb: ico2Thumb,
     type: [type.COMPETITION, type.INTERIOR],
   },
   {
@@ -295,7 +319,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn18",
     countryPL: "countryPL18",
     countryEn: "countryEn18",
-    icoImg: ico3,
+    icoImgFull: ico3,
+    icoImgThumb: ico3Thumb,
     type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR],
   },
   {
@@ -308,7 +333,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn19",
     countryPL: "countryPL19",
     countryEn: "countryEn19",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [type.COMPETITION, type.INTERIOR, type.EXTERIOR, type.ANIMATION],
   },
   {
@@ -321,7 +347,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn20",
     countryPL: "countryPL20",
     countryEn: "countryEn20",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -340,7 +367,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn21",
     countryPL: "countryPL21",
     countryEn: "countryEn21",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -360,7 +388,8 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn22",
     countryPL: "countryPL22",
     countryEn: "countryEn22",
-    icoImg: ico4,
+    icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -385,23 +414,30 @@ export const DUMMY_PROJECT_PANORAMA = {
   countryEn: "GERMANY",
   clientPL: "VIRTUELL FORMAT",
   clientEn: "VIRTUELL FORMAT",
-  icoImg: ico1,
+  icoImgFull: ico1,
+  icoImgThumb: ico1Thumb,
   type: [type.PANORAMA],
   panoramas: [
     {
       panoramaTitle: "PANORAMA_1",
-      panoramaIco: panoramaIco,
-      panoramaImageSource: panoramaFull,
+      panoramaIcoFull: panoramaIco,
+      panoramaIcoThumb: panoramaIcoThumb,
+      panoramaImageSourceFull: panoramaFull,
+      panoramaImageSourceFullThumb: panoramaFullThumb,
     },
     {
       panoramaTitle: "PANORAMA_2",
-      panoramaIco: panoramaIco,
-      panoramaImageSource: panoramaFull,
+      panoramaIcoFull: panoramaIco,
+      panoramaIcoThumb: panoramaIcoThumb,
+      panoramaImageSourceFull: panoramaFull,
+      panoramaImageSourceFullThumb: panoramaFullThumb,
     },
     {
       panoramaTitle: "PANORAMA_3",
-      panoramaIco: panoramaIco,
-      panoramaImageSource: panoramaFull,
+      panoramaIcoFull: panoramaIco,
+      panoramaIcoThumb: panoramaIcoThumb,
+      panoramaImageSourceFull: panoramaFull,
+      panoramaImageSourceFullThumb: panoramaFullThumb,
     },
   ],
 };
@@ -418,17 +454,20 @@ export const DUMMY_PROJECT_GRAPHIC = {
   countryEn: "POLAND",
   clientPL: "HERMANOWICZ REWSKI ARCHITEKCI",
   clientEn: "HERMANOWICZ REWSKI ARCHITECTS",
-  icoImg: ico1,
+  icoImgFull: ico1,
+  icoImgThumb: ico1Thumb,
   type: [type.COMPETITION],
   images: [
     {
-      imageSource: image1big,
+      imageSourceFull: image1big,
+      imageSourceThumb: image1bigThumb,
       imageAltPl: "Hall hotelu.",
       imageAltEn: "Lounge of the hotel.",
       isBig: true,
     },
     {
-      imageSource: image2,
+      imageSourceFull: image2,
+      imageSourceThumb: image2Thumb,
       imageAltPl: "Przekrój.",
       imageAltEn: "Cross-section.",
       isBig: false,
@@ -448,9 +487,11 @@ export const DUMMY_PROJECT_ANIMATION = {
   countryEn: "GERMANY",
   clientPL: "VIRTUELL FORMAT",
   clientEn: "VIRTUELL FORMAT",
-  icoImg: ico1,
+  icoImgFull: ico1,
+  icoImgThumb: ico1Thumb,
   type: [type.COMPETITION],
   videoSource: "https://www.youtube.com/embed/ljUUT4BJ_7M",
+  videoSourceThumb: image1bigThumb,
 };
 
 export const DUMMY_PROJECT_APP = {
@@ -465,12 +506,14 @@ export const DUMMY_PROJECT_APP = {
   countryEn: "GERMANY",
   clientPL: "VIRTUELL FORMAT",
   clientEn: "VIRTUELL FORMAT",
-  icoImg: ico1,
+  icoImgFull: ico1,
+  icoImgThumb: ico1Thumb,
   type: [type.APP],
   appInfo: {
     appNamePl: "VILLA MELBECK",
     appNameEn: "VILLA MELBECK",
-    appImage: phoneImage,
+    appImageFull: phoneImage,
+    appImageThumb: phoneImageThumb,
     appDescriptionPl:
       "Aplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.",
     appDescriptionEn:
