@@ -2,6 +2,8 @@ import React, { Fragment, useState } from "react";
 
 import Modal from "../shared/components/Modal";
 import Button from "../shared/components/Button";
+import AdminTitle from "../components/Admin/AdminTitle";
+import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
 
 const AdminProjectsList = () => {
   //
@@ -25,6 +27,7 @@ const AdminProjectsList = () => {
   //jsx
   return (
     <Fragment>
+      {/* modal delete - start */}
       <Modal
         header="Are you sure?"
         headerClass="modal-header-mine__show-header"
@@ -46,7 +49,10 @@ const AdminProjectsList = () => {
           Do you really want to proceed and delete that Project?
         </p>
       </Modal>
-      <div>list of projects</div>
+      {/* modal delete - end */}
+      {/* <AdminTitle title="PROJECTS LIST" /> */}
+      <ProjectsTypeNavigation title="PROJECTS LIST" />
+
       <div>
         project 1
         <Button onClick={showDeleteWarningHandler}>DELETE PROJECT</Button>

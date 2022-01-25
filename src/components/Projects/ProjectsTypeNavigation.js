@@ -2,10 +2,13 @@ import React, { useRef, useLayoutEffect, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, NavLink } from "react-router-dom";
 import { fadeFromRight, fadeInUp } from "../../shared/utils/animations";
+import PropTypes from "prop-types";
 
-const ProjectsTypeNavigation = () => {
-  //
-  //vars
+const ProjectsTypeNavigation = (props) => {
+  ////props
+  const { title } = props;
+
+  ////vars
   const lang = useSelector((state) => state.language.lang);
   const location = useLocation();
   const params = new URLSearchParams(location.search);
@@ -83,7 +86,7 @@ const ProjectsTypeNavigation = () => {
               <span className="icon-bar"></span>
             </button>
           </div>
-          <h2>Portfolio</h2>
+          <h2>{title}</h2>
         </div>
       </div>
       <div className="row menu">
@@ -209,6 +212,10 @@ const ProjectsTypeNavigation = () => {
       </div>
     </div>
   );
+};
+
+ProjectsTypeNavigation.propTypes = {
+  title: PropTypes.string,
 };
 
 export default ProjectsTypeNavigation;

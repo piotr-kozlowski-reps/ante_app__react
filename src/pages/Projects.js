@@ -98,7 +98,7 @@ const Projects = () => {
     <Fragment>
       <div data-testid="projects-page"></div>
       <Carousel />
-      <ProjectsTypeNavigation />
+      <ProjectsTypeNavigation title="Portfolio" />
       <ProjectsList
         projectsList={projectsPaginated}
         lang={lang}
