@@ -56,6 +56,8 @@ const Projects = () => {
     }
   }, [typeGotFromQuery]);
 
+  console.log(DUMMY_PROJECTS);
+
   //setting array of projects with desired type and language
   const projectsFiltered = currentProjectsArray
     .filter((project) => {
@@ -70,7 +72,7 @@ const Projects = () => {
         completionDate: project.completionDate,
         city: lang === "pl" ? project.cityPL : project.cityEn,
         country: lang === "pl" ? project.countryPL : project.countryEn,
-        icoImg: project.icoImg,
+        icoImg: project.icoImgFull,
       };
     });
 
