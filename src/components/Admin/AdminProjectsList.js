@@ -5,6 +5,7 @@ import AdminProjectItem from "./AdminProjectItem";
 const AdminProjectsList = (props) => {
   ////vars
 
+  ////jsx
   return (
     <div id="portfolio" className="container">
       <div className="row" id="parent">

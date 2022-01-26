@@ -1,8 +1,10 @@
-import React from "react";
+import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../../shared/components/Button";
+import Modal from "../../shared/components/Modal";
 
 const AdminProjectItem = (props) => {
   ////vars
@@ -17,37 +19,96 @@ const AdminProjectItem = (props) => {
     countryEn,
     icoImgThumb,
   } = props;
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const navigate = useNavigate();
+
+  ////func
+  const showDeleteWarningHandler = () => {
+    setShowConfirmModal(true);
+  };
+  const cancelDeleteWarningHandler = () => {
+    setShowConfirmModal(false);
+  };
+  const confirmProjectDelete = () => {
+    setShowConfirmModal(false);
+    console.log(`project deleted! Id: ${id}`);
+  };
+  const navigatoToEditProject = () => {
+    navigate(`/api/projects/${id}`);
+  };
 
   ////jsx
   return (
-    <li>
-      <div className="thumbnail-admin">
-        <img src={icoImgThumb} alt={projNamePl}></img>
-      </div>
-
-      <div className="project-text">
-        <h3>{`${projNamePl}/${projNameEn}`}</h3>
-        <p>
-          {`id: ${id}`}
-          <br />
-          {`${format(completionDate, "yyyy")}-${format(completionDate, "MM")}`}
-          <br />
-          {`${cityPL}/${cityEn}`} <br /> {`${countryPL}/${countryEn}`}
+    <Fragment>
+      {/* modal delete - start */}
+      <Modal
+        header="Are you sure?"
+        headerClass="modal-header-mine__show-header"
+        footer={
+          <div className="text-center">
+            <Button onClick={cancelDeleteWarningHandler}>CANCEL</Button>
+            <Button
+              additionalClass="warning-color"
+              onClick={confirmProjectDelete}
+            >
+              DELETE
+            </Button>
+          </div>
+        }
+        show={showConfirmModal}
+        onCancel={cancelDeleteWarningHandler}
+      >
+        <p className="text-center modal-mine__content">
+          Do you really want to proceed and delete that Project?
         </p>
-      </div>
+      </Modal>
+      {/* modal delete - end */}
 
-      <div className="lang buttons-edit-delete">
-        <Button to="./" additionalClass="btn-portfolio">
-          EDIT
-        </Button>
-        <Button
-          to="./"
-          additionalClass="btn-portfolio btn-delete warning-color"
+      <li>
+        <div className="thumbnail-admin">
+          <img
+            src={icoImgThumb}
+            alt={projNamePl}
+            onClick={navigatoToEditProject}
+            style={{ cursor: "pointer" }}
+          ></img>
+        </div>
+
+        <div
+          className="project-text"
+          onClick={navigatoToEditProject}
+          style={{ cursor: "pointer" }}
         >
-          DELETE
-        </Button>
-      </div>
-    </li>
+          <h3>{`${projNamePl}/${projNameEn}`}</h3>
+          <p>
+            {`id: ${id}`}
+            <br />
+            {`${format(completionDate, "yyyy")}-${format(
+              completionDate,
+              "MM"
+            )}`}
+            <br />
+            {`${cityPL}/${cityEn}`} <br /> {`${countryPL}/${countryEn}`}
+          </p>
+        </div>
+
+        <div className="lang buttons-edit-delete">
+          <Button
+            onClick={navigatoToEditProject}
+            additionalClass="btn-portfolio"
+          >
+            EDIT
+          </Button>
+
+          <Button
+            onClick={showDeleteWarningHandler}
+            additionalClass="btn-portfolio btn-delete warning-color"
+          >
+            DELETE
+          </Button>
+        </div>
+      </li>
+    </Fragment>
   );
 };
 
@@ -61,6 +122,7 @@ AdminProjectItem.propsTypes = {
   countryPL: PropTypes.string.isRequired,
   countryEn: PropTypes.string.isRequired,
   icoImgThumb: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default AdminProjectItem;

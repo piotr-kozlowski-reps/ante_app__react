@@ -58,7 +58,10 @@ const UpdateProject = () => {
     console.log(formState);
   };
 
-  if (!foundProject) return <h2>Could not find project with that id.</h2>;
+  if (!foundProject)
+    return (
+      <h2>{`Could not find project with that id. (id provided ${projectId})`}</h2>
+    );
   //TODO: make that info nice looking
 
   //TODO: later change the logic of showing form

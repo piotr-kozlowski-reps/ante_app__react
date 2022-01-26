@@ -30,8 +30,6 @@ const AdminCommon = () => {
     console.log(formState.inputs);
   };
 
-  console.log(formState);
-
   return (
     <Fragment>
       <div id="portfolio" className="container">

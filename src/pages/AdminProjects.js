@@ -1,30 +1,29 @@
 import React, { Fragment, useState } from "react";
+import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
 
-import Modal from "../shared/components/Modal";
-import Button from "../shared/components/Button";
 import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
 import AdminProjectsList from "../components/Admin/AdminProjectsList";
+import Footer from "../shared/components/Footer";
 
 ////temporary
 import { DUMMY_PROJECTS } from "../shared/utils/data-models";
+import { useLocation } from "react-router-dom";
 
 const AdminProjects = () => {
   ////vars
-  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [currentProjectsArray, setCurrentProjectsArray] = useState([
+    ...DUMMY_PROJECTS,
+  ]);
+  const location = useLocation();
+  const typeGotFromQuery =
+    new URLSearchParams(location.search).get("type") || "all";
+  const filteredProjects = useTypeFiltering(
+    typeGotFromQuery,
+    currentProjectsArray
+  );
 
-  ////func
-  const showDeleteWarningHandler = () => {
-    setShowConfirmModal(true);
-  };
-  const cancelDeleteWarningHandler = () => {
-    setShowConfirmModal(false);
-  };
-  const confirmProjectDelete = () => {
-    setShowConfirmModal(false);
-    console.log("deleted!");
-  };
-  //project projection
-  const projectsProjected = DUMMY_PROJECTS.map((project) => {
+  //desired projection
+  const projectsProjected = filteredProjects.map((project) => {
     return {
       id: project.id,
       projNamePl: project.projNamePl,
@@ -41,44 +40,12 @@ const AdminProjects = () => {
   ////jsx
   return (
     <Fragment>
-      {/* modal delete - start */}
-      <Modal
-        header="Are you sure?"
-        headerClass="modal-header-mine__show-header"
-        footer={
-          <div className="text-center">
-            <Button onClick={cancelDeleteWarningHandler}>CANCEL</Button>
-            <Button
-              additionalClass="warning-color"
-              onClick={confirmProjectDelete}
-            >
-              DELETE
-            </Button>
-          </div>
-        }
-        show={showConfirmModal}
-        onCancel={cancelDeleteWarningHandler}
-      >
-        <p className="text-center modal-mine__content">
-          Do you really want to proceed and delete that Project?
-        </p>
-      </Modal>
-      {/* modal delete - end */}
-
       <ProjectsTypeNavigation
         title="PROJECTS LIST"
         additionalTitleClass="py-admin"
       />
       <AdminProjectsList projectsList={projectsProjected} />
-
-      <div>
-        project 1
-        <Button onClick={showDeleteWarningHandler}>DELETE PROJECT</Button>
-      </div>
-      <div>project 1</div>
-      <div>project 1</div>
-      <div>project 1</div>
-      <div>project 1</div>
+      <Footer />
     </Fragment>
   );
 };

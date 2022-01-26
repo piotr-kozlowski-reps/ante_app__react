@@ -229,6 +229,7 @@ export const DUMMY_PROJECTS = [
     countryPL: "countryPL13",
     countryEn: "countryEn13",
     icoImgFull: ico4,
+    icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
       type.INTERIOR,
@@ -248,6 +249,7 @@ export const DUMMY_PROJECTS = [
     cityEn: "cityEn14",
     countryPL: "countryPL14",
     countryEn: "countryEn14",
+    icoImgFull: ico4,
     icoImgThumb: ico4Thumb,
     type: [
       type.COMPETITION,
