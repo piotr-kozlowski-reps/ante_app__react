@@ -6,6 +6,8 @@
   --color-invalid-100proc: rgb(232, 28, 36);
   --color-invalid-faded: rgb(232, 28, 36, 0.1);
   --color-invalid-button: rgb(232, 28, 36, 0.7);
+  --color-green-100proc: rgb(154, 172, 19);
+  --color-green-70proc: rgb(154, 172, 19, 0.7);
 }
 
 body {
@@ -676,6 +678,87 @@ form {
 .input-box .input-invalid {
   border: 1px solid var(--color-invalid-100proc);
   background-color: var(--color-invalid-faded);
+}
+
+#portfolio .btn-portfolio {
+  outline: 2px solid #eee;
+  background-size: 100% 50%, 100% 50%;
+  background-repeat: no-repeat, no-repeat;
+  background-position: center top, center bottom;
+  /* color: var(--color-green-70proc); */
+}
+
+#portfolio .btn-portfolio:hover {
+  color: #000;
+  outline: 2px solid #ddd;
+}
+
+#portfolio .create-project-button {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 18px;
+  margin-top: 32px;
+  margin-right: 12px;
+}
+
+#portfolio ol {
+  margin: 0;
+  padding: 0 12px 0 12px;
+  list-style: none;
+  counter-reset: ordered-list;
+}
+
+#portfolio ol li {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  border-bottom: #ddd dotted 2px;
+  height: 100px;
+}
+#portfolio ol li::before {
+  content: counter(ordered-list);
+  counter-increment: ordered-list;
+  font-weight: 900;
+  font-size: 2rem;
+  margin-right: 1.5rem;
+  color: #777;
+}
+#portfolio ol li:first-child {
+  flex: 0 0 20px;
+}
+
+#portfolio ol li:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+#portfolio ol li .project-text {
+  /* border-left: #ddd solid 2px; */
+  padding-left: 12px;
+  /* flex: 1; */
+}
+
+#portfolio .btn-delete {
+  margin-left: 12px;
+  margin-right: 12px;
+}
+
+#portfolio .thumbnail-admin img {
+  margin-left: 12px;
+  width: 100px;
+  height: 80px;
+  border-left: #ddd solid 2px;
+  padding-left: 12px;
+}
+
+#portfolio .buttons-edit-delete {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  padding-left: 12px;
+  border-right: #ddd solid 2px;
+  align-items: center;
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {

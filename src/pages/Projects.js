@@ -13,8 +13,7 @@ import Footer from "../shared/components/Footer";
 import { DUMMY_PROJECTS } from "../shared/utils/data-models";
 
 const Projects = () => {
-  //
-  //vars
+  ////vars
   const lang = useSelector((state) => state.language.lang);
   const [currentType, setCurrentType] = useState(type.ALL);
   const [currentProjectsArray, setCurrentProjectsArray] = useState([
@@ -55,8 +54,6 @@ const Projects = () => {
         setCurrentType(type.ALL);
     }
   }, [typeGotFromQuery]);
-
-  console.log(DUMMY_PROJECTS);
 
   //setting array of projects with desired type and language
   const projectsFiltered = currentProjectsArray

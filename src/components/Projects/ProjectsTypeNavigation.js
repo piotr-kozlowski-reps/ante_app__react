@@ -5,9 +5,6 @@ import { fadeFromRight, fadeInUp } from "../../shared/utils/animations";
 import PropTypes from "prop-types";
 
 const ProjectsTypeNavigation = (props) => {
-  ////props
-  const { title } = props;
-
   ////vars
   const lang = useSelector((state) => state.language.lang);
   const location = useLocation();
@@ -71,7 +68,11 @@ const ProjectsTypeNavigation = (props) => {
       className="container"
       ref={(el) => (portfolioElement = el)}
     >
-      <div className="row">
+      <div
+        className={`row ${
+          props.additionalTitleClass ? props.additionalTitleClass : ""
+        }`}
+      >
         <div className="col-lg-12">
           <div className="navbar-header">
             <button
@@ -86,7 +87,7 @@ const ProjectsTypeNavigation = (props) => {
               <span className="icon-bar"></span>
             </button>
           </div>
-          <h2>{title}</h2>
+          <h2>{props.title}</h2>
         </div>
       </div>
       <div className="row menu">
@@ -215,7 +216,8 @@ const ProjectsTypeNavigation = (props) => {
 };
 
 ProjectsTypeNavigation.propTypes = {
-  title: PropTypes.string,
+  title: PropTypes.string.isRequired,
+  additionalTitleClass: PropTypes.string,
 };
 
 export default ProjectsTypeNavigation;

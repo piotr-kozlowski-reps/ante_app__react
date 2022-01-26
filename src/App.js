@@ -13,15 +13,13 @@ import BackgroundTopElements from "./shared/components/BackgroundTopElements";
 import ProjectShowcase from "./pages/ProjectShowcase";
 import NewProject from "./pages/NewProject";
 import UpdateProject from "./pages/UpdateProject";
-import AdminProjectsList from "./pages/AdminProjectsList";
+import AdminProjects from "./pages/AdminProjects";
 
 function App(props) {
-  //
-  //vars
+  ////vars
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  console.log(isLoggedIn);
-  //
-  //content
+
+  ////content
   let routes;
   if (isLoggedIn) {
     routes = (
@@ -37,7 +35,7 @@ function App(props) {
         <Route path="/en/about" element={<About />} />
         <Route path="/api/projects/new-project" element={<NewProject />} />
         <Route path="/api/projects/:projectId" element={<UpdateProject />} />
-        <Route path="/api/projects" element={<AdminProjectsList />} />
+        <Route path="/api/projects" element={<AdminProjects />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     );
@@ -58,8 +56,7 @@ function App(props) {
     );
   }
 
-  //
-  //jsx
+  ////jsx
   return (
     <Fragment>
       <BackgroundTopElements />

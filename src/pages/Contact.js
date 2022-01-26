@@ -4,14 +4,12 @@ import { useLocation } from "react-router-dom";
 import { languageActions } from "../shared/store/language-slice";
 
 const Contact = () => {
-  //
-  //vars
+  ////vars
   const lang = useSelector((state) => state.language.lang);
   const location = useLocation();
   const dispatch = useDispatch();
 
-  //
-  //logic
+  ////logic
   //checking if someone pasted URL directly -> setting language accordingly
   useEffect(() => {
     if (location.pathname.startsWith("/pl") && lang === "en")
@@ -20,8 +18,7 @@ const Contact = () => {
       dispatch(languageActions.setLanguageToEN());
   }, [dispatch, lang, location.pathname]);
 
-  //
-  //jsx
+  ////jsx
   return (
     <Fragment>
       <div data-testid="contact-page"></div>

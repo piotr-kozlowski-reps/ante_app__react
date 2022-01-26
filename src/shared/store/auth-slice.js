@@ -1,8 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isLoggedIn: false,
+  isLoggedIn: true,
 };
+
+//TODO: change finaly initial state to false
 
 const authSlice = createSlice({
   name: "auth",

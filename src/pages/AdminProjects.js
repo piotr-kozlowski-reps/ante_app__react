@@ -2,16 +2,17 @@ import React, { Fragment, useState } from "react";
 
 import Modal from "../shared/components/Modal";
 import Button from "../shared/components/Button";
-import AdminTitle from "../components/Admin/AdminTitle";
 import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
+import AdminProjectsList from "../components/Admin/AdminProjectsList";
 
-const AdminProjectsList = () => {
-  //
-  //vars
+////temporary
+import { DUMMY_PROJECTS } from "../shared/utils/data-models";
+
+const AdminProjects = () => {
+  ////vars
   const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  //
-  //func
+  ////func
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);
   };
@@ -22,9 +23,22 @@ const AdminProjectsList = () => {
     setShowConfirmModal(false);
     console.log("deleted!");
   };
+  //project projection
+  const projectsProjected = DUMMY_PROJECTS.map((project) => {
+    return {
+      id: project.id,
+      projNamePl: project.projNamePl,
+      projNameEn: project.projNameEn,
+      completionDate: project.completionDate,
+      cityPL: project.cityPL,
+      cityEn: project.cityEn,
+      countryPL: project.countryPL,
+      countryEn: project.countryEn,
+      icoImgThumb: project.icoImgThumb,
+    };
+  });
 
-  //
-  //jsx
+  ////jsx
   return (
     <Fragment>
       {/* modal delete - start */}
@@ -50,8 +64,12 @@ const AdminProjectsList = () => {
         </p>
       </Modal>
       {/* modal delete - end */}
-      {/* <AdminTitle title="PROJECTS LIST" /> */}
-      <ProjectsTypeNavigation title="PROJECTS LIST" />
+
+      <ProjectsTypeNavigation
+        title="PROJECTS LIST"
+        additionalTitleClass="py-admin"
+      />
+      <AdminProjectsList projectsList={projectsProjected} />
 
       <div>
         project 1
@@ -65,4 +83,4 @@ const AdminProjectsList = () => {
   );
 };
 
-export default AdminProjectsList;
+export default AdminProjects;
