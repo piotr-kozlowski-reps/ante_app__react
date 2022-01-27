@@ -1,13 +1,15 @@
 import React, { Fragment } from "react";
 import AdminCommon from "../components/Admin/AdminCommon";
+import AdminGenreChooser from "../components/Admin/AdminGenreChooser";
 import AdminTitle from "../components/Admin/AdminTitle";
 import Footer from "../shared/components/Footer";
 
 const NewProject = () => {
   return (
     <Fragment>
-      <AdminTitle title="Portfolio" />
-      <AdminCommon />
+      <AdminTitle title="Create new project" />
+      <AdminGenreChooser />
+      {/* <AdminCommon /> */}
       <Footer />
     </Fragment>
   );

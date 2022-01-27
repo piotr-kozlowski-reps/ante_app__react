@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 
 import logoImg from "../../images/ante-logo.png";
@@ -8,6 +8,7 @@ const Footer = () => {
   const lang = useSelector((state) => state.language.lang);
   const [isFooterToBeMovedToBottom, setIsFooterToBeMovedToBottom] =
     useState(false);
+  let footerRef = useRef(null);
 
   ////content
   let companyName, companyAddress, companyPhone;
@@ -23,28 +24,44 @@ const Footer = () => {
 
   ////func
   //handling scrolling to check if footer is on bottom of page
-  const scrollFooterHandler = (el) => {
-    console.log(el);
-    console.log("scdfds");
-  };
+  const checkIfFooterHasToBeMovedHandler = () => {
+    if (footerRef) {
+      // const { scrollTop } = footerRef.current;
 
-  //
-  const onScroll = () => {
-    console.log("scroll");
-    console.log(`window.innerHeight: ${window.innerHeight}`);
-    console.log(
-      `document.documentElement.clientHeight: ${document.documentElement.clientHeight}`
-    );
-    console.log(`document.body.clientHeight: ${document.body.clientHeight}`);
+      const windowHeight = window.innerHeight;
+      const bottomOfFooter = footerRef.getBoundingClientRect().bottom;
+
+      if (windowHeight > bottomOfFooter + 10) {
+        setIsFooterToBeMovedToBottom(true);
+      } else {
+        setIsFooterToBeMovedToBottom(false);
+      }
+      console.log(`windowHeight: ${windowHeight}`);
+      console.log(`bottomOfFooter: ${bottomOfFooter}`);
+      console.log(isFooterToBeMovedToBottom);
+
+      //   console.log(`footerRef: ${footerRef.getBoundingClientRect().bottom}`);
+      // }
+
+      // console.log(
+      //   `document.documentElement.clientHeight: ${document.documentElement.clientHeight}`
+      // );
+      // console.log(`document.body.clientHeight: ${document.body.clientHeight}`);
+    }
   };
   useEffect(() => {
-    document.addEventListener("resize", onScroll, true);
-    // document.addEventListener("scroll", onScroll, true);
+    checkIfFooterHasToBeMovedHandler();
+    window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
+    window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
   });
 
   ////jsx
   return (
-    <div className="footer" id="kontakt" onScroll={scrollFooterHandler}>
+    <div
+      className={`footer ${isFooterToBeMovedToBottom ? "footer-bottom" : ""}`}
+      id="kontakt"
+      ref={(el) => (footerRef = el)}
+    >
       <div className="container">
         <div className="row">
           <div className="text-center col-lg-12">

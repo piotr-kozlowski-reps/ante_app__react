@@ -765,6 +765,33 @@ form {
   align-items: center;
 }
 
+.footer-bottom {
+  /* position: sticky; */
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+}
+
+.title-new-project {
+  font-size: 16px;
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 4rem 0 1rem 0;
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 50%;
+}
+
+.div-center {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 8rem;
+}
+
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
     -webkit-transition: -webkit-transform 2s ease-in-out;
