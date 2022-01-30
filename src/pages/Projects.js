@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from "react";
+import React, { Fragment, useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
 import type from "../shared/utils/type";
 import { useSelector } from "react-redux";
@@ -18,7 +18,7 @@ const Projects = () => {
   const [currentProjectsArray, setCurrentProjectsArray] = useState([
     ...DUMMY_PROJECTS,
   ]);
-  const [paginationNumber, setPaginationNumber] = useState(16);
+  const [paginationNumber, setPaginationNumber] = useState(8);
   const [isShowMoreButtonShown, setIsShowMoreButtonShown] = useState(true);
 
   //params
@@ -32,6 +32,7 @@ const Projects = () => {
     currentProjectsArray
   );
 
+  //func
   //setting array of projects with desired language and projection
   const projectsFiltered = projectsFilteredFromHook.map((project) => {
     return {
@@ -44,6 +45,28 @@ const Projects = () => {
     };
   });
 
+  // triggering pagination adding projects automaticaly when div#pagination-trigger on screen
+  let refDivTriggeringPagination = useRef();
+  const isInViewport = (ref, offset = 0) => {
+    if (!ref.current) return false;
+    const top = ref.current.getBoundingClientRect().top;
+    return top + offset >= 0 && top - offset <= window.innerHeight;
+  };
+  const scrollOfDivTriggeringPaginationHandler = () => {
+    if (isInViewport(refDivTriggeringPagination)) {
+      showMoreHandler();
+    }
+  };
+  useEffect(() => {
+    window.addEventListener("scroll", scrollOfDivTriggeringPaginationHandler);
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        scrollOfDivTriggeringPaginationHandler
+      );
+    };
+  });
   //add more projects to be shown
   const projectsPaginated = projectsFiltered.splice(0, paginationNumber);
   const allProjectsNumber = currentProjectsArray.length;
@@ -70,9 +93,9 @@ const Projects = () => {
       <ProjectsList
         projectsList={projectsPaginated}
         lang={lang}
-        onClick={showMoreHandler}
         isShowMoreButtonShown={isShowMoreButtonShown}
       />
+      <div id="pagination-trigger" ref={refDivTriggeringPagination}></div>
       <Footer />
     </Fragment>
   );

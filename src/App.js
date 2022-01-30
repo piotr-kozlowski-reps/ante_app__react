@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import authSlice from "./shared/store/auth-slice";
+import footerPositionSlice from "./shared/store/footer-position-slice";
 
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -18,6 +19,15 @@ import AdminProjects from "./pages/AdminProjects";
 function App(props) {
   ////vars
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isFooterToBeMovedToBottom = useSelector(
+    (state) => state.footerPosition.isFooterToBeMovedToBottom
+  );
+
+  //moving footer to bottom if needed
+  const bodyElement = document.querySelector("body");
+  if (isFooterToBeMovedToBottom)
+    bodyElement.className = "body-height-to-move-footer";
+  else bodyElement.className = "";
 
   ////content
   let routes;

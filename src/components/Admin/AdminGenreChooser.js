@@ -1,9 +1,31 @@
 import React from "react";
-import Button from "../../shared/components/Button";
 import genre from "../../shared/utils/genre";
+import { useDispatch } from "react-redux";
+import { formActions } from "../../shared/store/form-slice";
+
+import Button from "../../shared/components/Button";
 
 const AdminGenreChooser = () => {
+  ////vars
+  const dispatch = useDispatch();
+
   ////func
+  const enableSecondStage = () => {
+    dispatch(formActions.setNextStage());
+  };
+
+  const graphicButtonHandler = () => {
+    enableSecondStage();
+  };
+  const animationButtonHandler = () => {
+    enableSecondStage();
+  };
+  const panoramaButtonHandler = () => {
+    enableSecondStage();
+  };
+  const appButtonHandler = () => {
+    enableSecondStage();
+  };
 
   return (
     <div id="portfolio" className="container">
@@ -13,18 +35,30 @@ const AdminGenreChooser = () => {
 
       <div className="row" id="parent">
         <div className="text-center">
-          <div className="div-center">
+          <div className="div-center-no-margin">
             <div className="buttons">
-              <Button onClick={() => {}} additionalClass="btn-portfolio">
+              <Button
+                onClick={graphicButtonHandler}
+                additionalClass="btn-portfolio"
+              >
                 GRAPHIC
               </Button>
-              <Button onClick={() => {}} additionalClass="btn-portfolio">
+              <Button
+                onClick={animationButtonHandler}
+                additionalClass="btn-portfolio"
+              >
                 ANIMATION
               </Button>
-              <Button onClick={() => {}} additionalClass="btn-portfolio">
+              <Button
+                onClick={panoramaButtonHandler}
+                additionalClass="btn-portfolio"
+              >
                 PANORAMA
               </Button>
-              <Button onClick={() => {}} additionalClass="btn-portfolio">
+              <Button
+                onClick={appButtonHandler}
+                additionalClass="btn-portfolio"
+              >
                 APP
               </Button>
             </div>

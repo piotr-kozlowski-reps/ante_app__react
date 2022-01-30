@@ -6,6 +6,7 @@ const VALIDATOR_TYPE_MAX = "MAX";
 const VALIDATOR_TYPE_EMAIL = "EMAIL";
 const VALIDATOR_TYPE_FILE = "FILE";
 const VALIDATOR_TYPE_PASSWORD = "PASSWORD";
+const VALIDATOR_TYPE_COMPLETION_DATE = "COMPLETION_DATE";
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -31,6 +32,9 @@ export const VALIDATOR_PASSWORD = (
   valCapitalLetters: valCapitalLetters,
   valSmallLetters: valSmallLetters,
   valSpecialCharacters: valSpecialCharacters,
+});
+export const VALIDATOR_COMPLETION_DATE = (val) => ({
+  type: VALIDATOR_TYPE_COMPLETION_DATE,
 });
 
 export const validate = (value, validators) => {
@@ -61,6 +65,9 @@ export const validate = (value, validators) => {
         checkHowManyCapitalLetters(value, validator.valCapitalLetters) &&
         checkHowManySmallLetters(value, validator.valSmallLetters) &&
         checkHowManySpecialCharacters(value, validator.valSpecialCharacters);
+    }
+    if (validator.type === VALIDATOR_TYPE_COMPLETION_DATE) {
+      isValid = isValid && checkIfDateSuitsValidation(value);
     }
   }
   return isValid;
@@ -104,4 +111,10 @@ const checkHowManySpecialCharacters = (
   });
 
   return numberOfOccurrence >= howManySpecialCharacters;
+};
+
+const checkIfDateSuitsValidation = (dateAsString) => {
+  const dateToBeChecked = new Date(dateAsString);
+  const year = dateToBeChecked.getFullYear();
+  return year > 1999 && year < 2050;
 };

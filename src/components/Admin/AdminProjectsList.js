@@ -1,9 +1,21 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { formActions } from "../../shared/store/form-slice";
+import { useNavigate } from "react-router-dom";
+
 import Button from "../../shared/components/Button";
 import AdminProjectItem from "./AdminProjectItem";
 
 const AdminProjectsList = (props) => {
   ////vars
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  ////func
+  const createNewProjectHandler = () => {
+    dispatch(formActions.resetToInitialStage());
+    navigate("/api/projects/new-project");
+  };
 
   ////jsx
   return (
@@ -14,7 +26,7 @@ const AdminProjectsList = (props) => {
 
           <Button
             additionalClass="btn-portfolio"
-            to="/api/projects/new-project"
+            onClick={createNewProjectHandler}
           >
             CREATE NEW PROJECT
           </Button>

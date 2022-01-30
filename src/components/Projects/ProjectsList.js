@@ -44,13 +44,14 @@ const ProjectsList = ({
           <ProjectItem key={project.id} project={project} lang={lang} />
         ))}
       </div>
-      <div className="text-center">
+
+      {/* <div className="text-center">
         {isShowMoreButtonShown && (
           <Button onClick={onClick} additionalClass="see-more-button">
             {lang === "pl" ? "ZOBACZ WIĘCEJ" : "SEE MORE"}
           </Button>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };

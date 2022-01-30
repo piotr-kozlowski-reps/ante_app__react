@@ -1,13 +1,17 @@
-import React, { useEffect, useState, useRef } from "react";
-import { useSelector } from "react-redux";
+import React, { useEffect, useState, useRef, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { footerPositionActions } from "../store/footer-position-slice";
 
 import logoImg from "../../images/ante-logo.png";
 
 const Footer = () => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
-  const [isFooterToBeMovedToBottom, setIsFooterToBeMovedToBottom] =
-    useState(false);
+  const isFooterToBeMovedToBottom = useSelector(
+    (state) => state.footerPosition.isFooterToBeMovedToBottom
+  );
+  const [] = useState(false);
+  const dispatch = useDispatch();
   let footerRef = useRef(null);
 
   ////content
@@ -24,43 +28,34 @@ const Footer = () => {
 
   ////func
   //handling scrolling to check if footer is on bottom of page
-  const checkIfFooterHasToBeMovedHandler = () => {
-    if (footerRef) {
-      // const { scrollTop } = footerRef.current;
-
+  const checkIfFooterHasToBeMovedHandler = useCallback(() => {
+    if (footerRef.current) {
       const windowHeight = window.innerHeight;
-      const bottomOfFooter = footerRef.getBoundingClientRect().bottom;
+      const bottomOfFooter = footerRef.current.getBoundingClientRect().bottom;
 
-      if (windowHeight > bottomOfFooter + 10) {
-        setIsFooterToBeMovedToBottom(true);
+      if (windowHeight - 1 > bottomOfFooter) {
+        dispatch(footerPositionActions.setFooterToBeMovedToBottom());
+        dispatch(footerPositionActions.setWindowHeight(windowHeight));
       } else {
-        setIsFooterToBeMovedToBottom(false);
+        dispatch(footerPositionActions.setFooterNotToBeMovedToBottom());
       }
-      console.log(`windowHeight: ${windowHeight}`);
-      console.log(`bottomOfFooter: ${bottomOfFooter}`);
-      console.log(isFooterToBeMovedToBottom);
-
-      //   console.log(`footerRef: ${footerRef.getBoundingClientRect().bottom}`);
-      // }
-
-      // console.log(
-      //   `document.documentElement.clientHeight: ${document.documentElement.clientHeight}`
-      // );
-      // console.log(`document.body.clientHeight: ${document.body.clientHeight}`);
     }
-  };
+  }, [dispatch, footerRef]);
+  //triggers
   useEffect(() => {
-    checkIfFooterHasToBeMovedHandler();
     window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
     window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
   });
+  useEffect(() => {
+    checkIfFooterHasToBeMovedHandler();
+  }, []);
 
   ////jsx
   return (
     <div
       className={`footer ${isFooterToBeMovedToBottom ? "footer-bottom" : ""}`}
       id="kontakt"
-      ref={(el) => (footerRef = el)}
+      ref={footerRef}
     >
       <div className="container">
         <div className="row">

@@ -162,7 +162,7 @@ export const DUMMY_PROJECTS = [
     projNamePl: "projNamePl9",
     projNameEn: "projNameEn9",
     completionDate: new Date("2018-11"),
-    cityPL: "cityPL9",
+    cityPl: "cityPL9",
     cityEn: "cityEn9",
     countryPL: "countryPL9",
     countryEn: "countryEn9",
