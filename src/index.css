@@ -689,16 +689,11 @@ form {
 
 /* stad */
 
-.rmsc .options {
-  max-height: 260px;
-  overflow-y: auto;
-  margin: 0;
-  padding-left: 0;
-}
-
 .rmsc .options li {
   list-style: none;
   margin: 0;
+  /*to */
+  /* height: 30px; */
 }
 
 .rmsc .select-item {
@@ -707,36 +702,12 @@ form {
   display: block;
   padding: var(--rmsc-p);
   outline: 0;
-}
-
-.rmsc .select-item:hover,
-.rmsc .select-item:focus {
-  background: var(--rmsc-hover);
-}
-
-.rmsc .select-item.selected {
-  background: var(--rmsc-selected);
-}
-
-.rmsc .no-options {
-  padding: var(--rmsc-p);
-  text-align: center;
-  color: var(--rmsc-gray);
-}
-
-.rmsc .search {
-  width: 100%;
-  position: relative;
-  border-bottom: 1px solid var(--rmsc-border);
+  /*to */
+  /* height: 20px; */
 }
 
 .rmsc .search input {
-  background: none;
-  height: var(--rmsc-h);
-  padding: 0 var(--rmsc-p);
-  width: 100%;
-  outline: 0;
-  border: 0;
+  border: 2px solid #eee;
 }
 
 .rmsc .search-clear-button {
@@ -764,20 +735,6 @@ form {
   margin-right: 5px;
 }
 
-.rmsc .item-renderer.disabled {
-  opacity: 0.5;
-}
-
-.rmsc .spinner {
-  animation: rotate 2s linear infinite;
-}
-
-.rmsc .spinner .path {
-  stroke: var(--rmsc-border);
-  stroke-width: 4px;
-  stroke-linecap: round;
-  animation: dash 1.5s ease-in-out infinite;
-}
 /* dotad */
 
 .input-box input:focus {
@@ -984,8 +941,14 @@ form {
   margin-bottom: 6rem;
 }
 
+.section-my-bottom {
+  padding: 0 0 4rem 0;
+}
 .small-my {
-  padding: 2rem 0 0 0;
+  padding: 2.5rem 0 4rem 0;
+}
+.no-py-top {
+  padding-top: 0;
 }
 
 .separator {
@@ -1113,6 +1076,13 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.btn-lighter {
+  color: var(--main-gray);
+}
+.btn-lighter-checked {
+  color: #000;
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {

@@ -2,6 +2,7 @@ import React, { useReducer, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { MultiSelect } from "react-multi-select-component";
 import { validate } from "../utils/validators";
+import Button from "./Button";
 
 //
 //reducer info
@@ -32,7 +33,7 @@ const Input = (props) => {
     isTouched: props.initialValid || false,
   });
 
-  const [selected, setSelected] = useState([]);
+  const [selected, setSelected] = useState(props.options || null);
 
   //
   //effects
@@ -54,6 +55,11 @@ const Input = (props) => {
 
   const touchHandler = () => {
     dispatch({ type: "TOUCH" });
+  };
+
+  const typeButtonHandler = (typePassed) => {
+    console.log(typePassed);
+    console.log(selected);
   };
 
   //
@@ -89,14 +95,23 @@ const Input = (props) => {
       break;
 
     case "multiselect":
-      element = (
-        <MultiSelect
-          options={props.options}
-          value={selected}
-          onChange={setSelected}
-          labelledBy="Select"
-        />
-      );
+      element = props.options.map((el) => (
+        <div
+          key={el.label}
+          className={`btn-lighter no-py-top ${
+            el.isChecked ? "btn-lighter-checked" : ""
+          }`}
+          onClick={typeButtonHandler.bind(null, el.label)}
+        >
+          {el.label}
+        </div>
+      ));
+      // <MultiSelect
+      //   options={props.options}
+      //   value={selected}
+      //   onChange={setSelected}
+      //   labelledBy="Select"
+      // />
       break;
 
     default:

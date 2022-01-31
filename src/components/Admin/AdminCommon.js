@@ -9,13 +9,13 @@ import Input from "../../shared/components/Input";
 import type from "../../shared/utils/type";
 
 const typeOptions = [
-  { label: "COMPETITION", value: type.COMPETITION },
-  { label: "INTERIOR", value: type.INTERIOR },
-  { label: "EXTERIOR", value: type.EXTERIOR },
-  { label: "ANIMATION", value: type.ANIMATION },
-  { label: "PRODUCT MODELING", value: type.PRODUCT_MODELING },
-  { label: "PANORAMA", value: type.PANORAMA },
-  { label: "AR_APP", value: type.APP },
+  { label: "COMPETITION", value: type.COMPETITION, isChecked: false },
+  { label: "INTERIOR", value: type.INTERIOR, isChecked: false },
+  { label: "EXTERIOR", value: type.EXTERIOR, isChecked: false },
+  { label: "ANIMATION", value: type.ANIMATION, isChecked: false },
+  { label: "PRODUCT MODELING", value: type.PRODUCT_MODELING, isChecked: false },
+  { label: "PANORAMA", value: type.PANORAMA, isChecked: true },
+  { label: "AR_APP", value: type.APP, isChecked: false },
 ];
 
 const AdminCommon = (props) => {
@@ -131,7 +131,7 @@ const AdminCommon = (props) => {
             </div>
           </div>
 
-          <div className="form-row">
+          <div className="form-row section-my-bottom">
             <div className="project-details">
               <Input
                 id="clientPL"
@@ -165,11 +165,14 @@ const AdminCommon = (props) => {
 
           <div className="form-row small-my">
             <div className="project-details">
+              <div className="row" id="parent">
+                <p className="text-center title-new-project">Completion date</p>
+              </div>
               <Input
                 id="completionDate"
                 element="input"
                 type="date"
-                label="Completion date "
+                // label="Completion date "
                 placeholder="enter date of completion the project"
                 validators={[VALIDATOR_COMPLETION_DATE()]}
                 errorText="Enter a valid date (between 2000 and 2050), please."
@@ -184,17 +187,24 @@ const AdminCommon = (props) => {
 
           <div className="form-row small-my">
             <div className="project-details">
-              <Input
-                id="type"
-                element="multiselect"
-                type="date"
-                label="Choose project type"
-                options={typeOptions}
-                // placeholder="enter date of completion the project"
-                validators={[]}
-                errorText="Choose at least one type for project, please."
-                onInput={props.inputHandler}
-              />
+              <div className="row" id="parent">
+                <p className="text-center title-new-project">
+                  CHOOSE PROJECT TYPE
+                </p>
+              </div>
+              <div className="div-center-no-py">
+                <Input
+                  id="type"
+                  element="multiselect"
+                  // type="date"
+                  // label="Choose project type"
+                  options={typeOptions}
+                  // placeholder="enter date of completion the project"
+                  validators={[]}
+                  errorText="Choose at least one type for project, please."
+                  onInput={props.inputHandler}
+                />
+              </div>
             </div>
           </div>
         </div>
