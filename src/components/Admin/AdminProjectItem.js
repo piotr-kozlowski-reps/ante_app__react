@@ -33,7 +33,7 @@ const AdminProjectItem = (props) => {
     setShowConfirmModal(false);
     console.log(`project deleted! Id: ${id}`);
   };
-  const navigatoToEditProject = () => {
+  const navigateToEditProject = () => {
     navigate(`/api/projects/${id}`);
   };
 
@@ -69,14 +69,14 @@ const AdminProjectItem = (props) => {
           <img
             src={icoImgThumb}
             alt={projNamePl}
-            onClick={navigatoToEditProject}
+            onClick={navigateToEditProject}
             style={{ cursor: "pointer" }}
           ></img>
         </div>
 
         <div
           className="project-text"
-          onClick={navigatoToEditProject}
+          onClick={navigateToEditProject}
           style={{ cursor: "pointer" }}
         >
           <h3>{`${projNamePl}/${projNameEn}`}</h3>
@@ -94,7 +94,7 @@ const AdminProjectItem = (props) => {
 
         <div className="lang buttons-edit-delete">
           <Button
-            onClick={navigatoToEditProject}
+            onClick={navigateToEditProject}
             additionalClass="btn-portfolio"
           >
             EDIT

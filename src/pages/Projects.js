@@ -39,8 +39,8 @@ const Projects = () => {
       id: project.id,
       projName: lang === "pl" ? project.projNamePl : project.projNameEn,
       completionDate: project.completionDate,
-      city: lang === "pl" ? project.cityPL : project.cityEn,
-      country: lang === "pl" ? project.countryPL : project.countryEn,
+      city: lang === "pl" ? project.cityPl : project.cityEn,
+      country: lang === "pl" ? project.countryPl : project.countryEn,
       icoImg: project.icoImgFull,
     };
   });

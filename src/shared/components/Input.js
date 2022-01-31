@@ -1,5 +1,6 @@
-import React, { useReducer, useEffect } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { MultiSelect } from "react-multi-select-component";
 import { validate } from "../utils/validators";
 
 //
@@ -26,10 +27,12 @@ const Input = (props) => {
   //
   //vars
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || "",
+    value: props.initialValue || [],
     isValid: false,
     isTouched: props.initialValid || false,
   });
+
+  const [selected, setSelected] = useState([]);
 
   //
   //effects
@@ -55,28 +58,58 @@ const Input = (props) => {
 
   //
   //input generation by type passed
-  const element =
-    props.element === "input" ? (
-      <input
-        id={props.id}
-        type={props.type}
-        placeholder={props.placeholder}
-        onChange={changeHandler}
-        onBlur={touchHandler}
-        value={inputState.value}
-        className={`${
-          !inputState.isValid && inputState.isTouched && "input-invalid"
-        }`}
-      />
-    ) : (
-      <textarea
-        id={props.id}
-        rows={props.rows || 3}
-        onChange={changeHandler}
-        onBlur={touchHandler}
-        value={inputState.value}
-      />
-    );
+  let element;
+  switch (props.element) {
+    case "input":
+      element = (
+        <input
+          id={props.id}
+          type={props.type}
+          placeholder={props.placeholder}
+          onChange={changeHandler}
+          onBlur={touchHandler}
+          value={inputState.value}
+          className={`${
+            !inputState.isValid && inputState.isTouched && "input-invalid"
+          }`}
+        />
+      );
+      break;
+
+    case "textarea":
+      element = (
+        <textarea
+          id={props.id}
+          rows={props.rows || 3}
+          onChange={changeHandler}
+          onBlur={touchHandler}
+          value={inputState.value}
+        />
+      );
+      break;
+
+    case "multiselect":
+      element = (
+        <MultiSelect
+          options={props.options}
+          value={selected}
+          onChange={setSelected}
+          labelledBy="Select"
+        />
+      );
+      break;
+
+    default:
+      element = (
+        <textarea
+          id={props.id}
+          rows={props.rows || 3}
+          onChange={changeHandler}
+          onBlur={touchHandler}
+          value={inputState.value}
+        />
+      );
+  }
 
   //
   //jsx
@@ -107,6 +140,7 @@ Input.propTypes = {
   onInput: PropTypes.func,
   initialValue: PropTypes.any,
   initialValid: PropTypes.bool,
+  options: PropTypes.array,
 };
 
 export default Input;
