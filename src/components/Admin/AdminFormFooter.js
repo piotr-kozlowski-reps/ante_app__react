@@ -24,6 +24,12 @@ const AdminFormFooter = (props) => {
     dispatch(formActions.setNextStage());
   };
 
+  //next button activness
+  let isNextActive = true;
+  if (formStageCounter) isNextActive = false;
+  //TODO: finish next active logic
+
+  ////jsx
   return (
     <div id="portfolio" className="container">
       <div className="row" id="parent">
@@ -37,7 +43,7 @@ const AdminFormFooter = (props) => {
               BACK
             </Button>
             {/* //TODO: next disability */}
-            <Button disabled={false} onClick={nextHandler}>
+            <Button disabled={isNextActive} onClick={nextHandler}>
               NEXT
             </Button>
             <Button type="submit" disabled={!props.formState.isValid}>

@@ -16,15 +16,19 @@ const AdminGenreChooser = () => {
 
   const graphicButtonHandler = () => {
     enableSecondStage();
+    dispatch(formActions.initProjectTemplate(genre.GRAPHIC));
   };
   const animationButtonHandler = () => {
     enableSecondStage();
+    dispatch(formActions.initProjectTemplate(genre.ANIMATION));
   };
   const panoramaButtonHandler = () => {
     enableSecondStage();
+    dispatch(formActions.initProjectTemplate(genre.PANORAMA));
   };
   const appButtonHandler = () => {
     enableSecondStage();
+    dispatch(formActions.initProjectTemplate(genre.APP));
   };
 
   return (

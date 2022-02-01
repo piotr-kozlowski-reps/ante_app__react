@@ -59,7 +59,6 @@ const NewProject = () => {
   ////vars
   const formStageCounter = useSelector((state) => state.form.formStageCounter);
   const [formState, inputHandler, setFormData] = useForm(initialInputs, false);
-  console.log(formState.inputs);
 
   ////func
   const submitFormHandler = (event) => {

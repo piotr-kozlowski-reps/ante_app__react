@@ -76,8 +76,6 @@ export const validate = (value, validators) => {
       isValid = isValid && checkIfDateSuitsValidation(value);
     }
     if (validator.type === VALIDATOR_TYPE_ARRAY_AT_LEAST_ONE) {
-      console.log("VALIDATOR_TYPE_ARRAY_AT_LEAST_ONE-- inside");
-      console.log(`value.length > 0: ${value.length > 0}`);
       isValid = isValid && value.length > 0;
     }
   }
