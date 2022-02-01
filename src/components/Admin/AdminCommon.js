@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import {
   VALIDATOR_REQUIRE,
   VALIDATOR_COMPLETION_DATE,
+  VALIDATOR_ARRAY_AT_LEAST_ONE,
 } from "../../shared/utils/validators";
 import PropTypes from "prop-types";
 
@@ -14,29 +15,12 @@ const typeOptions = [
   { label: "EXTERIOR", value: type.EXTERIOR, isChecked: false },
   { label: "ANIMATION", value: type.ANIMATION, isChecked: false },
   { label: "PRODUCT MODELING", value: type.PRODUCT_MODELING, isChecked: false },
-  { label: "PANORAMA", value: type.PANORAMA, isChecked: true },
+  { label: "PANORAMA", value: type.PANORAMA, isChecked: false },
   { label: "AR_APP", value: type.APP, isChecked: false },
 ];
 
 const AdminCommon = (props) => {
   ////vars
-
-  // let typeArray = props.formState.inputs.type.value;
-  // console.log(typeArray);
-
-  ////func
-  // const typeCompetitionHandler = (event) => {
-  //   setIsCompetitionChecked((beforeState) => !beforeState);
-  // };
-  // //update form state array
-  // useEffect(() => {
-  //   if (isCompetitionChecked) {
-  //     const isCompetitionSet = typeArray.find((t) => t === type.COMPETITION);
-  //     if (!isCompetitionSet) typeArray.push(type.COMPETITION);
-  //   } else {
-  //     typeArray = typeArray.filter((t) => t !== type.COMPETITION);
-  //   }
-  // }, [isCompetitionChecked, typeArray]);
 
   ////jsx
   return (
@@ -200,8 +184,8 @@ const AdminCommon = (props) => {
                   // label="Choose project type"
                   options={typeOptions}
                   // placeholder="enter date of completion the project"
-                  validators={[]}
-                  errorText="Choose at least one type for project, please."
+                  validators={[VALIDATOR_ARRAY_AT_LEAST_ONE()]}
+                  errorText="Choose at least one type of project, please."
                   onInput={props.inputHandler}
                 />
               </div>
@@ -218,52 +202,3 @@ AdminCommon.propTypes = {
   formState: PropTypes.object,
 };
 export default AdminCommon;
-
-// <div className="row" id="parent">
-//   <p className="text-center title-new-project-between">
-//     CHOOSE PROJECT TYPE
-//   </p>
-// </div>
-
-// <div className="project-types">
-//   <div className="checbox-container">
-//     <input
-//       type="checkbox"
-//       id="competition"
-//       value="COMPETITION"
-//       onChange={typeCompetitionHandler}
-//       checked={isCompetitionChecked}
-//     />
-//     <label htmlFor="competition">COMPETITION</label>
-//   </div>
-
-//   <div className="checbox-container">
-//     <input type="checkbox" id="interior" />
-//     <label htmlFor="interior">INTERIOR</label>
-//   </div>
-
-//   <div className="checbox-container">
-//     <input type="checkbox" id="exterior" />
-//     <label htmlFor="exterior">EXTERIOR</label>
-//   </div>
-
-//   <div className="checbox-container">
-//     <input type="checkbox" id="animation" />
-//     <label htmlFor="animation">ANIMATION</label>
-//   </div>
-
-//   <div className="checbox-container">
-//     <input type="checkbox" id="productmodel" />
-//     <label htmlFor="productmodel">PRODUCT_MODEL</label>
-//   </div>
-
-//   <div className="checbox-container">
-//     <input type="checkbox" id="panorama" />
-//     <label htmlFor="panorama">PANORAMA</label>
-//   </div>
-
-//   <div className="checbox-container">
-//     <input type="checkbox" id="arapp" />
-//     <label htmlFor="arapp">AR_APP</label>
-//   </div>
-// </div>

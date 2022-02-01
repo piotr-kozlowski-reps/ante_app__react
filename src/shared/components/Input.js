@@ -1,8 +1,7 @@
 import React, { useReducer, useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { MultiSelect } from "react-multi-select-component";
 import { validate } from "../utils/validators";
-import Button from "./Button";
+import { VALIDATOR_ARRAY_AT_LEAST_ONE } from "../utils/validators";
 
 //
 //reducer info
@@ -14,37 +13,54 @@ const inputReducer = (state, action) => {
         value: action.val,
         isValid: validate(action.val, action.validators),
       };
+
     case "TOUCH":
       return {
         ...state,
         isTouched: true,
       };
+
     default:
       return state;
   }
 };
 
 const Input = (props) => {
-  //
-  //vars
+  ////vars
   const [inputState, dispatch] = useReducer(inputReducer, {
-    value: props.initialValue || [],
+    value: props.initialValue || props.element === "multiselect" ? [] : "",
     isValid: false,
     isTouched: props.initialValid || false,
   });
 
+  // console.log(inputState.value);
+
   const [selected, setSelected] = useState(props.options || null);
 
-  //
-  //effects
+  ////effects
+  //overall update effect
   const { id, onInput } = props;
   const { value, isValid } = inputState;
   useEffect(() => {
     onInput(id, value, isValid);
   }, [id, value, isValid, onInput]);
 
-  //
-  //func
+  //updating inputStateValue for types (when multiselect)
+  useEffect(() => {
+    let typesArray = [];
+    if (props.element === "multiselect" && selected.length > 0) {
+      selected.forEach((el) => {
+        if (el.isChecked) typesArray.push(el.value);
+      });
+      dispatch({
+        type: "CHANGE",
+        val: typesArray,
+        validators: props.validators,
+      });
+    }
+  }, [selected, props.element]);
+
+  ////func
   const changeHandler = (event) => {
     dispatch({
       type: "CHANGE",
@@ -58,10 +74,14 @@ const Input = (props) => {
   };
 
   const typeButtonHandler = (typePassed) => {
-    console.log(typePassed);
-    console.log(selected);
+    dispatch({ type: "TOUCH" });
+    const arrayCopy = [...selected];
+    const choosenItem = arrayCopy.find((el) => el.label === typePassed);
+    choosenItem.isChecked = !choosenItem.isChecked;
+    const resultArray = arrayCopy.filter((el) => el.label !== typePassed);
+    resultArray.push(choosenItem);
+    setSelected(resultArray);
   };
-
   //
   //input generation by type passed
   let element;
@@ -98,7 +118,7 @@ const Input = (props) => {
       element = props.options.map((el) => (
         <div
           key={el.label}
-          className={`btn-lighter no-py-top ${
+          className={`button button--default btn-lighter no-py-top ${
             el.isChecked ? "btn-lighter-checked" : ""
           }`}
           onClick={typeButtonHandler.bind(null, el.label)}

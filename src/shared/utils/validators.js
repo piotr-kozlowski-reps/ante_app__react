@@ -7,6 +7,7 @@ const VALIDATOR_TYPE_EMAIL = "EMAIL";
 const VALIDATOR_TYPE_FILE = "FILE";
 const VALIDATOR_TYPE_PASSWORD = "PASSWORD";
 const VALIDATOR_TYPE_COMPLETION_DATE = "COMPLETION_DATE";
+const VALIDATOR_TYPE_ARRAY_AT_LEAST_ONE = "ARRAY_AT_LEAST_ONE";
 
 export const VALIDATOR_REQUIRE = () => ({ type: VALIDATOR_TYPE_REQUIRE });
 export const VALIDATOR_FILE = () => ({ type: VALIDATOR_TYPE_FILE });
@@ -36,8 +37,13 @@ export const VALIDATOR_PASSWORD = (
 export const VALIDATOR_COMPLETION_DATE = (val) => ({
   type: VALIDATOR_TYPE_COMPLETION_DATE,
 });
+export const VALIDATOR_ARRAY_AT_LEAST_ONE = () => ({
+  type: VALIDATOR_TYPE_ARRAY_AT_LEAST_ONE,
+});
 
 export const validate = (value, validators) => {
+  // console.log(`value: ${value}`);
+  // console.log(`validators: ${validators}`);
   let isValid = true;
   for (const validator of validators) {
     if (validator.type === VALIDATOR_TYPE_REQUIRE) {
@@ -68,6 +74,11 @@ export const validate = (value, validators) => {
     }
     if (validator.type === VALIDATOR_TYPE_COMPLETION_DATE) {
       isValid = isValid && checkIfDateSuitsValidation(value);
+    }
+    if (validator.type === VALIDATOR_TYPE_ARRAY_AT_LEAST_ONE) {
+      console.log("VALIDATOR_TYPE_ARRAY_AT_LEAST_ONE-- inside");
+      console.log(`value.length > 0: ${value.length > 0}`);
+      isValid = isValid && value.length > 0;
     }
   }
   return isValid;
