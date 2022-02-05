@@ -521,6 +521,11 @@ div.project {
   color: #000;
 }
 
+.button-as-div-disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
 .slide-transition-enter {
   opacity: 0;
 }
@@ -663,8 +668,7 @@ form {
 }
 
 /* multiSelect */
-.input-box input,
-.rmsc .dropdown-container {
+.input-box input {
   height: 45px;
   width: 100%;
   outline: none;
@@ -676,15 +680,6 @@ form {
   transition: all 0.3s ease;
   border: 2px solid #eee;
   background: #f9f9f9;
-}
-
-.rmsc .dropdown-heading {
-  padding: 0;
-}
-
-.rmsc .dropdown-content .panel-content {
-  overflow: hidden;
-  box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.1), 0 4px 11px rgba(0, 0, 0, 0.1);
 }
 
 .input-box input:focus {
@@ -1033,6 +1028,16 @@ form {
 }
 .btn-lighter-checked {
   color: #000;
+}
+
+.no-form-button {
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Lato", Georgia, serif;
+}
+
+.input-box .width-shortener {
+  width: 400px;
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {

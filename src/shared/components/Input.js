@@ -1,7 +1,6 @@
 import React, { useReducer, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { validate } from "../utils/validators";
-import { VALIDATOR_ARRAY_AT_LEAST_ONE } from "../utils/validators";
 
 //
 //reducer info
@@ -29,8 +28,8 @@ const Input = (props) => {
   ////vars
   const [inputState, dispatch] = useReducer(inputReducer, {
     value: props.initialValue || props.element === "multiselect" ? [] : "",
-    isValid: false,
-    isTouched: props.initialValid || false,
+    isValid: props.initialValid || false,
+    isTouched: false,
   });
 
   // console.log(inputState.value);
@@ -97,7 +96,7 @@ const Input = (props) => {
           value={inputState.value}
           className={`${
             !inputState.isValid && inputState.isTouched && "input-invalid"
-          }`}
+          } ${props.additionalClass ? props.additionalClass : ""}`}
         />
       );
       break;
@@ -126,12 +125,6 @@ const Input = (props) => {
           {el.label}
         </div>
       ));
-      // <MultiSelect
-      //   options={props.options}
-      //   value={selected}
-      //   onChange={setSelected}
-      //   labelledBy="Select"
-      // />
       break;
 
     default:
@@ -149,7 +142,7 @@ const Input = (props) => {
   //
   //jsx
   return (
-    <div className={`input-box `}>
+    <div className={`input-box`}>
       <label htmlFor={props.id} className="details">
         {props.label}
       </label>
@@ -176,6 +169,7 @@ Input.propTypes = {
   initialValue: PropTypes.any,
   initialValid: PropTypes.bool,
   options: PropTypes.array,
+  additionalClass: PropTypes.string,
 };
 
 export default Input;

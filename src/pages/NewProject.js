@@ -1,15 +1,12 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
-import { formActions } from "../shared/store/form-slice";
 
-import AdminCommon from "../components/Admin/AdminCommon";
 import AdminGenreChooser from "../components/Admin/AdminGenreChooser";
 import AdminTitle from "../components/Admin/AdminTitle";
 import Footer from "../shared/components/Footer";
 import AdminFormStage from "../components/Admin/AdminFormStage";
 import AdminFormFooter from "../components/Admin/AdminFormFooter";
-import { useForm } from "../shared/hooks/form-hook";
-import AdminItems from "../components/Admin/AdminItems";
+import AdminForm from "../components/Admin/AdminForm";
 
 ////vars before
 const initialInputs = {
@@ -58,13 +55,7 @@ const initialInputs = {
 const NewProject = () => {
   ////vars
   const formStageCounter = useSelector((state) => state.form.formStageCounter);
-  const [formState, inputHandler, setFormData] = useForm(initialInputs, false);
-
-  ////func
-  const submitFormHandler = (event) => {
-    event.preventDefault();
-    console.log(formState.inputs);
-  };
+  const genreOfProject = useSelector((state) => state.form.genreOfProject);
 
   ////jsx
   return (
@@ -72,14 +63,8 @@ const NewProject = () => {
       <AdminTitle title="Create new project" />
       <AdminFormStage />
       {formStageCounter === 0 && <AdminGenreChooser />}
-
-      <form onSubmit={submitFormHandler}>
-        {formStageCounter === 1 && (
-          <AdminCommon inputHandler={inputHandler} formState={formState} />
-        )}
-        {formStageCounter === 2 && <AdminItems />}
-        <AdminFormFooter formState={formState} />
-      </form>
+      {(formStageCounter === 1 || formStageCounter === 2) && <AdminForm />}
+      {formStageCounter === 0 && <AdminFormFooter isShowCancelOnly={true} />}
       <Footer />
     </Fragment>
   );

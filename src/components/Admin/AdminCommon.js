@@ -4,6 +4,7 @@ import {
   VALIDATOR_COMPLETION_DATE,
   VALIDATOR_ARRAY_AT_LEAST_ONE,
 } from "../../shared/utils/validators";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import Input from "../../shared/components/Input";
@@ -21,6 +22,8 @@ const typeOptions = [
 
 const AdminCommon = (props) => {
   ////vars
+  const formState = useSelector((state) => state.form.projectState);
+  console.log(formState.projNamePl.value);
 
   ////jsx
   return (
@@ -41,6 +44,8 @@ const AdminCommon = (props) => {
                 placeholder="wpisz nazwę projektu"
                 validators={[VALIDATOR_REQUIRE()]}
                 errorText="Enter a valid 'Project Name' (at least 1 character), please."
+                value={formState.projNamePl.isValid}
+                isValid={formState.projNamePl.isValid}
                 onInput={props.inputHandler}
               />
             </div>
@@ -152,16 +157,19 @@ const AdminCommon = (props) => {
               <div className="row" id="parent">
                 <p className="text-center title-new-project">Completion date</p>
               </div>
-              <Input
-                id="completionDate"
-                element="input"
-                type="date"
-                // label="Completion date "
-                placeholder="enter date of completion the project"
-                validators={[VALIDATOR_COMPLETION_DATE()]}
-                errorText="Enter a valid date (between 2000 and 2050), please."
-                onInput={props.inputHandler}
-              />
+              <div className="div-center-no-margin">
+                <Input
+                  id="completionDate"
+                  element="input"
+                  type="date"
+                  // label="Completion date "
+                  additionalClass="width-shortener text-center"
+                  placeholder="enter date of completion the project"
+                  validators={[VALIDATOR_COMPLETION_DATE()]}
+                  errorText="Enter a valid date (between 2000 and 2050), please."
+                  onInput={props.inputHandler}
+                />
+              </div>
             </div>
           </div>
 

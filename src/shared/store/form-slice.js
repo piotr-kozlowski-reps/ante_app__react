@@ -1,14 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { generateProject } from "../utils/projectFactory";
+import { generateProjectForForm } from "../utils/projectForFormFactory";
 import genre from "../utils/genre";
 
 const initialState = {
   formStageCounter: 0,
   genreOfProject: null,
-  projectAnimation: {},
-  projectApp: {},
-  projectGraphic: {},
-  projectPanorama: {},
+  projectState: null,
+  isFormValid: false,
 };
 
 export const formSlice = createSlice({
@@ -22,30 +20,36 @@ export const formSlice = createSlice({
       state.formStageCounter--;
     },
     resetToInitialStage(state) {
-      console.log(state);
       state.formStageCounter = initialState.formStageCounter;
     },
     initProjectTemplate(state, action) {
       switch (action.payload) {
         case genre.GRAPHIC:
-          state.projectGraphic = generateProject(action.payload);
-          console.log(state.projectGraphic);
+          state.projectState = generateProjectForForm(action.payload);
+          // console.log(state.projectState);
           break;
         case genre.APP:
-          state.projectApp = generateProject(action.payload);
-          console.log(state.projectApp);
+          state.projectState = generateProjectForForm(action.payload);
+          // console.log(state.projectState);
           break;
         case genre.ANIMATION:
-          state.projectAnimation = generateProject(action.payload);
-          console.log(state.projectAnimation);
+          state.projectState = generateProjectForForm(action.payload);
+          // console.log(state.projectState);
           break;
         case genre.PANORAMA:
-          state.projectPanorama = generateProject(action.payload);
-          console.log(state.projectPanorama);
+          state.projectState = generateProjectForForm(action.payload);
+          // console.log(state.projectState);
           break;
         default:
-          state.projectGraphic = generateProject(genre.GRAPHIC);
+          state.projectState = generateProjectForForm(genre.GRAPHIC);
+        // console.log(state.projectState);
       }
+    },
+    setFormInputs(state, actions) {
+      state.projectState = actions.payload;
+    },
+    setFormOverallValidity(state, actions) {
+      state.isFormValid = actions.payload;
     },
   },
 });
@@ -53,8 +57,6 @@ export const formSlice = createSlice({
 export const formActions = formSlice.actions;
 export default formSlice;
 
-//stan wyboru genre projektu
 //initial stany poszczegolnych genre - by moznabylo do nich wrocic
 //metoda reset kazdego z genre
-//pobieranie kazdego po wybraniu genre projektu
 //setkazdego obiektu z poszczegolnymi wlasciwosciami
