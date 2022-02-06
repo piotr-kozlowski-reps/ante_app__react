@@ -2,11 +2,20 @@ import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 
 import AdminGenreChooser from "../components/Admin/AdminGenreChooser";
-import AdminTitle from "../components/Admin/AdminTitle";
 import Footer from "../shared/components/Footer";
 import AdminFormStage from "../components/Admin/AdminFormStage";
 import AdminFormFooter from "../components/Admin/AdminFormFooter";
 import AdminForm from "../components/Admin/AdminForm";
+
+import AdminTitle from "../components/Admin/AdminTitle";
+import Input from "../shared/components/Input";
+import { Formik, Form, Field } from "formik";
+import * as Yup from "yup";
+import { mixed } from "yup";
+import { number } from "yup";
+import { CheckboxWithLabel, TextField } from "formik-mui";
+import { Autocomplete } from "formik-mui";
+import FormikContainer from "../components/Admin/Formik/FormikContainer";
 
 ////vars before
 const initialInputs = {
@@ -63,9 +72,13 @@ const NewProject = () => {
       <AdminTitle title="Create new project" />
       <AdminFormStage />
       {formStageCounter === 0 && <AdminGenreChooser />}
+      <FormikContainer />
+
+      {/* <AdminFormStage />
+      {formStageCounter === 0 && <AdminGenreChooser />}
       {(formStageCounter === 1 || formStageCounter === 2) && <AdminForm />}
       {formStageCounter === 0 && <AdminFormFooter isShowCancelOnly={true} />}
-      <Footer />
+      <Footer /> */}
     </Fragment>
   );
 };
