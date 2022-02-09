@@ -10,20 +10,20 @@ import Modal from "../../shared/components/Modal";
 const AdminFormFooter = (props) => {
   ////vars
   const formStageCounter = useSelector((state) => state.form.formStageCounter);
-  const formInputsStates = useSelector((state) => state.form.projectState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState(false);
+  const { isSubmitActive, isNextActive, isOnlyCancel } = props;
 
   ////func
   const cancelCancelWarningHandler = () => {
     setIsShowModal(false);
   };
   const confirmCancelWarningHandler = () => {
+    dispatch(formActions.resetGenreOfProjectToNull());
     navigate("../../api/projects");
   };
 
-  ////func
   const cancelHandler = () => {
     setIsShowModal(true);
   };
@@ -34,23 +34,58 @@ const AdminFormFooter = (props) => {
     dispatch(formActions.setNextStage());
   };
 
-  //next button activness
-  let isNextActive = true;
-  if (formStageCounter === 0) isNextActive = false;
-  if (
-    !formInputsStates ||
-    !formInputsStates.projNamePl.isValid ||
-    !formInputsStates.projNameEn.isValid ||
-    !formInputsStates.cityPl.isValid ||
-    !formInputsStates.cityEn.isValid ||
-    !formInputsStates.countryPL.isValid ||
-    !formInputsStates.countryEn.isValid ||
-    !formInputsStates.clientPL.isValid ||
-    !formInputsStates.clientEn.isValid ||
-    !formInputsStates.completionDate.isValid ||
-    !formInputsStates.type.isValid
-  )
-    isNextActive = false;
+  ////content
+  let content;
+  if (isOnlyCancel) {
+    content = (
+      <Fragment>
+        <button
+          type="button"
+          onClick={confirmCancelWarningHandler}
+          className={`button button--default`}
+          style={{ fontSize: "16px" }}
+        >
+          CANCEL
+        </button>
+      </Fragment>
+    );
+  } else {
+    content = (
+      <Fragment>
+        <button
+          type="button"
+          onClick={cancelHandler}
+          className={`button button--default`}
+        >
+          CANCEL
+        </button>
+        <button
+          type="button"
+          onClick={backHandler}
+          className={`button button--default`}
+          disabled={formStageCounter === 0}
+        >
+          BACK
+        </button>
+        <button
+          type="button"
+          onClick={isNextActive ? nextHandler : null}
+          className={`button button--default`}
+          disabled={formStageCounter === 2 || !isNextActive}
+        >
+          NEXT
+        </button>
+
+        <button
+          type="submit"
+          className={`button button--default`}
+          disabled={!isSubmitActive}
+        >
+          SUBMIT
+        </button>
+      </Fragment>
+    );
+  }
 
   ////jsx
   return (
@@ -87,40 +122,7 @@ const AdminFormFooter = (props) => {
               <div className="div-center-no-py">
                 <div className="separator"></div>
               </div>
-              <div className="text-center my-bottom">
-                <button
-                  type="button"
-                  onClick={cancelHandler}
-                  className={`button button--default`}
-                >
-                  CANCEL
-                </button>
-                <button
-                  type="button"
-                  onClick={backHandler}
-                  className={`button button--default`}
-                  disabled={formStageCounter === 0}
-                >
-                  BACK
-                </button>
-                <button
-                  type="button"
-                  // onClick={isNextActive ? nextHandler : null}
-                  onClick={nextHandler}
-                  className={`button button--default`}
-                  disabled={formStageCounter === 2}
-                >
-                  NEXT
-                </button>
-
-                <button
-                  type="submit"
-                  onClick={isNextActive ? nextHandler : null}
-                  className={`button button--default`}
-                >
-                  SUBMIT
-                </button>
-              </div>
+              <div className="text-center my-bottom">{content}</div>
             </Fragment>
           </div>
         </div>
@@ -130,11 +132,9 @@ const AdminFormFooter = (props) => {
 };
 
 AdminFormFooter.propTypes = {
-  formState: PropTypes.object,
-  isShowCancelOnly: PropTypes.bool,
+  isNextActive: PropTypes.bool,
+  isSubmitActive: PropTypes.bool,
+  isOnlyCancel: PropTypes.bool,
 };
 
 export default AdminFormFooter;
-
-//TODO: next -> when possible stage1 -> stage2
-//TODO: submit -> disable until overall submission

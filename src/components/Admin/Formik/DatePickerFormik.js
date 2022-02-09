@@ -45,7 +45,11 @@ const DatePickerFormik = (props) => {
                   props.additionalClass ? props.additionalClass : ""
                 }`}
               />
-              {isError && <div className="p-invalid">{errors[name]}</div>}
+              {isError && (
+                <div className="text-center">
+                  <div className="p-invalid">{errors[name]}</div>
+                </div>
+              )}
             </Fragment>
           );
         }}

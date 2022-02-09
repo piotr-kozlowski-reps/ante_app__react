@@ -675,9 +675,22 @@ form {
   display: block;
 }
 
-/* multiSelect */
 .input-box input {
   height: 45px;
+  width: 100%;
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid #999;
+  padding-left: 15px;
+  font-size: 1.3rem;
+  border-bottom-width: 2px;
+  transition: all 0.3s ease;
+  border: 2px solid #eee;
+  background: #f9f9f9;
+}
+
+.input-box textarea {
+  height: 90px;
   width: 100%;
   outline: none;
   border-radius: 3px;
@@ -707,6 +720,14 @@ form {
 .input-box-checkboxes {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+.input-box-radios {
+  display: flex;
+  justify-content: flex-start;
   align-items: center;
   font-size: 1.3rem;
   transition: all 0.3s ease;
@@ -1094,6 +1115,28 @@ form {
 
 .input-box .width-shortener {
   width: 250px;
+}
+
+.image-set {
+  background-color: rgb(252, 252, 252);
+  border-radius: 2px;
+  padding-left: 25px;
+  padding-top: 10px;
+  border-left: 2px solid var(--links-not-active);
+  border-right: 2px solid var(--links-not-active);
+  margin-bottom: 50px;
+}
+
+.radio-label {
+  padding-left: 5px;
+}
+
+.radio-item {
+  margin-left: 25px;
+}
+
+input[type="radio"] {
+  filter: grayscale(100%) contrast(200%);
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {
