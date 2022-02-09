@@ -19,7 +19,6 @@ const DatePickerFormik = (props) => {
         // {...rest}
       >
         {({ form, field }) => {
-          console.log(form);
           const { setFieldValue, errors, touched, setTouched } = form;
           const { value, onBlur } = field;
 
@@ -31,8 +30,6 @@ const DatePickerFormik = (props) => {
               touched.completionDate)
           ) {
             isError = true;
-            console.log(isError);
-            // setTouched(true);
           }
           return (
             <Fragment>
@@ -44,7 +41,9 @@ const DatePickerFormik = (props) => {
                 selected={value}
                 onChange={(val) => setFieldValue(name, val)}
                 onBlur={onBlur}
-                className={isError ? "input-invalid" : ""}
+                className={`${isError ? "input-invalid" : ""} ${
+                  props.additionalClass ? props.additionalClass : ""
+                }`}
               />
               {isError && <div className="p-invalid">{errors[name]}</div>}
             </Fragment>

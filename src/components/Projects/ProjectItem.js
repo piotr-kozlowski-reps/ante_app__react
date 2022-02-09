@@ -7,7 +7,7 @@ const ProjectItem = forwardRef((props, ref) => {
   const { id, projName, completionDate, city, country, icoImg } = props.project;
   const lang = props.lang;
 
-  console.log(projName);
+  // console.log(projName);
 
   const alt = `${format(
     completionDate,

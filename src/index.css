@@ -704,6 +704,54 @@ form {
   margin: 2rem 3rem 2.5rem 1.3rem;
 }
 
+.input-box-checkboxes {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 1.3rem;
+  transition: all 0.3s ease;
+}
+
+/* checkbox styling */
+.checkbox {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.checkbox__input {
+  display: none;
+}
+
+.checkbox__box {
+  width: 1.25em;
+  height: 1.25em;
+  border: 2px solid var(--main-gray);
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+  flex-shrink: 0;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.checkbox__box::after {
+  content: "\2714";
+  color: white;
+  transform: scale(0);
+  transition: transform 0.15s;
+}
+
+.checkbox__input:checked + .checkbox__box {
+  background: var(--links-not-active);
+  border-color: var(--links-not-active);
+}
+
+.checkbox__input:checked + .checkbox__box::after {
+  transform: scale(1);
+}
+
 .p-invalid {
   /* background-color: var(--color-invalid-100proc); */
   color: var(--color-invalid-100proc);
@@ -1045,7 +1093,7 @@ form {
 }
 
 .input-box .width-shortener {
-  width: 400px;
+  width: 250px;
 }
 
 @media all and (transform-3d), (-webkit-transform-3d) {

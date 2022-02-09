@@ -1,10 +1,11 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../shared/store/form-slice";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 import Button from "../../shared/components/Button";
+import Modal from "../../shared/components/Modal";
 
 const AdminFormFooter = (props) => {
   ////vars
@@ -12,18 +13,24 @@ const AdminFormFooter = (props) => {
   const formInputsStates = useSelector((state) => state.form.projectState);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  ////func
+  const cancelCancelWarningHandler = () => {
+    setIsShowModal(false);
+  };
+  const confirmCancelWarningHandler = () => {
+    navigate("../../api/projects");
+  };
 
   ////func
   const cancelHandler = () => {
-    navigate("../../api/projects");
-    dispatch(formActions.resetToInitialStage());
+    setIsShowModal(true);
   };
   const backHandler = () => {
-    console.log("backHandler");
     dispatch(formActions.setPreviousStage());
   };
   const nextHandler = () => {
-    console.log("next handler");
     dispatch(formActions.setNextStage());
   };
 
@@ -45,88 +52,80 @@ const AdminFormFooter = (props) => {
   )
     isNextActive = false;
 
-  //content
-  let content;
-  if (props.isShowCancelOnly) {
-    content = (
-      <Fragment>
-        <div className="div-center-no-py">
-          <div className="separator"></div>
-        </div>
-
-        <div className="text-center my-bottom no-form-button">
-          <div onClick={cancelHandler} className={`button button--default `}>
-            CANCEL
-          </div>
-
-          <div
-            onClick={backHandler}
-            className={`button button--default no-form-button button-as-div-disabled`}
-          >
-            BACK
-          </div>
-          <div
-            onClick={isNextActive ? nextHandler : null}
-            className={`button button--default no-form-button button-as-div-disabled`}
-          >
-            NEXT
-          </div>
-          <div
-            onClick={isNextActive ? nextHandler : null}
-            className={`button button--default no-form-button button-as-div-disabled`}
-          >
-            SUBMIT
-          </div>
-        </div>
-      </Fragment>
-    );
-  } else {
-    content = (
-      <Fragment>
-        <div className="div-center-no-py">
-          <div className="separator"></div>
-        </div>
-        <div className="text-center my-bottom">
-          <div onClick={cancelHandler} className={`button button--default`}>
-            CANCEL
-          </div>
-          <div
-            onClick={backHandler}
-            className={`button button--default ${
-              formStageCounter === 0 ? "button-as-div-disabled" : ""
-            }`}
-          >
-            BACK
-          </div>
-          <div
-            onClick={isNextActive ? nextHandler : null}
-            className={`button button--default ${
-              isNextActive ? "" : "button-as-div-disabled"
-            }`}
-          >
-            NEXT
-          </div>
-          {/* //TODO: submit form from div */}
-          <div
-            onClick={isNextActive ? nextHandler : null}
-            className={`button button--default ${
-              props.formState.isValid ? "" : "button-as-div-disabled"
-            }`}
-          >
-            SUBMIT
-          </div>
-        </div>
-      </Fragment>
-    );
-  }
-
   ////jsx
   return (
-    <div id="portfolio" className="container">
-      <div className="row" id="parent">
-        <div className="text-center my-top">{content}</div>
+    <Fragment>
+      {/* modal - start */}
+      <Modal
+        header="Are you sure?"
+        headerClass="modal-header-mine__show-header"
+        footer={
+          <div className="text-center">
+            <Button onClick={cancelCancelWarningHandler}>CANCEL</Button>
+            <Button
+              additionalClass="warning-color"
+              onClick={confirmCancelWarningHandler}
+            >
+              CONFIRM
+            </Button>
+          </div>
+        }
+        show={isShowModal}
+        onCancel={cancelCancelWarningHandler}
+      >
+        <p className="text-center modal-mine__content">
+          Do you really want to proceed? You will loose all data you entered
+          into the form.
+        </p>
+      </Modal>
+      {/* modal - end */}
+
+      <div id="portfolio" className="container">
+        <div className="row" id="parent">
+          <div className="text-center my-top">
+            <Fragment>
+              <div className="div-center-no-py">
+                <div className="separator"></div>
+              </div>
+              <div className="text-center my-bottom">
+                <button
+                  type="button"
+                  onClick={cancelHandler}
+                  className={`button button--default`}
+                >
+                  CANCEL
+                </button>
+                <button
+                  type="button"
+                  onClick={backHandler}
+                  className={`button button--default`}
+                  disabled={formStageCounter === 0}
+                >
+                  BACK
+                </button>
+                <button
+                  type="button"
+                  // onClick={isNextActive ? nextHandler : null}
+                  onClick={nextHandler}
+                  className={`button button--default`}
+                  disabled={formStageCounter === 2}
+                >
+                  NEXT
+                </button>
+
+                <button
+                  type="submit"
+                  onClick={isNextActive ? nextHandler : null}
+                  className={`button button--default`}
+                >
+                  SUBMIT
+                </button>
+              </div>
+            </Fragment>
+          </div>
+        </div>
       </div>
-    </div>
+    </Fragment>
   );
 };
 
@@ -136,3 +135,6 @@ AdminFormFooter.propTypes = {
 };
 
 export default AdminFormFooter;
+
+//TODO: next -> when possible stage1 -> stage2
+//TODO: submit -> disable until overall submission

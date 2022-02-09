@@ -9,12 +9,6 @@ import AdminForm from "../components/Admin/AdminForm";
 
 import AdminTitle from "../components/Admin/AdminTitle";
 import Input from "../shared/components/Input";
-import { Formik, Form, Field } from "formik";
-import * as Yup from "yup";
-import { mixed } from "yup";
-import { number } from "yup";
-import { CheckboxWithLabel, TextField } from "formik-mui";
-import { Autocomplete } from "formik-mui";
 import FormikContainer from "../components/Admin/Formik/FormikContainer";
 
 ////vars before
@@ -64,15 +58,16 @@ const initialInputs = {
 const NewProject = () => {
   ////vars
   const formStageCounter = useSelector((state) => state.form.formStageCounter);
-  const genreOfProject = useSelector((state) => state.form.genreOfProject);
 
   ////jsx
   return (
     <Fragment>
       <AdminTitle title="Create new project" />
-      <AdminFormStage />
-      {formStageCounter === 0 && <AdminGenreChooser />}
       <FormikContainer />
+      {/* <AdminFormStage /> */}
+      {/* {formStageCounter === 0 && <AdminGenreChooser />}
+      {formStageCounter !== 0 && <FormikContainer />} */}
+      {/* <Footer /> */}
 
       {/* <AdminFormStage />
       {formStageCounter === 0 && <AdminGenreChooser />}
