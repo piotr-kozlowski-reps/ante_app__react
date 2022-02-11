@@ -13,7 +13,7 @@ const AdminFormFooter = (props) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [isShowModal, setIsShowModal] = useState(false);
-  const { isSubmitActive, isNextActive, isOnlyCancel } = props;
+  const { isSubmitActive, isNextActive, isOnlyCancel, resetForm } = props;
 
   ////func
   const cancelCancelWarningHandler = () => {
@@ -22,6 +22,7 @@ const AdminFormFooter = (props) => {
   const confirmCancelWarningHandler = () => {
     dispatch(formActions.resetGenreOfProjectToNull());
     navigate("../../api/projects");
+    resetForm();
   };
 
   const cancelHandler = () => {
@@ -79,7 +80,7 @@ const AdminFormFooter = (props) => {
         <button
           type="submit"
           className={`button button--default`}
-          disabled={!isSubmitActive}
+          disabled={isSubmitActive}
         >
           SUBMIT
         </button>

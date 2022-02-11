@@ -2,9 +2,9 @@ import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 
 import PanoramaLink from "./PanoramaLink";
-import Modal from "../../shared/components/Modal";
 
 const ProjectShowcasePanorama = ({ lang, panoramas }) => {
+  ////jsx
   return (
     <div id="project-site" className="container">
       <div className="row">
@@ -13,11 +13,15 @@ const ProjectShowcasePanorama = ({ lang, panoramas }) => {
             <div className="row" id="parent">
               {panoramas.map((panorama) => (
                 <PanoramaLink
-                  key={panorama.panoramaTitle}
-                  panoramaIco={panorama.panoramaIco}
-                  panoramaTitle={panorama.panoramaTitle}
+                  key={panorama.panoramaTitleEn}
+                  panoramaIco={panorama.panoramaIcoFull}
+                  panoramaTitle={
+                    lang === "pl"
+                      ? panorama.panoramaTitlePl
+                      : panorama.panoramaTitleEn
+                  }
                   lang={lang}
-                  panoramaImageSource={panorama.panoramaImageSource}
+                  panoramaImageSource={panorama.panoramaImageSourceFull}
                 />
               ))}
             </div>
@@ -32,7 +36,7 @@ ProjectShowcasePanorama.propTypes = {
   lang: PropTypes.oneOf(["pl", "en"]),
   panoramas: PropTypes.arrayOf(
     PropTypes.exact({
-      panoramaTitle: PropTypes.string,
+      panoramaTitlePl: PropTypes.string,
       panoramaIco: PropTypes.string,
       panoramaImageSource: PropTypes.string,
     })

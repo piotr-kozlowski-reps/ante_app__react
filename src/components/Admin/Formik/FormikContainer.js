@@ -17,6 +17,7 @@ import Separator from "../../../shared/components/Separator";
 import FormikAnimationAttachments from "./FormikAnimationAttachments";
 import FormikAppAttachments from "./FormikAppAttachments";
 import FormikGraphicAttachments from "./FormikGraphicAttachments";
+import FormikPanoramaAttachments from "./FormikPanoramaAttachments";
 
 function FormikContainer() {
   ////vars
@@ -26,7 +27,12 @@ function FormikContainer() {
   const validationSchema = generateValidation(genreOfProject);
 
   ////func
-  const onSubmit = (values) => console.log("Form data: ", values);
+  const onSubmit = (values, onSubmitProps) => {
+    console.log("Form data: ", values);
+    console.log("submit props: ", onSubmitProps);
+    onSubmitProps.setSubmitting(false);
+    onSubmitProps.resetForm();
+  };
 
   ////jsx
   return (
@@ -84,13 +90,17 @@ function FormikContainer() {
                       {genreOfProject === genre.GRAPHIC && (
                         <FormikGraphicAttachments {...formik} />
                       )}
+
+                      {genreOfProject === genre.PANORAMA && (
+                        <FormikPanoramaAttachments {...formik} />
+                      )}
                     </div>
                   </div>
                 )}
                 <AdminFormFooter
                   isOnlyCancel={false}
                   isNextActive={isNextActive}
-                  isSubmitActive={formik.isValid}
+                  isSubmitActive={!formik.isValid || formik.isSubmitting}
                 />
               </Form>
             );

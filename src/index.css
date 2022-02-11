@@ -660,8 +660,17 @@ form {
 .form-row {
   display: flex;
   justify-content: space-between;
-  flex: 1;
+  /* flex: 1; */
   padding-bottom: 1rem;
+}
+
+.align-to-right {
+  justify-content: right;
+  padding-right: 20px;
+}
+
+.flex-changer {
+  align-items: center;
 }
 
 .project-details {
@@ -1117,6 +1126,10 @@ form {
   width: 250px;
 }
 
+.input-box .input-wider {
+  width: 100%;
+}
+
 .image-set {
   background-color: rgb(252, 252, 252);
   border-radius: 2px;
@@ -1124,7 +1137,7 @@ form {
   padding-top: 10px;
   border-left: 2px solid var(--links-not-active);
   border-right: 2px solid var(--links-not-active);
-  margin-bottom: 50px;
+  /* margin-bottom: 50px; */
 }
 
 .radio-label {

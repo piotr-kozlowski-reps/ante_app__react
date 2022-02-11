@@ -152,7 +152,7 @@ const FormikCommonData = (props) => {
             </div>
 
             <FormikControl
-              control="checkbox"
+              control="checkboxGroup"
               type="checkbox"
               label=""
               name="type"

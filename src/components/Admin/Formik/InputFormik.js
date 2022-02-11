@@ -37,7 +37,9 @@ const InputFormik = (props) => {
               {...rest}
               onChange={(val) => onChange(val)}
               onBlur={onBlur}
-              className={isErrorPresent && isTouched ? "input-invalid" : ""}
+              className={`${
+                isErrorPresent && isTouched ? "input-invalid" : ""
+              } ${props.additionalClass ? props.additionalClass : ""}`}
             />
           );
         }}

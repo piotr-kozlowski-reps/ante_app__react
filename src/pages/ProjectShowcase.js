@@ -29,9 +29,9 @@ const ProjectShowcase = () => {
               lang={lang}
               projName={lang === "pl" ? project.projNamePl : project.projNameEn}
               year={format(project.completionDate, "yyyy")}
-              city={lang === "pl" ? project.cityPL : project.cityEn}
-              country={lang === "pl" ? project.countryPL : project.countryEn}
-              client={lang === "pl" ? project.clientPL : project.clientEn}
+              city={lang === "pl" ? project.cityPl : project.cityEn}
+              country={lang === "pl" ? project.countryPl : project.countryEn}
+              client={lang === "pl" ? project.clientPl : project.clientEn}
             />
 
             {projectsGenre === genre.GRAPHIC && (

@@ -1,35 +1,31 @@
 import React, { Fragment } from "react";
 
-import { FieldArray, Field } from "formik";
+import { FieldArray } from "formik";
 import FormikControl from "./FormikControl";
 
-const FormikGraphicAttachments = (props) => {
-  ////options
-  const isBigOptions = [
-    { key: "yes - it's BIG", value: "true" },
-    { key: "no - it's not BIG", value: "false" },
-  ];
-
+const FormikPanoramaAttachments = (props) => {
   ////jsx
   return (
     <div className="form-row small-my">
       <div className="project-details">
         <div className="row" id="parent">
-          <p className="text-center title-new-project">IMAGES</p>
+          <p className="text-center title-new-project">PANORAMA IMAGES</p>
         </div>
 
-        <FieldArray name="images">
+        <FieldArray name="panoramas">
           {(fieldArrayProps) => {
             const { push, remove, form } = fieldArrayProps;
             const { values } = form;
-            const { images } = values;
+            const { panoramas } = values;
 
-            return images.map((image, index) => (
+            return panoramas.map((panorama, index) => (
               <Fragment key={index}>
                 <div
                   className="image-set"
                   style={
-                    index !== images.length - 1 ? { marginBottom: "50px" } : {}
+                    index !== panoramas.length - 1
+                      ? { marginBottom: "50px" }
+                      : {}
                   }
                 >
                   {/* pocz */}
@@ -39,18 +35,18 @@ const FormikGraphicAttachments = (props) => {
                         <FormikControl
                           control="input"
                           type="text"
-                          label="Image path"
-                          name={`images.${index}.imageSourceFull`}
-                          placeholder="specify image source path"
-                          additionalClass="input-wider"
+                          label="Nazwa panoramy (po polsku)"
+                          name={`panoramas.${index}.panoramaTitlePl`}
+                          placeholder="wpisz nazwę panoramy"
                         />
                       </div>
-                      <div className="project-details" style={{ width: "20%" }}>
+                      <div className="project-details">
                         <FormikControl
-                          control="checkbox"
-                          type="checkbox"
-                          label="Is image big?"
-                          name={`images.${index}.isBig`}
+                          control="input"
+                          type="text"
+                          label="Panorama name (in English)"
+                          name={`panoramas.${index}.panoramaTitleEn`}
+                          placeholder="enter panorama name"
                         />
                       </div>
                     </div>
@@ -62,9 +58,9 @@ const FormikGraphicAttachments = (props) => {
                         <FormikControl
                           control="input"
                           type="text"
-                          label="Image thumbnail path"
-                          name={`images.${index}.imageSourceThumb`}
-                          placeholder="specify image thumbnail source path"
+                          label="Panorama icon path"
+                          name={`panoramas.${index}.panoramaIcoFull`}
+                          placeholder="set panorama icon path"
                         />
                       </div>
                     </div>
@@ -76,22 +72,42 @@ const FormikGraphicAttachments = (props) => {
                         <FormikControl
                           control="input"
                           type="text"
-                          label="Opis obrazu (ALT) (po polsku)"
-                          name={`images.${index}.imageAltPl`}
-                          placeholder="wpisz opis (ALT) dla wybranego obrazka"
-                        />
-                      </div>
-                      <div className="project-details">
-                        <FormikControl
-                          control="input"
-                          type="text"
-                          label="Image description (ALT) (in English)"
-                          name={`images.${index}.imageAltEn`}
-                          placeholder="enter description (ALT) for chosen image"
+                          label="Panorama icon thumbnail path"
+                          name={`panoramas.${index}.panoramaIcoThumb`}
+                          placeholder="set panorama thumbnail icon path"
                         />
                       </div>
                     </div>
                   </div>
+
+                  <div className="row" id="parent">
+                    <div className="form-row">
+                      <div className="project-details">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          label="Panorama image path"
+                          name={`panoramas.${index}.panoramaImageSourceFull`}
+                          placeholder="set panorama image path"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="row" id="parent">
+                    <div className="form-row">
+                      <div className="project-details">
+                        <FormikControl
+                          control="input"
+                          type="text"
+                          label="Panorama image thumbnail path"
+                          name={`panoramas.${index}.panoramaImageSourceFullThumb`}
+                          placeholder="set panorama image thumbnail path"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="row" id="parent">
                     <div className="form-row align-to-right">
                       {index > 0 && (
@@ -107,16 +123,17 @@ const FormikGraphicAttachments = (props) => {
                   </div>
                   {/* kon */}
                 </div>
-                {index === images.length - 1 && (
+                {index === panoramas.length - 1 && (
                   <button
                     type="button"
                     onClick={() =>
                       push({
-                        imageSourceFull: "",
-                        imageSourceThumb: "",
-                        imageAltPl: "",
-                        imageAltEn: "",
-                        isBig: "false",
+                        panoramaTitlePl: "",
+                        panoramaTitleEn: "",
+                        panoramaIcoFull: "",
+                        panoramaIcoThumb: "",
+                        panoramaImageSourceFull: "",
+                        panoramaImageSourceFullThumb: "",
                       })
                     }
                     className={`button button--default`}
@@ -133,4 +150,4 @@ const FormikGraphicAttachments = (props) => {
   );
 };
 
-export default FormikGraphicAttachments;
+export default FormikPanoramaAttachments;

@@ -2,16 +2,16 @@ import genre from "./genre";
 import * as Yup from "yup";
 
 const commonData = {
-  projNamePl: "projNamePl",
-  projNameEn: "projNameEn",
-  cityPl: "cityPl",
-  cityEn: "cityEn",
-  countryPL: "countryPL",
-  countryEn: "countryEn",
-  clientPl: "clientPl",
-  clientEn: "clientEn",
+  projNamePl: "",
+  projNameEn: "",
+  cityPl: "",
+  cityEn: "",
+  countryPL: "",
+  countryEn: "",
+  clientPl: "",
+  clientEn: "",
   completionDate: null,
-  type: ["ANIMATION"],
+  type: [],
   icoImgFull: "",
   icoImgThumb: "",
 };
@@ -53,7 +53,7 @@ export const generateInitialValues = (projectGenre) => {
             imageSourceThumb: "",
             imageAltPl: "",
             imageAltEn: "",
-            isBig: "false",
+            isBig: false,
           },
         ],
       };
@@ -80,6 +80,20 @@ export const generateInitialValues = (projectGenre) => {
         videoSourceThumb: "",
       };
     case genre.PANORAMA:
+      return {
+        genre: projectGenre,
+        ...commonData,
+        panoramas: [
+          {
+            panoramaTitlePl: "",
+            panoramaTitleEn: "",
+            panoramaIcoFull: "",
+            panoramaIcoThumb: "",
+            panoramaImageSourceFull: "",
+            panoramaImageSourceFullThumb: "",
+          },
+        ],
+      };
     default:
       return null;
   }
@@ -149,76 +163,101 @@ export const generateValidation = (projectGenre) => {
         ),
       });
     case genre.PANORAMA:
+      return Yup.object({
+        ...commonValidation,
+        panoramas: Yup.array().of(
+          Yup.object().shape({
+            panoramaTitlePl: Yup.string().required(
+              "Entering panorama name (in polish) is required."
+            ),
+            panoramaTitleEn: Yup.string().required(
+              "Entering panorama name (in English) is required."
+            ),
+            panoramaIcoFull: Yup.string().required(
+              "Entering panorama image icon source path is required."
+            ),
+            panoramaIcoThumb: Yup.string().required(
+              "Entering panorama image icon thumbnail source path is required."
+            ),
+            panoramaImageSourceFull: Yup.string().required(
+              "Entering panorama image source path is required."
+            ),
+            panoramaImageSourceFullThumb: Yup.string().required(
+              "Entering panorama image thumbnail source path is required."
+            ),
+          })
+        ),
+      });
     default:
       return null;
   }
 };
 
-export const generateProjectForForm = (projectGenre) => {
-  switch (projectGenre) {
-    case genre.GRAPHIC:
-      return {
-        genre: {
-          value: projectGenre,
-          isValid: true,
-        },
-        ...commonData,
-        images: [
-          {
-            imageSourceFull: "",
-            imageSourceThumb: "",
-            imageAltPl: "",
-            imageAltEn: "",
-            isBig: false,
-          },
-        ],
-      };
-    case genre.APP:
-      return {
-        genre: {
-          value: projectGenre,
-          isValid: true,
-        },
-        ...commonData,
-        appInfo: {
-          appNamePl: "",
-          appNameEn: "",
-          appImageFull: "",
-          appImageThumb: "",
-          appDescriptionPl: "",
-          appDescriptionEn: "",
-          appAndroidLink: "",
-          appIOSLink: "",
-        },
-      };
-    case genre.ANIMATION:
-      return {
-        genre: {
-          value: projectGenre,
-          isValid: true,
-        },
-        ...commonData,
-        videoSource: "",
-        videoSourceThumb: "",
-      };
-    case genre.PANORAMA:
-      return {
-        genre: {
-          value: projectGenre,
-          isValid: true,
-        },
-        ...commonData,
-        panoramas: [
-          {
-            panoramaTitle: "",
-            panoramaIcoFull: "",
-            panoramaIcoThumb: "",
-            panoramaImageSourceFull: "",
-            panoramaImageSourceFullThumb: "",
-          },
-        ],
-      };
-    default:
-      return {};
-  }
-};
+// export const generateProjectForForm = (projectGenre) => {
+//   switch (projectGenre) {
+//     case genre.GRAPHIC:
+//       return {
+//         genre: {
+//           value: projectGenre,
+//           isValid: true,
+//         },
+//         ...commonData,
+//         images: [
+//           {
+//             imageSourceFull: "",
+//             imageSourceThumb: "",
+//             imageAltPl: "",
+//             imageAltEn: "",
+//             isBig: false,
+//           },
+//         ],
+//       };
+//     case genre.APP:
+//       return {
+//         genre: {
+//           value: projectGenre,
+//           isValid: true,
+//         },
+//         ...commonData,
+//         appInfo: {
+//           appNamePl: "",
+//           appNameEn: "",
+//           appImageFull: "",
+//           appImageThumb: "",
+//           appDescriptionPl: "",
+//           appDescriptionEn: "",
+//           appAndroidLink: "",
+//           appIOSLink: "",
+//         },
+//       };
+//     case genre.ANIMATION:
+//       return {
+//         genre: {
+//           value: projectGenre,
+//           isValid: true,
+//         },
+//         ...commonData,
+//         videoSource: "",
+//         videoSourceThumb: "",
+//       };
+//     case genre.PANORAMA:
+//       return {
+//         genre: {
+//           value: projectGenre,
+//           isValid: true,
+//         },
+//         ...commonData,
+//         panoramas: [
+//           {
+//             panoramaTitle: "",
+//             panoramaIcoFull: "",
+//             panoramaIcoThumb: "",
+//             panoramaImageSourceFull: "",
+//             panoramaImageSourceFullThumb: "",
+//           },
+//         ],
+//       };
+//     default:
+//       return {};
+//   }
+// };
