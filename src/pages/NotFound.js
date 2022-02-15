@@ -5,3 +5,5 @@ const NotFound = () => {
 };
 
 export default NotFound;
+
+//TODO: make 404 page

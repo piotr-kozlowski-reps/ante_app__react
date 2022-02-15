@@ -11,15 +11,12 @@ const footerPositionSlice = createSlice({
   reducers: {
     setFooterToBeMovedToBottom(state) {
       state.isFooterToBeMovedToBottom = true;
-      // console.log("isFooterToBeMovedToBottom: true");
     },
     setFooterNotToBeMovedToBottom(state) {
       state.isFooterToBeMovedToBottom = false;
-      // console.log("isFooterToBeMovedToBottom: false");
     },
     setWindowHeight(state, action) {
       state.windowHeight = action.payload;
-      // console.log(`setWindowHeight: ${action.payload}`);
     },
   },
 });

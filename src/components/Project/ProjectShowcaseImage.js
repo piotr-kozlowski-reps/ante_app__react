@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const ProjectShowcaseImage = ({ imageSource, imageAlt, isBig }) => {
+  ////jsx
   return (
     <img
       className={isBig ? "big-img" : null}
@@ -18,5 +19,3 @@ ProjectShowcaseImage.propTypes = {
 };
 
 export default ProjectShowcaseImage;
-
-//TODO: check if image is well rendered with all the props passed

@@ -9,6 +9,7 @@ const ProjectShowcaseTitle = ({
   country,
   client,
 }) => {
+  ////jsx
   return (
     <div className="col-lg-12">
       <div className="project-desc">
@@ -35,5 +36,3 @@ ProjectShowcaseTitle.propTypes = {
 };
 
 export default ProjectShowcaseTitle;
-
-//TODO: check if everything is well rendered depending on language and props passed

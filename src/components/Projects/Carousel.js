@@ -46,8 +46,7 @@ const carouselEN = [
 ];
 
 const Carousel = () => {
-  //
-  //vars
+  ////vars
   const lang = useSelector((state) => state.language.lang);
   const [currentArrayByLanguage, setCurrentArrayByLanguage] = useState(
     lang === "pl" ? carouselPL : carouselEN
@@ -57,7 +56,6 @@ const Carousel = () => {
   );
 
   useLayoutEffect(() => {
-
     let index = 1;
     const changeSlide = () => {
       const itemsAmount = currentArrayByLanguage.length;
@@ -78,11 +76,10 @@ const Carousel = () => {
   }, [currentArrayByLanguage]);
 
   useEffect(() => {
-    setCurrentArrayByLanguage( lang === "pl" ? carouselPL : carouselEN)
-  }, [lang])
+    setCurrentArrayByLanguage(lang === "pl" ? carouselPL : carouselEN);
+  }, [lang]);
 
-  //
-  //jsx
+  ////jsx
   return (
     <div id="gallery">
       <div className="container">
@@ -107,3 +104,5 @@ const Carousel = () => {
 };
 
 export default Carousel;
+
+//TODO: finalise Carousel

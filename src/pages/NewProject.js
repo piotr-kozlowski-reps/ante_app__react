@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 
 import Footer from "../shared/components/Footer";
 import AdminTitle from "../components/Admin/AdminTitle";
-import FormikContainer from "../components/Admin/Formik/FormikContainer";
+import FormikContainer from "../components/Admin/FormikContainer";
 
 const NewProject = () => {
   ////jsx

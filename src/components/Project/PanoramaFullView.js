@@ -3,11 +3,13 @@ import PropTypes from "prop-types";
 import ReactPannellum, { getConfig } from "react-pannellum";
 
 const PanoramaFullView = ({ panoramaImageSource, panoramaTitle }) => {
+  ////vars
   const config = {
     autoRotate: -2,
     autoLoad: true,
   };
 
+  ////jsx
   return (
     <ReactPannellum
       id={panoramaTitle}

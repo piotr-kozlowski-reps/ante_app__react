@@ -31,6 +31,7 @@ const AdminGenreChooser = () => {
     dispatch(formActions.setGenreOfProject(genre.APP));
   };
 
+  ////jsx
   return (
     <div id="portfolio" className="container">
       <div className="row" id="parent">

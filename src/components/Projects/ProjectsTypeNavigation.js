@@ -60,8 +60,7 @@ const ProjectsTypeNavigation = (props) => {
   //   );
   // }, [queryTypeExtracted, lang]);
 
-  //
-  //jsx
+  ////jsx
   return (
     <div
       id="the-sticky-div"

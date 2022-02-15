@@ -44,3 +44,5 @@ ProjectShowcasePanorama.propTypes = {
 };
 
 export default ProjectShowcasePanorama;
+
+//TODO: lang to do

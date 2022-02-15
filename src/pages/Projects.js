@@ -45,7 +45,7 @@ const Projects = () => {
     };
   });
 
-  // triggering pagination adding projects automaticaly when div#pagination-trigger on screen
+  // triggering pagination of projects automaticaly when div#pagination-trigger on screen
   let refDivTriggeringPagination = useRef();
   const isInViewport = (ref, offset = 0) => {
     if (!ref.current) return false;
@@ -83,8 +83,7 @@ const Projects = () => {
       setIsShowMoreButtonShown(false);
   }, [allProjectsNumber, currentProjectsNumberToBeShown]);
 
-  //
-  //jsx
+  ////jsx
   return (
     <Fragment>
       <div data-testid="projects-page"></div>

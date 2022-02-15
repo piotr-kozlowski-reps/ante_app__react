@@ -69,34 +69,38 @@ const UpdateProject = () => {
     return <h2>Loading...</h2>;
   }
   return (
-    <form onSubmit={submitUpdatedProjectHandler}>
-      <Input
-        id="projNamePl"
-        element="input"
-        type="text"
-        label="Nazwa projektu (po polsku)."
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Enter a valid 'Project Name' (at least 1 character), please ."
-        onInput={inputHandler}
-        initialValue={formState.inputs.projNamePl.value}
-        initialValid={formState.inputs.projNamePl.isValid}
-      />
-      <Input
-        id="projNameEn"
-        element="input"
-        type="text"
-        label="Project name (in English)"
-        validators={[VALIDATOR_REQUIRE()]}
-        errorText="Enter a valid 'Project Name' (at least 1 character), please ."
-        onInput={inputHandler}
-        initialValue={formState.inputs.projNameEn.value}
-        initialValid={formState.inputs.projNameEn.isValid}
-      />
-      <Button type="submit" disabled={!formState.isValid}>
-        SUBMIT
-      </Button>
-    </form>
+    <div>update</div>
+
+    // <form onSubmit={submitUpdatedProjectHandler}>
+    //   <Input
+    //     id="projNamePl"
+    //     element="input"
+    //     type="text"
+    //     label="Nazwa projektu (po polsku)."
+    //     validators={[VALIDATOR_REQUIRE()]}
+    //     errorText="Enter a valid 'Project Name' (at least 1 character), please ."
+    //     onInput={inputHandler}
+    //     initialValue={formState.inputs.projNamePl.value}
+    //     initialValid={formState.inputs.projNamePl.isValid}
+    //   />
+    //   <Input
+    //     id="projNameEn"
+    //     element="input"
+    //     type="text"
+    //     label="Project name (in English)"
+    //     validators={[VALIDATOR_REQUIRE()]}
+    //     errorText="Enter a valid 'Project Name' (at least 1 character), please ."
+    //     onInput={inputHandler}
+    //     initialValue={formState.inputs.projNameEn.value}
+    //     initialValid={formState.inputs.projNameEn.isValid}
+    //   />
+    //   <Button type="submit" disabled={!formState.isValid}>
+    //     SUBMIT
+    //   </Button>
+    // </form>
   );
 };
 
 export default UpdateProject;
+
+//TODO: update form

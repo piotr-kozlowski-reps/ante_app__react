@@ -4,16 +4,15 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const ProjectItem = forwardRef((props, ref) => {
+  ////vars
   const { id, projName, completionDate, city, country, icoImg } = props.project;
   const lang = props.lang;
-
-  // console.log(projName);
-
   const alt = `${format(
     completionDate,
     "MM-yyyy"
   )}. ${projName}, ${city}, ${country}.`;
 
+  ////jsx
   return (
     <div
       ref={ref}

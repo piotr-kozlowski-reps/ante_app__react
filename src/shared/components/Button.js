@@ -2,25 +2,26 @@ import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
-//Button
-
-//overall props:
-// props.size ->
-// props.additionalClass -> passed additionalClass
-
-//if prop.href -> renders a href
-//{... overall.props}
-//{props.href -> href value}
-
-//if prop.to -> renders Link to=
-//{... overall.props}
-//{props.exact -> exact}
-
-//if !props.to && !props.href -> renders button
-//{... overall.props}
-//{props.type -> button type}
-//{props.onClick -> onClickHandler}
-//{props.disabled -> if disabled}
+/**
+ * Button
+ * overall props:
+ * props.size ->
+ * props.additionalClass -> passed additionalClass
+ *
+ * if prop.href -> renders a href
+ * {... overall.props}
+ * {props.href -> href value}
+ *
+ * if prop.to -> renders Link to=
+ * {... overall.props}
+ * {props.exact -> exact}
+ *
+ * if !props.to && !props.href -> renders button
+ * {... overall.props}
+ * {props.type -> button type}
+ * {props.onClick -> onClickHandler}
+ * {props.disabled -> if disabled}
+ */
 
 const Button = (props) => {
   if (props.href) {

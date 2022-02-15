@@ -3,14 +3,12 @@ import React, { Fragment, useRef, useEffect } from "react";
 import { backgroundRevealDown } from "../utils/animations";
 
 const BackgroundTopElements = () => {
-  //
-  //refs
+  ////refs
   let grayBackground = useRef(null);
   let darkGrayBackground = useRef(null);
   let whiteBackground = useRef(null);
 
-  //logic
-  //effects
+  ////logic
   useEffect(() => {
     backgroundRevealDown(
       0.7,
@@ -20,8 +18,7 @@ const BackgroundTopElements = () => {
     );
   }, []);
 
-  //
-  //jsx
+  ////jsx
   return (
     <Fragment>
       <div ref={(el) => (darkGrayBackground = el)} id="my-bg-dark-gray"></div>

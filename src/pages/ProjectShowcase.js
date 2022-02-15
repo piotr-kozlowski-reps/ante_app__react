@@ -11,15 +11,17 @@ import ProjectShowcaseApp from "../components/Project/ProjectShowcaseApp";
 import Footer from "../shared/components/Footer";
 import ProjectShowcasePanorama from "../components/Project/ProjectShowcasePanorama";
 
-//tymczas
+////temporary
 import { DUMMY_PROJECT_PANORAMA } from "../shared/utils/data-models";
 
 const ProjectShowcase = () => {
+  ////vars
   const [project, setProject] = useState(DUMMY_PROJECT_PANORAMA);
 
   const lang = useSelector((state) => state.language.lang);
   const projectsGenre = project.genre;
 
+  ////jsx
   return (
     <Fragment>
       <div id="project-site" className="container">
@@ -98,9 +100,4 @@ const ProjectShowcase = () => {
   );
 };
 
-// February, 2009. Hotel/Congress centre Cuprum, Wroclaw. Country: Poland. Visualisation: cross-section.
-
 export default ProjectShowcase;
-
-//TODO: check passing props depending on language
-//TODO: check rendering good Component depending on genre of the project

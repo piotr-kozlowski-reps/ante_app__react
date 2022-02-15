@@ -2,8 +2,7 @@ import React, { useReducer, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { validate } from "../utils/validators";
 
-//
-//reducer info
+////reducer info
 const inputReducer = (state, action) => {
   switch (action.type) {
     case "CHANGE":
@@ -81,8 +80,8 @@ const Input = (props) => {
     resultArray.push(choosenItem);
     setSelected(resultArray);
   };
-  //
-  //input generation by type passed
+
+  ////input generation by type passed
   let element;
   switch (props.element) {
     case "input":

@@ -1,8 +1,7 @@
 import React from "react";
 
 const Header = ({ children }) => {
-  //
-  //jsx
+  ////jsx
   return <div className="container">{children}</div>;
 };
 

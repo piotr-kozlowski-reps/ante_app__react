@@ -34,9 +34,10 @@ const ProjectsList = ({
 
   if (projectsList.length === 0) {
     //TODO: no projects found to look nicely
-    return <p>Np projects found</p>;
+    return <p>No projects found</p>;
   }
 
+  ////jsx
   return (
     <div id="portfolio" className="container">
       <div className="row" id="parent" ref={el}>

@@ -18,8 +18,7 @@ import Input from "../components/Input";
 import logoImg from "../../images/ante-logo.png";
 import { authActions } from "../store/auth-slice";
 
-//
-//vars before
+////vars before
 const initialInputs = {
   login: {
     value: "",
@@ -32,8 +31,7 @@ const initialInputs = {
 };
 
 const MainNavigation = () => {
-  //
-  //vars
+  ////vars
   const lang = useSelector((state) => state.language.lang);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const dispatch = useDispatch();
@@ -54,9 +52,7 @@ const MainNavigation = () => {
   let logoutLink = useRef(null);
   let languageLink = useRef(null);
 
-  //
-  //logic
-
+  ////logic
   //initialAnimation
   // useEffect(() => {
   //   fadeFromRight(

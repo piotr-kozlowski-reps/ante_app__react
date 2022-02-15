@@ -11,17 +11,14 @@ const PanoramaLink = ({
   panoramaImageSource,
   lang,
 }) => {
-  //
-  //vars
+  ////vars
   const [isShowPanorama, setIsShowPanorama] = useState(false);
 
-  //
-  //func
+  ////func
   const openPanoramaModalHandler = () => setIsShowPanorama(true);
   const closePanoramaModalHandler = () => setIsShowPanorama(false);
 
-  //
-  //jsx
+  ////jsx
   return (
     <Fragment>
       <Modal
