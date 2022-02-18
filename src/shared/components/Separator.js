@@ -1,12 +1,23 @@
 import React from "react";
+import PropTypes from "prop-types";
 
-const Separator = () => {
+const Separator = (props) => {
   ////jsx
   return (
-    <div className="div-center-no-py">
+    <div
+      className={
+        props.additionalClass
+          ? `div-center-no-py ${props.additionalClass}`
+          : "div-center-no-py"
+      }
+    >
       <div className="separator"></div>
     </div>
   );
+};
+
+Separator.propTypes = {
+  additionalClass: PropTypes.string,
 };
 
 export default Separator;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { VALIDATOR_REQUIRE } from "../shared/utils/validators";
-import { useForm } from "../shared/hooks/form-hook";
+// import { useForm } from "../shared/hooks/form-hook";
 
 import Input from "../shared/components/Input";
 import Button from "../shared/components/Button";
@@ -16,46 +16,46 @@ const UpdateProject = () => {
   const [isLoading, setIsLoading] = useState(true);
   const projectId = useParams().projectId;
 
-  const [formState, inputHandler, setFormData] = useForm(
-    {
-      projNamePl: {
-        value: "",
-        isValid: false,
-      },
-      projNameEn: {
-        value: "",
-        isValid: false,
-      },
-    },
-    false
-  );
+  // const [formState, inputHandler, setFormData] = useForm(
+  //   {
+  //     projNamePl: {
+  //       value: "",
+  //       isValid: false,
+  //     },
+  //     projNameEn: {
+  //       value: "",
+  //       isValid: false,
+  //     },
+  //   },
+  //   false
+  // );
 
   const foundProject = DUMMY_ARRAY.find((project) => project.id === projectId);
 
   //filling form with fetched data
-  useEffect(() => {
-    if (foundProject) {
-      const fetchedFormDataInputs = {
-        projNamePl: {
-          value: foundProject.projNamePl,
-          isValid: true,
-        },
-        projNameEn: {
-          value: foundProject.projNameEn,
-          isValid: true,
-        },
-      };
-      setFormData(fetchedFormDataInputs, true);
-    }
+  // useEffect(() => {
+  //   if (foundProject) {
+  //     const fetchedFormDataInputs = {
+  //       projNamePl: {
+  //         value: foundProject.projNamePl,
+  //         isValid: true,
+  //       },
+  //       projNameEn: {
+  //         value: foundProject.projNameEn,
+  //         isValid: true,
+  //       },
+  //     };
+  //     setFormData(fetchedFormDataInputs, true);
+  //   }
 
-    setIsLoading(false);
-  }, [setFormData, foundProject]);
+  //   setIsLoading(false);
+  // }, [setFormData, foundProject]);
 
   //
   //func
   const submitUpdatedProjectHandler = (event) => {
     event.preventDefault();
-    console.log(formState);
+    // console.log(formState);
   };
 
   if (!foundProject)

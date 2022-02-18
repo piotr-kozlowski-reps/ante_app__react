@@ -608,6 +608,12 @@ div.project {
   display: block;
 }
 
+.modal-header-mine__show-header-login {
+  display: block;
+  border-bottom: none;
+  padding: 2rem 0 0 0;
+}
+
 .modal-enter {
   transform: translateY(-10rem);
   opacity: 0;
@@ -970,6 +976,10 @@ form {
 
 .py-bottom {
   margin-bottom: 6rem;
+}
+
+.py-bottom2_5 {
+  margin-bottom: 2.5rem;
 }
 
 .section-my-bottom {

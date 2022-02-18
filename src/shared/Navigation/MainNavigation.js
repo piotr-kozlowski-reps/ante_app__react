@@ -2,6 +2,9 @@ import React, { Fragment, useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { languageActions } from "../store/language-slice";
 import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+
 import {
   fadeInUp,
   fadeFromRight,
@@ -9,26 +12,28 @@ import {
   fadeOutToLeft,
 } from "../utils/animations";
 import { VALIDATOR_EMAIL, VALIDATOR_PASSWORD } from "../utils/validators";
-import { useForm } from "../hooks/form-hook";
+// import { useForm } from "../hooks/form-hook"; //TODO: form-hook
 
 import Button from "../components/Button";
 import Modal from "../components/Modal";
+import Separator from "../components/Separator";
+import FormikControl from "../../components/Admin/FormikControl";
 import Input from "../components/Input";
 
 import logoImg from "../../images/ante-logo.png";
 import { authActions } from "../store/auth-slice";
 
 ////vars before
-const initialInputs = {
-  login: {
-    value: "",
-    isValid: false,
-  },
-  password: {
-    value: "",
-    isValid: false,
-  },
-};
+// const initialInputs = { //TODO: form-hook
+//   login: {
+//     value: "",
+//     isValid: false,
+//   },
+//   password: {
+//     value: "",
+//     isValid: false,
+//   },
+// };
 
 const MainNavigation = () => {
   ////vars
@@ -41,8 +46,8 @@ const MainNavigation = () => {
   const [locationPrefix, setLocationPrefix] = useState(
     location.pathname.slice(1, 3)
   );
-  const [formState, inputHandler] = useForm(initialInputs, false);
   const [isShowLoginModal, setIsShowLoginModal] = useState(false);
+
   //refs
   let logo = useRef(null);
   let projectsLink = useRef(null);
@@ -144,7 +149,7 @@ const MainNavigation = () => {
   };
   const loginHandler = (event) => {
     event.preventDefault();
-    console.log(formState.inputs);
+    // console.log(formState.inputs); //TODO: form-hook
     dispatch(authActions.login());
     setIsShowLoginModal(false);
   };
@@ -152,6 +157,15 @@ const MainNavigation = () => {
     console.log("logout");
     dispatch(authActions.logout());
   };
+  //login modal form
+  const initialValues = {
+    login: "",
+    password: "",
+  };
+  const validationSchema = Yup.object({
+    login: Yup.string().required("Login is required."),
+    password: Yup.string().required("Login is required."), //TODO: custom validation of password
+  });
 
   //
   //jsx
@@ -159,11 +173,12 @@ const MainNavigation = () => {
     <Fragment>
       <Modal
         header="Login"
-        headerClass="modal-header-mine__show-header"
+        headerClass="modal-header-mine__show-header-login"
         footer={
           <div className="center">
             <Button onClick={hideLoginModal}>CANCEL</Button>
-            <Button onClick={loginHandler} disabled={!formState.isValid}>
+            {/* <Button onClick={loginHandler} disabled={!formState.isValid}>//TODO: form-hook */}
+            <Button onClick={loginHandler} disabled={true}>
               LOGIN
             </Button>
           </div>
@@ -171,33 +186,54 @@ const MainNavigation = () => {
         show={isShowLoginModal}
         onCancel={hideLoginModal}
       >
-        <div id="login">
-          <div className="project-details center">
-            <Input
-              id="login"
-              element="input"
-              type="email"
-              label="Login (e-mail)"
-              placeholder="your email"
-              validators={[VALIDATOR_EMAIL()]}
-              errorText="Enter a valid email, please."
-              onInput={inputHandler}
-            />
-          </div>
+        <Formik
+          initialValues={initialValues}
+          validationSchema={validationSchema}
+          onSubmit={loginHandler}
+          validateOnMount={true}
+        >
+          {(formik) => {
+            console.log(formik);
+            const { errors } = formik;
 
-          <div className="project-details center">
-            <Input
-              id="password"
-              element="input"
-              type="text"
-              label="Password"
-              placeholder="password"
-              validators={[VALIDATOR_PASSWORD(2, 2, 3, 2)]}
-              errorText="Enter a valid password (at least 2 digits, 2 capital letters, 3 small letters and 2 special characters), please ."
-              onInput={inputHandler}
-            />
-          </div>
-        </div>
+            ////jsx
+            return (
+              <Form className="form">
+                <div id="login">
+                  <Separator additionalClass="py-bottom2_5" />
+
+                  <div className="project-details center">
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      label="Login"
+                      name="login"
+                      placeholder="enter your login"
+                      additionalClass="py-bottom2_5"
+                    />
+                  </div>
+
+                  <div className="project-details center">
+                    <FormikControl
+                      control="input"
+                      type="text"
+                      label="Password"
+                      name="password"
+                      placeholder="enter your password"
+                      additionalClass="py-bottom2_5"
+                    />
+                  </div>
+                </div>
+
+                {/* <AdminFormFooter
+                  isOnlyCancel={false}
+                  isNextActive={isNextActive}
+                  isSubmitActive={!formik.isValid || formik.isSubmitting}
+                /> */}
+              </Form>
+            );
+          }}
+        </Formik>
       </Modal>
 
       <div className="row menu-top">
