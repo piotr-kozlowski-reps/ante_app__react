@@ -12,28 +12,17 @@ import {
   fadeOutToLeft,
 } from "../utils/animations";
 import { VALIDATOR_EMAIL, VALIDATOR_PASSWORD } from "../utils/validators";
-// import { useForm } from "../hooks/form-hook"; //TODO: form-hook
 
 import Button from "../components/Button";
 import Modal from "../components/Modal";
 import Separator from "../components/Separator";
 import FormikControl from "../../components/Admin/FormikControl";
-import Input from "../components/Input";
+
+import ErrorModal from "../components/ErrorModal";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 import logoImg from "../../images/ante-logo.png";
 import { authActions } from "../store/auth-slice";
-
-////vars before
-// const initialInputs = { //TODO: form-hook
-//   login: {
-//     value: "",
-//     isValid: false,
-//   },
-//   password: {
-//     value: "",
-//     isValid: false,
-//   },
-// };
 
 const MainNavigation = () => {
   ////vars
@@ -47,6 +36,10 @@ const MainNavigation = () => {
     location.pathname.slice(1, 3)
   );
   const [isShowLoginModal, setIsShowLoginModal] = useState(false);
+
+  //temporary state
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState();
 
   //refs
   let logo = useRef(null);
@@ -147,16 +140,42 @@ const MainNavigation = () => {
   const hideLoginModal = () => {
     setIsShowLoginModal(false);
   };
-  const loginHandler = (event) => {
-    event.preventDefault();
-    // console.log(formState.inputs); //TODO: form-hook
-    dispatch(authActions.login());
+  const loginHandler = async (values, onSubmitProps) => {
+    try {
+      setIsLoading(true);
+      const response = await fetch("http://localhost:5000/api/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          login: values.login,
+          password: values.password,
+        }),
+      });
+
+      const responseData = await response.json();
+
+      if (!response.ok) {
+        throw new Error(responseData.message);
+      }
+
+      setIsLoading(false);
+      dispatch(authActions.login());
+    } catch (error) {
+      setError(error.message || "Something went wrong, try again, please.");
+    }
+    setIsLoading(false);
+
     setIsShowLoginModal(false);
+    onSubmitProps.setSubmitting(false);
+    onSubmitProps.resetForm();
   };
   const logoutHandler = () => {
     console.log("logout");
     dispatch(authActions.logout());
   };
+
   //login modal form
   const initialValues = {
     login: "",
@@ -164,25 +183,83 @@ const MainNavigation = () => {
   };
   const validationSchema = Yup.object({
     login: Yup.string().required("Login is required."),
-    password: Yup.string().required("Login is required."), //TODO: custom validation of password
+    password: Yup.mixed()
+      .test({
+        name: "required",
+        message: "Password is required.",
+        test: (value) => {
+          if (!value) return false;
+          if (value.trim().length < 1) return false;
+          return true;
+        },
+      })
+      .test({
+        name: "minDIgits",
+        message: "Password must have at least 2 digits.",
+        test: (value) => {
+          if (!value) return false;
+          let numberOfOccurrence = 0;
+          [...value].forEach((letter) => {
+            if (letter.match(/\d/)) numberOfOccurrence++;
+          });
+          return numberOfOccurrence >= 2;
+        },
+      })
+      .test({
+        name: "minCapitalLetters",
+        message: "Password must have at least 2 capital letters.",
+        test: (value) => {
+          if (!value) return false;
+          let numberOfOccurrence = 0;
+          [...value].forEach((letter) => {
+            if (letter.match(/[A-Z]/)) numberOfOccurrence++;
+          });
+          return numberOfOccurrence >= 2;
+        },
+      })
+      .test({
+        name: "minSmallLetters",
+        message: "Password must have at least 2 small letters.",
+        test: (value) => {
+          if (!value) return false;
+          let numberOfOccurrence = 0;
+          [...value].forEach((letter) => {
+            if (letter.match(/[a-z]/)) numberOfOccurrence++;
+          });
+          return numberOfOccurrence >= 2;
+        },
+      })
+      .test({
+        name: "minSpecialCharacters",
+        message: "Password must have at least 2 special characters.",
+        test: (value) => {
+          if (!value) return false;
+          let numberOfOccurrence = 0;
+          [...value].forEach((letter) => {
+            if (letter.match(/[^A-Za-z 0-9]/)) numberOfOccurrence++;
+          });
+          return numberOfOccurrence >= 2;
+        },
+      }),
   });
 
-  //
-  //jsx
+  //error modal
+  const hideErrorModalHandler = () => {
+    setError(null);
+  };
+
+  ////jsx
   return (
     <Fragment>
+      <ErrorModal
+        error={error}
+        onClear={hideErrorModalHandler}
+        headerClass="modal-header-mine__show-header-login"
+      />
+      {isLoading && <LoadingSpinner asOverlay />}
       <Modal
         header="Login"
         headerClass="modal-header-mine__show-header-login"
-        footer={
-          <div className="center">
-            <Button onClick={hideLoginModal}>CANCEL</Button>
-            {/* <Button onClick={loginHandler} disabled={!formState.isValid}>//TODO: form-hook */}
-            <Button onClick={loginHandler} disabled={true}>
-              LOGIN
-            </Button>
-          </div>
-        }
         show={isShowLoginModal}
         onCancel={hideLoginModal}
       >
@@ -225,11 +302,15 @@ const MainNavigation = () => {
                   </div>
                 </div>
 
-                {/* <AdminFormFooter
-                  isOnlyCancel={false}
-                  isNextActive={isNextActive}
-                  isSubmitActive={!formik.isValid || formik.isSubmitting}
-                /> */}
+                <div className="center">
+                  <Button onClick={hideLoginModal}>CANCEL</Button>
+                  <Button
+                    type="submit"
+                    disabled={!formik.isValid || formik.isSubmitting}
+                  >
+                    LOGIN
+                  </Button>
+                </div>
               </Form>
             );
           }}

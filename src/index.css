@@ -1162,6 +1162,14 @@ input[type="radio"] {
   filter: grayscale(100%) contrast(200%);
 }
 
+.modal-content {
+  margin: 0 0 12px 0;
+  padding: 0 30px;
+  font-size: 16px;
+  font-weight: 600;
+  font-family: "Lato", Georgia, serif;
+}
+
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
     -webkit-transition: -webkit-transform 2s ease-in-out;

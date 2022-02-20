@@ -12,11 +12,22 @@ const getNestedObject = (obj, path) => {
 };
 
 const InputFormik = (props) => {
-  const { label, name, errors, placeholder, touched, ...rest } = props;
+  const {
+    label,
+    name,
+    errors,
+    placeholder,
+    touched,
+    additionalClass,
+    ...rest
+  } = props;
 
   return (
     <div className={`input-box`}>
-      <label htmlFor={name} className="details">
+      <label
+        htmlFor={name}
+        className={`details ${additionalClass ? additionalClass : ""}`}
+      >
         {label}
       </label>
       <Field id={name} name={name} {...rest}>
@@ -37,9 +48,7 @@ const InputFormik = (props) => {
               {...rest}
               onChange={(val) => onChange(val)}
               onBlur={onBlur}
-              className={`${
-                isErrorPresent && isTouched ? "input-invalid" : ""
-              } ${props.additionalClass ? props.additionalClass : ""}`}
+              className={isErrorPresent && isTouched ? "input-invalid" : ""}
             />
           );
         }}
