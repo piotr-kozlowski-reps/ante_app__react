@@ -119,12 +119,10 @@ const AdminFormFooter = (props) => {
       <div id="portfolio" className="container">
         <div className="row" id="parent">
           <div className="text-center my-top">
-            <Fragment>
-              <div className="div-center-no-py">
-                <div className="separator"></div>
-              </div>
-              <div className="text-center my-bottom">{content}</div>
-            </Fragment>
+            <div className="div-center-no-py">
+              <div className="separator"></div>
+            </div>
+            <div className="text-center my-bottom">{content}</div>
           </div>
         </div>
       </div>
