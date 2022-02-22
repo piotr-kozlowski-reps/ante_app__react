@@ -3,7 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { languageActions } from "../store/language-slice";
 import { useNavigate, Link, NavLink, useLocation } from "react-router-dom";
 import { Formik, Form } from "formik";
+import { authActions } from "../store/auth-slice";
 import * as Yup from "yup";
+import { useHttpClient } from "../hooks/http-hook";
 
 import {
   fadeInUp,
@@ -17,12 +19,10 @@ import Button from "../components/Button";
 import Modal from "../components/Modal";
 import Separator from "../components/Separator";
 import FormikControl from "../../components/Admin/FormikControl";
-
 import ErrorModal from "../components/ErrorModal";
 import LoadingSpinner from "../components/LoadingSpinner";
 
 import logoImg from "../../images/ante-logo.png";
-import { authActions } from "../store/auth-slice";
 
 const MainNavigation = () => {
   ////vars
@@ -36,10 +36,7 @@ const MainNavigation = () => {
     location.pathname.slice(1, 3)
   );
   const [isShowLoginModal, setIsShowLoginModal] = useState(false);
-
-  //temporary state
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   //refs
   let logo = useRef(null);
@@ -141,31 +138,21 @@ const MainNavigation = () => {
     setIsShowLoginModal(false);
   };
   const loginHandler = async (values, onSubmitProps) => {
+    //fetch
     try {
-      setIsLoading(true);
-      const response = await fetch("http://localhost:5000/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
+      const responseData = await sendRequest(
+        "http://localhost:5000/api/login",
+        "POST",
+        JSON.stringify({
           login: values.login,
           password: values.password,
         }),
-      });
-
-      const responseData = await response.json();
-
-      if (!response.ok) {
-        throw new Error(responseData.message);
-      }
-
-      setIsLoading(false);
+        {
+          "Content-Type": "application/json",
+        }
+      );
       dispatch(authActions.login());
-    } catch (error) {
-      setError(error.message || "Something went wrong, try again, please.");
-    }
-    setIsLoading(false);
+    } catch (error) {}
 
     setIsShowLoginModal(false);
     onSubmitProps.setSubmitting(false);
@@ -243,17 +230,14 @@ const MainNavigation = () => {
       }),
   });
 
-  //error modal
-  const hideErrorModalHandler = () => {
-    setError(null);
-  };
+  console.log(error);
 
   ////jsx
   return (
     <Fragment>
       <ErrorModal
         error={error}
-        onClear={hideErrorModalHandler}
+        onClear={clearError}
         headerClass="modal-header-mine__show-header-login"
       />
       {isLoading && <LoadingSpinner asOverlay />}

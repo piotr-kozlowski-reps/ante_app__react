@@ -2,7 +2,10 @@ import { useEffect, useState } from "react";
 import type from "../utils/type";
 
 ////main-hook
-export const useTypeFiltering = (typeGotFromQuery, currentProjectsArray) => {
+export const useTypeFiltering = (
+  typeGotFromQuery,
+  currentProjectsArray = []
+) => {
   ////vars
   const [currentType, setCurrentType] = useState(type.ALL);
 

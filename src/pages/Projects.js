@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import type from "../shared/utils/type";
 import { useSelector } from "react-redux";
 import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
+import { useHttpClient } from "../shared/hooks/http-hook";
 
 import ProjectsList from "../components/Projects/ProjectsList";
 import Carousel from "../components/Projects/Carousel";
@@ -12,14 +13,15 @@ import ErrorModal from "../shared/components/ErrorModal";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
 
 //tymczas
-import { DUMMY_PROJECTS } from "../shared/utils/data-models";
+// import { DUMMY_PROJECTS } from "../shared/utils/data-models";
 
 const Projects = () => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
-  const [currentProjectsArray, setCurrentProjectsArray] = useState([
-    ...DUMMY_PROJECTS,
-  ]);
+  // const [currentProjectsArray, setCurrentProjectsArray] = useState([
+  //   ...DUMMY_PROJECTS,
+  // ]);
+  const [currentProjectsArray, setCurrentProjectsArray] = useState([]);
   const [paginationNumber, setPaginationNumber] = useState(8);
   const [isShowMoreButtonShown, setIsShowMoreButtonShown] = useState(true);
 
@@ -33,49 +35,76 @@ const Projects = () => {
     typeGotFromQuery,
     currentProjectsArray
   );
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  //temporary state
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState();
-  const [projectsFiltered, setProjectsFiltered] = useState();
+  ////func
+  //fetching projects
+  useEffect(() => {
+    try {
+      const responseData = sendRequest(
+        "http://localhost:5000/api/projects",
+        "GET",
+        null,
+        {
+          "Content-Type": "application/json",
+        }
+      );
+
+      console.log(responseData);
+      setCurrentProjectsArray(responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  }, [sendRequest]);
+
+  //setting array of projects with desired language and projection
+  const projectsFiltered = projectsFilteredFromHook.map((project) => {
+    return {
+      id: project.id,
+      projName: lang === "pl" ? project.projNamePl : project.projNameEn,
+      completionDate: project.completionDate,
+      city: lang === "pl" ? project.cityPl : project.cityEn,
+      country: lang === "pl" ? project.countryPl : project.countryEn,
+      icoImg: project.icoImgFull,
+    };
+  });
 
   //func
   //setting array of projects with desired language and projection
-  useEffect(() => {
-    const sendRequest = async () => {
-      setIsLoading(true);
 
-      try {
-        const response = await fetch("http://localhost:5000/api/projects");
+  //--------------------
+  // useEffect(() => {
+  //   const sendRequest = async () => {
+  //     setIsLoading(true);
 
-        if (!response.ok) {
-          throw new Error(response.message);
-        }
+  //     try {
+  //       const response = await fetch("http://localhost:5000/api/projects");
 
-        const responseData = await response.json();
-        setProjectsFiltered(
-          responseData.projects.map((project) => {
-            return {
-              id: project.id,
-              projName: lang === "pl" ? project.projNamePl : project.projNameEn,
-              completionDate: project.completionDate,
-              city: lang === "pl" ? project.cityPl : project.cityEn,
-              country: lang === "pl" ? project.countryPl : project.countryEn,
-              icoImg: project.icoImgFull,
-            };
-          })
-        );
-      } catch (error) {
-        setError(error.message);
-      }
-      setIsLoading(false);
-    };
-    sendRequest();
-  }, [lang]);
+  //       if (!response.ok) {
+  //         throw new Error(response.message);
+  //       }
 
-  const errorHandler = () => {
-    setError(null);
-  };
+  //       const responseData = await response.json();
+  //       setProjectsFiltered(
+  //         responseData.projects.map((project) => {
+  //           return {
+  //             id: project.id,
+  //             projName: lang === "pl" ? project.projNamePl : project.projNameEn,
+  //             completionDate: project.completionDate,
+  //             city: lang === "pl" ? project.cityPl : project.cityEn,
+  //             country: lang === "pl" ? project.countryPl : project.countryEn,
+  //             icoImg: project.icoImgFull,
+  //           };
+  //         })
+  //       );
+  //     } catch (error) {
+  //       setError(error.message);
+  //     }
+  //     setIsLoading(false);
+  //   };
+  //   sendRequest();
+  // }, [lang]);
+  //--------------------
 
   // triggering pagination of projects automaticaly when div#pagination-trigger on screen
   let refDivTriggeringPagination = useRef();
@@ -113,11 +142,11 @@ const Projects = () => {
   return (
     <Fragment>
       <div data-testid="projects-page"></div>
-      <ErrorModal error={error} onClear={errorHandler} />
+      <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner />}
       <Carousel />
       <ProjectsTypeNavigation title="Portfolio" />
-      {!isLoading && projectsFiltered && (
+      {!isLoading && (
         <ProjectsList
           projectsList={projectsPaginated}
           lang={lang}
