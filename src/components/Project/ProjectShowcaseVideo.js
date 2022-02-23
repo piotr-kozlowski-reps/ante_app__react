@@ -5,11 +5,12 @@ const ProjectShowcaseVideo = ({ videoSource }) => {
   ////jsx
   return (
     <iframe
+      title={videoSource}
       width="853"
       height="480"
       src={videoSource}
       frameborder="0"
-      allowfullscreen=""
+      allowfullscreen
     ></iframe>
   );
 };

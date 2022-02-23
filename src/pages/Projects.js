@@ -99,8 +99,12 @@ const Projects = () => {
   return (
     <Fragment>
       <div data-testid="projects-page"></div>
-      <ErrorModal error={error} onClear={clearError} />
-      {isLoading && <LoadingSpinner />}
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+        headerClass="modal-header-mine__show-header-login"
+      />
+      {isLoading && <LoadingSpinner asOverlay />}
       <Carousel />
       <ProjectsTypeNavigation title="Portfolio" />
       {!isLoading && (

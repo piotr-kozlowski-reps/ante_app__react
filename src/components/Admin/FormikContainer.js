@@ -6,6 +6,7 @@ import {
   generateInitialValues,
   generateValidation,
 } from "../../shared/utils/generateFormDataFactory";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import FormikControl from "./FormikControl";
 import AdminFormStage from "./AdminFormStage";
@@ -18,6 +19,8 @@ import FormikAnimationAttachments from "./FormikAnimationAttachments";
 import FormikAppAttachments from "./FormikAppAttachments";
 import FormikGraphicAttachments from "./FormikGraphicAttachments";
 import FormikPanoramaAttachments from "./FormikPanoramaAttachments";
+import ErrorModal from "../../shared/components/ErrorModal";
+import LoadingSpinner from "../../shared/components/LoadingSpinner";
 
 function FormikContainer() {
   ////vars
@@ -26,10 +29,22 @@ function FormikContainer() {
   const initialValues = generateInitialValues(genreOfProject);
   const validationSchema = generateValidation(genreOfProject);
 
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   ////func
-  const onSubmit = (values, onSubmitProps) => {
+  const onSubmit = async (values, onSubmitProps) => {
     console.log("Form data: ", values);
-    console.log("submit props: ", onSubmitProps);
+
+    try {
+      await sendRequest(
+        "http://localhost:5000/api/projects",
+        "POST",
+        JSON.stringify(values),
+        { "Content-Type": "application/json" }
+      );
+      //TODO: redirect to admin/projects
+    } catch (error) {}
+
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
   };
@@ -37,6 +52,12 @@ function FormikContainer() {
   ////jsx
   return (
     <Fragment>
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+        headerClass="modal-header-mine__show-header-login"
+      />
+      {isLoading && <LoadingSpinner asOverlay />}
       <AdminFormStage />
       {/* stage0 */}
       {formStageCounter === 0 && <AdminGenreChooser />}

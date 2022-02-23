@@ -3,8 +3,6 @@ import gsap from "gsap";
 import PropTypes from "prop-types";
 
 import ProjectItem from "./ProjectItem";
-import Separator from "../../shared/components/Separator";
-import Button from "../../shared/components/Button";
 
 const ProjectsList = ({ projectsList, lang, onClick }) => {
   const el = useRef();
@@ -34,7 +32,7 @@ const ProjectsList = ({ projectsList, lang, onClick }) => {
       <Fragment>
         <div id="login" style={{ margin: "4.5rem 0 20rem 0" }}>
           <div className="project-details center">
-            <h2>No projects found</h2>
+            <h2 style={{ fontSize: "18px" }}>No projects found</h2>
           </div>
         </div>
       </Fragment>

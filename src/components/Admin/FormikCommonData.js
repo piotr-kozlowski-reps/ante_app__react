@@ -80,7 +80,7 @@ const FormikCommonData = (props) => {
                 control="input"
                 type="text"
                 label="Kraj (po polsku)"
-                name="countryPL"
+                name="countryPl"
                 placeholder="wpisz kraj, w którym wykonano projekt"
               />
             </div>
@@ -155,7 +155,7 @@ const FormikCommonData = (props) => {
               control="checkboxGroup"
               type="checkbox"
               label=""
-              name="type"
+              name="projectType"
               options={typeCheckboxOptions}
             />
           </div>

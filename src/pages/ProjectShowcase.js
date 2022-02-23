@@ -34,7 +34,6 @@ const ProjectShowcase = () => {
         const responseData = await sendRequest(
           `http://localhost:5000/api/projects/${projectId}`
         );
-        console.log(responseData.project);
         setProject(responseData.project);
       } catch (error) {}
     };
@@ -104,7 +103,7 @@ const ProjectShowcase = () => {
                       ? project.appInfo.appNamePl
                       : project.appInfo.appNameEn
                   }
-                  appImage={project.appInfo.appImage}
+                  appImage={project.appInfo.appImageFull}
                   appDescription={
                     lang === "pl"
                       ? project.appInfo.appDescriptionPl

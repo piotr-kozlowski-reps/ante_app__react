@@ -37,8 +37,13 @@ ProjectShowcasePanorama.propTypes = {
   panoramas: PropTypes.arrayOf(
     PropTypes.exact({
       panoramaTitlePl: PropTypes.string,
-      panoramaIco: PropTypes.string,
-      panoramaImageSource: PropTypes.string,
+      panoramaTitleEn: PropTypes.string,
+      panoramaIcoFull: PropTypes.string,
+      panoramaIcoThumb: PropTypes.string,
+      panoramaImageSourceFull: PropTypes.string,
+      panoramaImageSourceFullThumb: PropTypes.string,
+      id: PropTypes.string,
+      _id: PropTypes.string,
     })
   ),
 };
