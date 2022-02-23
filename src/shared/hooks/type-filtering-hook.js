@@ -43,7 +43,7 @@ export const useTypeFiltering = (
   const projectsFiltered = currentProjectsArray
     .filter((project) => {
       if (currentType === type.ALL) return true;
-      if (project.type.some((type) => type === currentType)) return true;
+      if (project.projectType.some((type) => type === currentType)) return true;
     })
     .sort((a, b) => b.completionDate - a.completionDate);
 

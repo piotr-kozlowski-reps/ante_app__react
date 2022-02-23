@@ -1,16 +1,12 @@
-import React, { useRef, useLayoutEffect, useEffect } from "react";
+import React, { useRef, useLayoutEffect, useEffect, Fragment } from "react";
 import gsap from "gsap";
 import PropTypes from "prop-types";
 
 import ProjectItem from "./ProjectItem";
+import Separator from "../../shared/components/Separator";
 import Button from "../../shared/components/Button";
 
-const ProjectsList = ({
-  projectsList,
-  lang,
-  onClick,
-  isShowMoreButtonShown,
-}) => {
+const ProjectsList = ({ projectsList, lang, onClick }) => {
   const el = useRef();
   // const query = gsap.utils.selector(el);
 
@@ -34,7 +30,15 @@ const ProjectsList = ({
 
   if (projectsList.length === 0) {
     //TODO: no projects found to look nicely
-    return <p>No projects found</p>;
+    return (
+      <Fragment>
+        <div id="login" style={{ margin: "4.5rem 0 20rem 0" }}>
+          <div className="project-details center">
+            <h2>No projects found</h2>
+          </div>
+        </div>
+      </Fragment>
+    );
   }
 
   ////jsx
@@ -45,14 +49,6 @@ const ProjectsList = ({
           <ProjectItem key={project.id} project={project} lang={lang} />
         ))}
       </div>
-
-      {/* <div className="text-center">
-        {isShowMoreButtonShown && (
-          <Button onClick={onClick} additionalClass="see-more-button">
-            {lang === "pl" ? "ZOBACZ WIĘCEJ" : "SEE MORE"}
-          </Button>
-        )}
-      </div> */}
     </div>
   );
 };

@@ -230,8 +230,6 @@ const MainNavigation = () => {
       }),
   });
 
-  console.log(error);
-
   ////jsx
   return (
     <Fragment>
