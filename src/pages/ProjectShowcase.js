@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect } from "react";
 import genre from "../shared/utils/genre";
-import type from "../shared/utils/type";
 import { useSelector } from "react-redux";
 import { format } from "date-fns";
 import { useHttpClient } from "../shared/hooks/http-hook";
@@ -15,9 +14,6 @@ import ProjectShowcasePanorama from "../components/Project/ProjectShowcasePanora
 import ProjectShowcaseFooter from "../components/Project/ProjectShowcaseFooter";
 import ErrorModal from "../shared/components/ErrorModal";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
-
-////temporary
-import { DUMMY_PROJECT_PANORAMA } from "../shared/utils/data-models";
 
 const ProjectShowcase = () => {
   ////vars

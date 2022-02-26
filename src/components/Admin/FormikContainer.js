@@ -7,8 +7,8 @@ import {
   generateValidation,
 } from "../../shared/utils/generateFormDataFactory";
 import { useHttpClient } from "../../shared/hooks/http-hook";
+import { useNavigate } from "react-router-dom";
 
-import FormikControl from "./FormikControl";
 import AdminFormStage from "./AdminFormStage";
 import AdminGenreChooser from "./AdminGenreChooser";
 import AdminFormFooter from "./AdminFormFooter";
@@ -21,6 +21,8 @@ import FormikGraphicAttachments from "./FormikGraphicAttachments";
 import FormikPanoramaAttachments from "./FormikPanoramaAttachments";
 import ErrorModal from "../../shared/components/ErrorModal";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
+import Button from "../../shared/components/Button";
+import Modal from "../../shared/components/Modal";
 
 function FormikContainer() {
   ////vars
@@ -28,6 +30,8 @@ function FormikContainer() {
   const genreOfProject = useSelector((state) => state.form.genreOfProject);
   const initialValues = generateInitialValues(genreOfProject);
   const validationSchema = generateValidation(genreOfProject);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const navigate = useNavigate();
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
@@ -42,16 +46,46 @@ function FormikContainer() {
         JSON.stringify(values),
         { "Content-Type": "application/json" }
       );
-      //TODO: redirect to admin/projects
+
+      setShowConfirmModal(true);
+
+      const timer = () => {
+        setTimeout(() => {
+          setShowConfirmModal(false);
+        }, 1600);
+      };
+      timer();
+
+      clearTimeout(timer);
+
+      console.log("wysłane");
     } catch (error) {}
 
-    onSubmitProps.setSubmitting(false);
-    onSubmitProps.resetForm();
+    const timer = () => {
+      setTimeout(() => {
+        onSubmitProps.setSubmitting(false);
+        onSubmitProps.resetForm();
+        navigate("../../api/projects");
+      }, 1700);
+    };
+    timer();
+    clearTimeout(timer);
   };
 
   ////jsx
   return (
     <Fragment>
+      <Modal
+        header="Information"
+        headerClass="modal-header-mine__show-header-login"
+        show={showConfirmModal}
+        // onCancel={hideLoginModal}
+      >
+        <Separator additionalClass="py-bottom2_5" />
+        <div className="center">
+          <p>Project sent and created.</p>
+        </div>
+      </Modal>
       <ErrorModal
         error={error}
         onClear={clearError}
@@ -69,7 +103,6 @@ function FormikContainer() {
           validateOnMount={true}
         >
           {(formik) => {
-            console.log(formik);
             const { errors } = formik;
 
             //
@@ -131,6 +164,7 @@ function FormikContainer() {
       {formStageCounter === 0 && !genreOfProject && (
         <AdminFormFooter isOnlyCancel={true} />
       )}
+      {/* <Button onClick={showModal}>test</Button> */}
     </Fragment>
   );
 }
