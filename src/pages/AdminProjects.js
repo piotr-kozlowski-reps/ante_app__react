@@ -1,34 +1,51 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment, useState, useEffect } from "react";
 import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
+import { useLocation } from "react-router-dom";
+import { useHttpClient } from "../shared/hooks/http-hook";
 
 import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
 import AdminProjectsList from "../components/Admin/AdminProjectsList";
 import Footer from "../shared/components/Footer";
-
-////temporary
-import { DUMMY_PROJECTS } from "../shared/utils/data-models";
-import { useLocation } from "react-router-dom";
+import LoadingSpinner from "../shared/components/LoadingSpinner";
+import ErrorModal from "../shared/components/ErrorModal";
+import Modal from "../shared/components/Modal";
+import Separator from "../shared/components/Separator";
 
 const AdminProjects = () => {
   ////vars
-  const [currentProjectsArray, setCurrentProjectsArray] = useState([
-    ...DUMMY_PROJECTS,
-  ]);
+  const [currentProjectsArray, setCurrentProjectsArray] = useState([]);
   const location = useLocation();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
   const typeGotFromQuery =
     new URLSearchParams(location.search).get("type") || "all";
+
+  useEffect(() => {
+    const fetchProjects = async () => {
+      try {
+        const responseData = await sendRequest(
+          "http://localhost:5000/api/projects"
+        );
+        setCurrentProjectsArray(responseData.projects);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProjects();
+  }, [sendRequest]);
+
   const filteredProjects = useTypeFiltering(
     typeGotFromQuery,
     currentProjectsArray
   );
 
   //desired projection
-  const projectsProjected = filteredProjects.map((project) => {
+  let projectsProjected = filteredProjects.map((project) => {
     return {
       id: project.id,
       projNamePl: project.projNamePl,
       projNameEn: project.projNameEn,
-      completionDate: project.completionDate,
+      completionDate: new Date(project.completionDate),
       cityPL: project.cityPL,
       cityEn: project.cityEn,
       countryPL: project.countryPL,
@@ -37,14 +54,31 @@ const AdminProjects = () => {
     };
   });
 
+  const deleteProjectHandler = (id) => {
+    setCurrentProjectsArray(
+      projectsProjected.filter((project) => project.id !== id)
+    );
+  };
+
   ////jsx
   return (
     <Fragment>
+      {isLoading && <LoadingSpinner asOverlay />}
+
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+        headerClass="modal-header-mine__show-header-login"
+      />
       <ProjectsTypeNavigation
         title="PROJECTS LIST"
         additionalTitleClass="py-admin"
       />
-      <AdminProjectsList projectsList={projectsProjected} />
+      <AdminProjectsList
+        projectsList={projectsProjected}
+        projectType={typeGotFromQuery}
+        onDelete={deleteProjectHandler}
+      />
       <Footer />
     </Fragment>
   );

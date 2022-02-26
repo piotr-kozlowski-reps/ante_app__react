@@ -894,6 +894,15 @@ form {
   align-items: center;
 }
 
+.list-name {
+  margin-left: 36px;
+  padding-left: 12px;
+  border-left: var(--links-not-active) solid 2px;
+  font-size: 15px;
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
 .footer-bottom {
   /* position: sticky; */
   /* position: absolute; */

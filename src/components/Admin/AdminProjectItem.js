@@ -2,9 +2,13 @@ import React, { Fragment, useState } from "react";
 import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
+import { useHttpClient } from "../../shared/hooks/http-hook";
 
 import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
+import LoadingSpinner from "../../shared/components/LoadingSpinner";
+import ErrorModal from "../../shared/components/ErrorModal";
+import Separator from "../../shared/components/Separator";
 
 const AdminProjectItem = (props) => {
   ////vars
@@ -18,9 +22,12 @@ const AdminProjectItem = (props) => {
     countryPL,
     countryEn,
     icoImgThumb,
+    onDelete,
   } = props;
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showInformationModal, setShowInformationModal] = useState(false);
   const navigate = useNavigate();
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   ////func
   const showDeleteWarningHandler = () => {
@@ -29,9 +36,31 @@ const AdminProjectItem = (props) => {
   const cancelDeleteWarningHandler = () => {
     setShowConfirmModal(false);
   };
-  const confirmProjectDelete = () => {
+  const confirmProjectDelete = async () => {
     setShowConfirmModal(false);
-    console.log(`project deleted! Id: ${id}`);
+
+    try {
+      await sendRequest(`http://localhost:5000/api/projects/${id}`, "DELETE");
+
+      const timer = () => {
+        setTimeout(() => {
+          setShowInformationModal(false);
+        }, 1600);
+      };
+      timer();
+      clearTimeout(timer);
+
+      const timer2 = () => {
+        setTimeout(() => {
+          onDelete(id);
+        }, 1700);
+      };
+      timer2();
+      clearTimeout(timer2);
+      //TODO: coś tu nie działa z tym pokazywaniem okna potwiedzającego i tymi timerami - ogarnąć i poprawić
+    } catch (error) {
+      console.log(error);
+    }
   };
   const navigateToEditProject = () => {
     navigate(`/api/projects/${id}`);
@@ -40,6 +69,23 @@ const AdminProjectItem = (props) => {
   ////jsx
   return (
     <Fragment>
+      <Modal
+        header="Information"
+        headerClass="modal-header-mine__show-header-login"
+        show={showInformationModal}
+      >
+        <Separator additionalClass="py-bottom2_5" />
+        <div className="center">
+          <p>Project deleted.</p>
+        </div>
+      </Modal>
+
+      <ErrorModal
+        error={error}
+        onClear={clearError}
+        headerClass="modal-header-mine__show-header-login"
+      />
+      {isLoading && <LoadingSpinner asOverlay />}
       {/* modal delete - start */}
       <Modal
         header="Are you sure?"
@@ -123,6 +169,7 @@ AdminProjectItem.propsTypes = {
   countryEn: PropTypes.string.isRequired,
   icoImgThumb: PropTypes.string.isRequired,
   onClick: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default AdminProjectItem;
