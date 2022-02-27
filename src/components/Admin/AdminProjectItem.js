@@ -41,22 +41,24 @@ const AdminProjectItem = (props) => {
 
     try {
       await sendRequest(`http://localhost:5000/api/projects/${id}`, "DELETE");
+      setShowInformationModal(true);
 
       const timer = () => {
         setTimeout(() => {
           setShowInformationModal(false);
+          onDelete(id);
         }, 1600);
       };
       timer();
       clearTimeout(timer);
 
-      const timer2 = () => {
-        setTimeout(() => {
-          onDelete(id);
-        }, 1700);
-      };
-      timer2();
-      clearTimeout(timer2);
+      // const timer2 = () => {
+      //   setTimeout(() => {
+      //     onDelete(id);
+      //   }, 1700);
+      // };
+      // timer2();
+      // clearTimeout(timer2);
       //TODO: coś tu nie działa z tym pokazywaniem okna potwiedzającego i tymi timerami - ogarnąć i poprawić
     } catch (error) {
       console.log(error);

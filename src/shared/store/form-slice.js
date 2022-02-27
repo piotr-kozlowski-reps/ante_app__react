@@ -15,6 +15,10 @@ export const formSlice = createSlice({
     setPreviousStage(state) {
       state.formStageCounter--;
     },
+    setDesiredStage(state, action) {
+      if (action.payload > 2 || action.payload < 0) return;
+      state.formStageCounter = action.payload;
+    },
     resetToInitialStage(state) {
       state.formStageCounter = initialState.formStageCounter;
     },

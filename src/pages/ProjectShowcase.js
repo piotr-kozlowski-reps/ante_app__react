@@ -44,7 +44,7 @@ const ProjectShowcase = () => {
   return (
     <Fragment>
       <ErrorModal error={error} onClear={clearError} />
-      {isLoading && <LoadingSpinner />}
+      {isLoading && <LoadingSpinner asOverlay />}
       {isProjectFetched && (
         <div id="project-site" className="container">
           <div className="row">

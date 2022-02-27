@@ -37,8 +37,6 @@ function FormikContainer() {
 
   ////func
   const onSubmit = async (values, onSubmitProps) => {
-    console.log("Form data: ", values);
-
     try {
       await sendRequest(
         "http://localhost:5000/api/projects",
@@ -57,8 +55,6 @@ function FormikContainer() {
       timer();
 
       clearTimeout(timer);
-
-      console.log("wysłane");
     } catch (error) {}
 
     const timer = () => {
@@ -66,7 +62,7 @@ function FormikContainer() {
         onSubmitProps.setSubmitting(false);
         onSubmitProps.resetForm();
         navigate("../../api/projects");
-      }, 1700);
+      }, 1750);
     };
     timer();
     clearTimeout(timer);
@@ -117,7 +113,7 @@ function FormikContainer() {
               errors.clientPl ||
               errors.clientEn ||
               errors.completionDate ||
-              errors.type
+              errors.projectType
             )
               isNextActive = false;
 
@@ -164,7 +160,6 @@ function FormikContainer() {
       {formStageCounter === 0 && !genreOfProject && (
         <AdminFormFooter isOnlyCancel={true} />
       )}
-      {/* <Button onClick={showModal}>test</Button> */}
     </Fragment>
   );
 }

@@ -1,106 +1,186 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import { VALIDATOR_REQUIRE } from "../shared/utils/validators";
-// import { useForm } from "../shared/hooks/form-hook";
+import React, { Fragment, useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useHttpClient } from "../shared/hooks/http-hook";
+import { useSelector, useDispatch } from "react-redux";
+import { formActions } from "../shared/store/form-slice";
+import { Formik, Form } from "formik";
+import genre from "../shared/utils/genre";
+import { generateValidation } from "../shared/utils/generateFormDataFactory";
 
-import Input from "../shared/components/Input";
-import Button from "../shared/components/Button";
+import ErrorModal from "../shared/components/ErrorModal";
+import LoadingSpinner from "../shared/components/LoadingSpinner";
+import AdminFormStage from "../components/Admin/AdminFormStage";
+import AdminTitle from "../components/Admin/AdminTitle";
+import AdminFormFooter from "../components/Admin/AdminFormFooter";
+import FormikCommonData from "../components/Admin/FormikCommonData";
+import FormikProjectAttachmentsMainIcon from "../components/Admin/FormikProjectAttachmentsMainIcon";
+import FormikAnimationAttachments from "../components/Admin/FormikAnimationAttachments";
+import FormikAppAttachments from "../components/Admin/FormikAppAttachments";
+import FormikGraphicAttachments from "../components/Admin/FormikGraphicAttachments";
+import FormikPanoramaAttachments from "../components/Admin/FormikPanoramaAttachments";
+import Separator from "../shared/components/Separator";
 
 //temporary
-import { DUMMY_PROJECT_GRAPHIC } from "../shared/utils/data-models";
-const DUMMY_ARRAY = [DUMMY_PROJECT_GRAPHIC];
+// import { DUMMY_PROJECT_GRAPHIC } from "../shared/utils/data-models";
+// const DUMMY_ARRAY = [DUMMY_PROJECT_GRAPHIC];
 
 const UpdateProject = () => {
-  //
-  //vars
-  const [isLoading, setIsLoading] = useState(true);
+  ////vars
   const projectId = useParams().projectId;
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const [fetchingEnded, setFetchingEnded] = useState(false);
+  const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const formStageCounter = useSelector((state) => state.form.formStageCounter);
 
-  // const [formState, inputHandler, setFormData] = useForm(
-  //   {
-  //     projNamePl: {
-  //       value: "",
-  //       isValid: false,
-  //     },
-  //     projNameEn: {
-  //       value: "",
-  //       isValid: false,
-  //     },
-  //   },
-  //   false
-  // );
+  const [project, setProject] = useState({});
+  const [genreOfProject, setGenreOfProject] = useState(null);
+  const [validationSchema, setValidationSchema] = useState(null);
+  const [showConfirmModal, setShowConfirmModal] = useState(false);
 
-  const foundProject = DUMMY_ARRAY.find((project) => project.id === projectId);
+  useEffect(() => {
+    const fetchProject = async () => {
+      try {
+        const projectFetched = await sendRequest(
+          `http://localhost:5000/api/projects/${projectId}`
+        );
 
-  //filling form with fetched data
-  // useEffect(() => {
-  //   if (foundProject) {
-  //     const fetchedFormDataInputs = {
-  //       projNamePl: {
-  //         value: foundProject.projNamePl,
-  //         isValid: true,
-  //       },
-  //       projNameEn: {
-  //         value: foundProject.projNameEn,
-  //         isValid: true,
-  //       },
-  //     };
-  //     setFormData(fetchedFormDataInputs, true);
-  //   }
+        const initialProject = { ...projectFetched.project };
+        initialProject.completionDate = new Date(
+          projectFetched.project.completionDate
+        );
 
-  //   setIsLoading(false);
-  // }, [setFormData, foundProject]);
+        setProject(initialProject);
+        setFetchingEnded(true);
+        dispatch(formActions.setDesiredStage(1));
+        setValidationSchema(generateValidation(project.genre));
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    fetchProject();
+  }, [sendRequest, projectId, dispatch, project.genre]);
 
-  //
-  //func
-  const submitUpdatedProjectHandler = (event) => {
-    event.preventDefault();
-    // console.log(formState);
+  useEffect(() => {
+    if (Object.keys(project).length > 0) setGenreOfProject(project.genre);
+  }, [project]);
+
+  // const isProjectFound =
+  //   !isLoading && fetchingEnded && project && Object.keys(project).length > 0;
+
+  ////func
+  const clearAndRedirectWhenNoProjectHandler = () => {
+    clearError();
+    navigate(-1);
   };
 
-  if (!foundProject)
-    return (
-      <h2>{`Could not find project with that id. (id provided ${projectId})`}</h2>
-    );
-  //TODO: make that info nice looking
+  const onSubmit = async (values, onSubmitProps) => {
+    try {
+      await sendRequest(
+        `http://localhost:5000/api/projects/${projectId}`,
+        "PATCH",
+        JSON.stringify(values),
+        { "Content-Type": "application/json" }
+      );
+      setShowConfirmModal(true);
+      const timer = () => {
+        setTimeout(() => {
+          setShowConfirmModal(false);
+        }, 1600);
+      };
+      timer();
+      clearTimeout(timer);
+    } catch (error) {}
+    const timer = () => {
+      setTimeout(() => {
+        onSubmitProps.setSubmitting(false);
+        onSubmitProps.resetForm();
+        navigate("../../api/projects");
+      }, 1750);
+    };
+    timer();
+    clearTimeout(timer);
+    console.log("submit");
+  };
 
-  //TODO: later change the logic of showing form
-  if (isLoading) {
-    return <h2>Loading...</h2>;
-  }
   return (
-    <div>update</div>
+    <Fragment>
+      <ErrorModal
+        error={error}
+        onClear={clearAndRedirectWhenNoProjectHandler}
+        headerClass="modal-header-mine__show-header-login"
+      />
+      {isLoading && <LoadingSpinner asOverlay />}
+      <AdminTitle title="Update project" />
+      <AdminFormStage />
+      {genreOfProject && (
+        <Formik
+          initialValues={project}
+          validationSchema={validationSchema}
+          onSubmit={onSubmit}
+          validateOnMount={true}
+        >
+          {(formik) => {
+            const { errors } = formik;
 
-    // <form onSubmit={submitUpdatedProjectHandler}>
-    //   <Input
-    //     id="projNamePl"
-    //     element="input"
-    //     type="text"
-    //     label="Nazwa projektu (po polsku)."
-    //     validators={[VALIDATOR_REQUIRE()]}
-    //     errorText="Enter a valid 'Project Name' (at least 1 character), please ."
-    //     onInput={inputHandler}
-    //     initialValue={formState.inputs.projNamePl.value}
-    //     initialValid={formState.inputs.projNamePl.isValid}
-    //   />
-    //   <Input
-    //     id="projNameEn"
-    //     element="input"
-    //     type="text"
-    //     label="Project name (in English)"
-    //     validators={[VALIDATOR_REQUIRE()]}
-    //     errorText="Enter a valid 'Project Name' (at least 1 character), please ."
-    //     onInput={inputHandler}
-    //     initialValue={formState.inputs.projNameEn.value}
-    //     initialValid={formState.inputs.projNameEn.isValid}
-    //   />
-    //   <Button type="submit" disabled={!formState.isValid}>
-    //     SUBMIT
-    //   </Button>
-    // </form>
+            //
+            let isNextActive = true;
+            if (
+              errors.projNamePl ||
+              errors.projNameEn ||
+              errors.cityPl ||
+              errors.cityEn ||
+              errors.countryPL ||
+              errors.countryEn ||
+              errors.clientPl ||
+              errors.clientEn ||
+              errors.completionDate ||
+              errors.projectType
+            )
+              isNextActive = false;
+
+            ////jsx
+            return (
+              <Form className="form">
+                {/* stage1 */}
+                {formStageCounter === 1 && <FormikCommonData {...formik} />}
+
+                {/* stage2 */}
+                {formStageCounter === 2 && (
+                  <div>
+                    <div id="portfolio" className="container">
+                      <FormikProjectAttachmentsMainIcon {...formik} />
+                      <Separator />
+                      {genreOfProject === genre.ANIMATION && (
+                        <FormikAnimationAttachments {...formik} />
+                      )}
+
+                      {genreOfProject === genre.APP && (
+                        <FormikAppAttachments {...formik} />
+                      )}
+
+                      {genreOfProject === genre.GRAPHIC && (
+                        <FormikGraphicAttachments {...formik} />
+                      )}
+
+                      {genreOfProject === genre.PANORAMA && (
+                        <FormikPanoramaAttachments {...formik} />
+                      )}
+                    </div>
+                  </div>
+                )}
+                <AdminFormFooter
+                  isOnlyCancel={false}
+                  isNextActive={isNextActive}
+                  isSubmitActive={!formik.isValid || formik.isSubmitting}
+                />
+              </Form>
+            );
+          }}
+        </Formik>
+      )}
+    </Fragment>
   );
 };
 
 export default UpdateProject;
-
-//TODO: update form
