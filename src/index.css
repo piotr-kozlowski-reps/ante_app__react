@@ -690,6 +690,11 @@ form {
   display: block;
 }
 
+.input-box-image {
+  display: flex;
+  align-items: flex-start;
+}
+
 .input-box input {
   height: 45px;
   width: 100%;
@@ -883,6 +888,12 @@ form {
   height: 80px;
   border-left: #ddd solid 2px;
   padding-left: 12px;
+}
+
+.thumbnail-admin-form {
+  width: 100px;
+  height: 80px;
+  border: var(--main-gray) solid 1px;
 }
 
 #portfolio .buttons-edit-delete {
@@ -1282,6 +1293,12 @@ input[type="radio"] {
   #login .input-box input {
     width: 100%;
   }
+}
+
+.image-src {
+  font-size: 14px;
+  color: var(--links-not-active);
+  margin-left: 12px;
 }
 
 /* react-date-picker */

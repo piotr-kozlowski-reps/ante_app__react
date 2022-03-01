@@ -5,6 +5,7 @@ import TextareaFormik from "./TextareaFormik";
 import CheckboxGroupFormik from "./CheckboxGroupFormik";
 import RadioButtonsFormik from "./RadioButtonsFormik";
 import CheckboxFormik from "./CheckboxFormik";
+import ImageUploadFormik from "./ImageUploadFormik";
 
 const FormikControl = (props) => {
   ////vars
@@ -24,6 +25,8 @@ const FormikControl = (props) => {
       return <CheckboxGroupFormik {...rest} />;
     case "date":
       return <DatePickerFormik {...rest} />;
+    case "image":
+      return <ImageUploadFormik {...rest} />;
     default:
       return null;
   }
