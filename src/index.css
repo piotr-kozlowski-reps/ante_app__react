@@ -692,7 +692,7 @@ form {
 
 .input-box-image {
   display: flex;
-  align-items: flex-start;
+  align-items: flex-end;
 }
 
 .input-box input {
