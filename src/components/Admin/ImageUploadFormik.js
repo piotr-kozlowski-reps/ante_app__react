@@ -1,10 +1,18 @@
-import React, { Fragment, useRef, useState, useEffect } from "react";
+import React, {
+  Fragment,
+  useRef,
+  useState,
+  useEffect,
+  useCallback,
+} from "react";
 import { Field, ErrorMessage } from "formik";
 import TextErrorFormik from "./TextErrorFormik";
+import { useDropzone } from "react-dropzone";
 
 import Button from "../../shared/components/Button";
 
 import noImagePicked from "../../images/nima.jpg";
+import { boolean } from "yup";
 
 ////func
 const getNestedObject = (obj, path) => {
@@ -17,8 +25,9 @@ const getNestedObject = (obj, path) => {
 
 const ImageUploadFormik = (props) => {
   ////vars
-  const [icoFile, setIcoFile] = useState();
+  const [file, setFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
+
   const [isValid, setIsValid] = useState(false);
 
   const {
@@ -31,32 +40,58 @@ const ImageUploadFormik = (props) => {
     ...rest
   } = props;
 
+  //useDropZone part - start
+  const onDrop = (acceptedFile) => {
+    if (acceptedFile.length === 1) {
+      setFile(acceptedFile[0]);
+    }
+  };
+  const {
+    getRootProps,
+    getInputProps,
+    isDragActive,
+    acceptedFiles,
+    fileRejections,
+  } = useDropzone({
+    accept: "image/*",
+    maxFiles: 1,
+    onDrop,
+  });
+  //useDropZone part - end
+
+  // useEffect(() => {
+  //   console.log({ acceptedFiles });
+  // }, [acceptedFiles]);
+
+  // useEffect(() => {
+  //   console.log({ fileRejections });
+  // }, [fileRejections]);
+
   const filePickerRef = useRef();
 
   useEffect(() => {
-    if (!icoFile) return;
+    if (!file) return;
     const fileReader = new FileReader();
     fileReader.onload = () => {
       setPreviewUrl(fileReader.result);
     };
-    fileReader.readAsDataURL(icoFile);
-  }, [icoFile]);
+    fileReader.readAsDataURL(file);
+  }, [file]);
 
   ////func
   const pickImageHandler = () => {
     filePickerRef.current.click();
   };
 
-  const pickHandler = (event) => {
-    if (event.target.files && event.target.files.length === 1) {
-      const pickedFile = event.target.files[0];
-      setIcoFile(pickedFile);
-      setIsValid(true);
-      console.log(pickedFile);
-    } else {
-      setIsValid(false);
-    }
-  };
+  // const pickHandler = (event) => {
+  //   if (event.target.files && event.target.files.length === 1) {
+  //     const pickedFile = event.target.files[0];
+  //     setIcoFile(pickedFile);
+  //     setIsValid(true);
+  //   } else {
+  //     setIsValid(false);
+  //   }
+  // };
 
   ////jsx
   return (
@@ -71,15 +106,21 @@ const ImageUploadFormik = (props) => {
         <div className={`input-box-image`}>
           <div className="thumbnail-admin-form">
             <img
+              width="100"
+              height="80"
               src={previewUrl ? previewUrl : noImagePicked}
-              alt={previewUrl ? icoFile.name : "no file selected"}
-              // onClick={navigateToEditProject}
-              // style={{ cursor: "pointer" }}
+              alt={previewUrl ? file.name : "no file selected"}
             ></img>
           </div>
           <Field id={name} name={name} {...rest}>
             {(formik) => {
+              //logs
               console.log(formik);
+              console.log("errors: ");
+              console.table(formik.form.errors);
+              console.log("values: ");
+              console.table(formik.form.values);
+
               const { field, form } = formik;
               const { value, onChange, onBlur } = field;
               const { errors, touched } = form;
@@ -87,9 +128,10 @@ const ImageUploadFormik = (props) => {
               const isErrorPresent = getNestedObject(errors, name);
               const isTouched = getNestedObject(touched, name);
 
-              ////func
-              const setImageInFormik = (event) => {
-                formik.form.setFieldValue(name, event.target.files[0]);
+              //// func
+              const setImageInFormikHandler = () => {
+                console.log("setImageInFormik");
+                formik.form.setFieldValue(field);
               };
 
               return (
@@ -97,9 +139,8 @@ const ImageUploadFormik = (props) => {
                   id={name}
                   name={name}
                   type="file"
-                  // value={value}
                   {...rest}
-                  onChange={setImageInFormik}
+                  onChange={setImageInFormikHandler}
                   // onChange={pickHandler}
                   onBlur={onBlur}
                   style={{ display: "none" }}
@@ -111,11 +152,22 @@ const ImageUploadFormik = (props) => {
             }}
           </Field>
 
-          <div>
-            <Button type="button" onClick={pickImageHandler}>
-              {!previewUrl ? "CHOOSE IMAGE" : "CHOOSE ANOTHER IMAGE"}
-            </Button>
-            <p className="image-src">{previewUrl ? icoFile.name : ""}</p>
+          <div
+            className={
+              isDragActive ? "drop-zone drop-zone-active" : "drop-zone"
+            }
+            {...getRootProps()}
+          >
+            <input {...getInputProps()} />
+            <div className="drop-zone-middle-zone">
+              <p className="center drop-zone-text">
+                {isDragActive
+                  ? "DROP FILE HERE"
+                  : !previewUrl
+                  ? "DROP FILE HERE OR CLICK TO OPEN FILE BROWSER"
+                  : "DROP FILE HERE OR CLICK TO CHANGE CHOSEN FILE"}
+              </p>
+            </div>
           </div>
         </div>
         <ErrorMessage name={name} component={TextErrorFormik} />

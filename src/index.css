@@ -693,6 +693,57 @@ form {
 .input-box-image {
   display: flex;
   align-items: flex-end;
+  justify-content: space-between;
+}
+
+.drop-zone {
+  width: 100%;
+  height: 80px;
+  margin-left: 12px;
+  /* margin-right: 12px; */
+  border: 1px dotted var(--main-gray);
+  flex: 1;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    var(--main-gray) 10px,
+    var(--main-gray) 11px
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: var(--main-gray);
+}
+
+.drop-zone:hover {
+  border: 2px dotted var(--links-not-active);
+  color: var(--links-not-active);
+}
+
+.drop-zone-middle-zone {
+  color: inherit;
+}
+
+.drop-zone-text {
+  background: #fff;
+  /* color: var(--main-gray); */
+  color: inherit;
+  padding: 1.5rem 10rem 1.5rem 10rem;
+  font-size: 20px;
+  margin-top: 12px;
+}
+
+/* .drop-zone-text:hover {
+  color: var(--links-not-active);
+} */
+
+.drop-zone-active {
+  border: 2px dotted var(--links-not-active);
+}
+
+.image-button {
+  align-self: center;
 }
 
 .input-box input {
@@ -1137,6 +1188,10 @@ form {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.little-down {
+  margin-top: 8px;
 }
 
 .btn-lighter {
