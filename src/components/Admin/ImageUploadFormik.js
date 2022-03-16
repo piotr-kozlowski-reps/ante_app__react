@@ -1,10 +1,4 @@
-import React, {
-  Fragment,
-  useRef,
-  useState,
-  useEffect,
-  useCallback,
-} from "react";
+import React, { Fragment, useRef, useState, useEffect } from "react";
 import { Field, ErrorMessage } from "formik";
 import TextErrorFormik from "./TextErrorFormik";
 import { useDropzone } from "react-dropzone";
@@ -12,7 +6,6 @@ import { useDropzone } from "react-dropzone";
 import Button from "../../shared/components/Button";
 
 import noImagePicked from "../../images/nima.jpg";
-import { boolean } from "yup";
 
 ////func
 const getNestedObject = (obj, path) => {
@@ -41,9 +34,11 @@ const ImageUploadFormik = (props) => {
   } = props;
 
   //useDropZone part - start
-  const onDrop = (acceptedFile) => {
+  const onDrop = (acceptedFile, rejectedFile) => {
     if (acceptedFile.length === 1) {
       setFile(acceptedFile[0]);
+    } else {
+      console.log({ rejectedFile });
     }
   };
   const {
