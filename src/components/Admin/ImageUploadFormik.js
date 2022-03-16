@@ -48,7 +48,8 @@ const ImageUploadFormik = (props) => {
     acceptedFiles,
     fileRejections,
   } = useDropzone({
-    accept: "image/*",
+    // accept: "image/*",
+    accept: ["image/png", "image/jpg", "image/jpeg", "image/gif"],
     maxFiles: 1,
     onDrop,
   });
