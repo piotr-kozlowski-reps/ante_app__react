@@ -1,9 +1,7 @@
 import React, { Fragment, useRef, useState, useEffect } from "react";
-import { Field, ErrorMessage } from "formik";
+import { Field, ErrorMessage, useFormikContext } from "formik";
 import TextErrorFormik from "./TextErrorFormik";
 import { useDropzone } from "react-dropzone";
-
-import Button from "../../shared/components/Button";
 
 import noImagePicked from "../../images/nima.jpg";
 
@@ -19,26 +17,29 @@ const getNestedObject = (obj, path) => {
 const ImageUploadFormik = (props) => {
   ////vars
   const [file, setFile] = useState();
+  const [rejectedFile, setRejectedFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
+  const formikProps = useFormikContext();
 
-  const [isValid, setIsValid] = useState(false);
+  console.log("values: ", formikProps.values);
+  console.log("errors: ");
+  console.log(formikProps);
+  // console.log({ file });
+  // console.log({ rejectedFile });
 
-  const {
-    label,
-    name,
-    errors,
-    // placeholder,
-    touched,
-    additionalClass,
-    ...rest
-  } = props;
+  const { label, name, errors, touched, additionalClass, ...rest } = props;
 
   //useDropZone part - start
   const onDrop = (acceptedFile, rejectedFile) => {
     if (acceptedFile.length === 1) {
       setFile(acceptedFile[0]);
-    } else {
-      console.log({ rejectedFile });
+      setRejectedFile(null);
+      return;
+    }
+
+    if (rejectedFile.length === 1) {
+      setRejectedFile(rejectedFile[0]);
+      return;
     }
   };
   const {
@@ -56,14 +57,10 @@ const ImageUploadFormik = (props) => {
   //useDropZone part - end
 
   // useEffect(() => {
-  //   console.log({ acceptedFiles });
-  // }, [acceptedFiles]);
-
-  // useEffect(() => {
   //   console.log({ fileRejections });
   // }, [fileRejections]);
 
-  const filePickerRef = useRef();
+  // const filePickerRef = useRef();
 
   useEffect(() => {
     if (!file) return;
@@ -72,12 +69,36 @@ const ImageUploadFormik = (props) => {
       setPreviewUrl(fileReader.result);
     };
     fileReader.readAsDataURL(file);
-  }, [file]);
+    formikProps.setFieldValue(name, file);
+  }, [file, name, formikProps]);
+
+  useEffect(() => {
+    const isFileAlready = file && file.length === 1 ? true : false;
+    const isRejectedFile = rejectedFile;
+
+    if (!isFileAlready && isRejectedFile) {
+      console.log("zmieniam wpis do errors i touched");
+      console.log(formikProps);
+      formikProps.setFieldError(name, "dfvsdfv");
+      formikProps.setFieldTouched(true);
+    }
+
+    // if (!isFileAlready && isRejectedFile) {
+    //   console.log("rejected effect", rejectedFile.errors.code);
+    // }
+  }, [rejectedFile]);
 
   ////func
-  const pickImageHandler = () => {
-    filePickerRef.current.click();
-  };
+  // const pickImageHandler = () => {
+  //   console.log("pickImageHandler");
+  //   // filePickerRef.current.click();
+  //   filePickerRef.current.click();
+  // };
+
+  // const addFileToFormikField = () => {
+  //   console.log({ file });
+  //   console.log(props.formik);
+  // };
 
   // const pickHandler = (event) => {
   //   if (event.target.files && event.target.files.length === 1) {
@@ -111,11 +132,9 @@ const ImageUploadFormik = (props) => {
           <Field id={name} name={name} {...rest}>
             {(formik) => {
               //logs
-              console.log(formik);
-              console.log("errors: ");
-              console.table(formik.form.errors);
-              console.log("values: ");
-              console.table(formik.form.values);
+              // console.log(formik);
+              // console.table(formik.form.errors);
+              // console.table(formik.form.values);
 
               const { field, form } = formik;
               const { value, onChange, onBlur } = field;
@@ -123,12 +142,16 @@ const ImageUploadFormik = (props) => {
 
               const isErrorPresent = getNestedObject(errors, name);
               const isTouched = getNestedObject(touched, name);
+              console.log({ isErrorPresent });
+              console.log({ isTouched });
 
               //// func
-              const setImageInFormikHandler = () => {
-                console.log("setImageInFormik");
-                formik.form.setFieldValue(field);
-              };
+              // const setImageInFormikHandler = (event) => {
+              //   console.log("setImageInFormik");
+              //   console.log(event);
+              //   event.preventDefault();
+              //   formik.form.setFieldValue(name, file);
+              // };
 
               return (
                 <input
@@ -136,13 +159,13 @@ const ImageUploadFormik = (props) => {
                   name={name}
                   type="file"
                   {...rest}
-                  onChange={setImageInFormikHandler}
+                  // onChange={setImageInFormikHandler}
                   // onChange={pickHandler}
                   onBlur={onBlur}
                   style={{ display: "none" }}
                   className={isErrorPresent && isTouched ? "input-invalid" : ""}
                   accept=".jpg,.png,.jpeg,.gif"
-                  ref={filePickerRef}
+                  // ref={filePickerRef}
                 />
               );
             }}

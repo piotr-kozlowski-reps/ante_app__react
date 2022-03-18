@@ -32,10 +32,8 @@ const FormikProjectAttachmentsMainIcon = (props) => {
               <div className="project-details">
                 <FormikControl
                   control="image"
-                  // type="text"
                   label="Main project icon"
                   name="icoImgFull"
-                  placeholder="set main project icon"
                 />
               </div>
             </div>
