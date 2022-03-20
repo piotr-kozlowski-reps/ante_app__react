@@ -2,17 +2,17 @@ import genre from "./genre";
 import * as Yup from "yup";
 
 const commonData = {
-  projNamePl: "",
-  projNameEn: "",
-  cityPl: "",
-  cityEn: "",
-  countryPL: "",
-  countryEn: "",
-  clientPl: "",
-  clientEn: "",
-  completionDate: null,
-  projectType: [],
-  icoImgFull: "",
+  projNamePl: "fgb",
+  projNameEn: "dfgb",
+  cityPl: "dfgb",
+  cityEn: "dfgb",
+  countryPl: "dfgb",
+  countryEn: "dfgb",
+  clientPl: "dfgb",
+  clientEn: "dfgb",
+  completionDate: new Date("2010-10-10"),
+  projectType: ["COMPETITION"],
+  icoImgFull: undefined,
   icoImgThumb: "",
 };
 
@@ -33,8 +33,18 @@ const commonValidation = {
   projectType: Yup.array()
     .required("At least one choosen genre is required")
     .min(1, "Choose at least one project genre."),
-  icoImgFull: Yup.string().required(
-    "Entering 'Main Project Icon' is required."
+  icoImgFull: Yup.mixed().test(
+    "image type",
+    "Uploading icon image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+    (value) => {
+      if (!value) return;
+      return (
+        value.type === "image/jpeg" ||
+        value.type === "image/png" ||
+        value.type === "image/jpg" ||
+        value.type === "image/gif"
+      );
+    }
   ),
   icoImgThumb: Yup.string().required(
     "Entering 'Main Project Icon Thumbnail' is required."

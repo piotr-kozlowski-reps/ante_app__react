@@ -1,0 +1,686 @@
+{
+	"info": {
+		"_postman_id": "da2f96da-b8a4-458d-9d89-1fc19c5debb8",
+		"name": "ante_react",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "projects",
+			"item": [
+				{
+					"name": "get project by Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/projects/62114fae28597c9cc4336b6d",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"62114fae28597c9cc4336b6d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get all projects",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/projects/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.ANIMATION",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"ANIMATION\",\r\n    \"projNamePl\": \"projNamePl\",\r\n    \"projNameEn\": \"projNameEn\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"ANIMATION\", \"APP\"],\r\n    \"videoSource\": \"https://www.youtube.com/embed/ljUUT4BJ_7M\",\r\n    \"videoSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.ANIMATION verUPLOAD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "genre",
+									"value": "ANIMATION",
+									"type": "text"
+								},
+								{
+									"key": "projNamePl",
+									"value": "projNamePl",
+									"type": "text"
+								},
+								{
+									"key": "projNameEn",
+									"value": "projNameEn",
+									"type": "text"
+								},
+								{
+									"key": "completionDate",
+									"value": "2010-10-10T00:00:00.000Z",
+									"type": "text"
+								},
+								{
+									"key": "cityPl",
+									"value": "cityPL1",
+									"type": "text"
+								},
+								{
+									"key": "cityEn",
+									"value": "cityEn1",
+									"type": "text"
+								},
+								{
+									"key": "countryPl",
+									"value": "countryPL1",
+									"type": "text"
+								},
+								{
+									"key": "countryEn",
+									"value": "countryEn1",
+									"type": "text"
+								},
+								{
+									"key": "clientPl",
+									"value": "clientPl",
+									"type": "text"
+								},
+								{
+									"key": "clientEn",
+									"value": "clientEn",
+									"type": "text"
+								},
+								{
+									"key": "icoImgFull",
+									"type": "file",
+									"src": "/C:/__programowanie/apps___react/ante_app/frontend/src/images/2020_03_wnetrze_mieszkalne_dusseldorf_niemcy_ico.jpg"
+								},
+								{
+									"key": "icoImgThumb",
+									"value": "https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true",
+									"type": "text"
+								},
+								{
+									"key": "projectType[0]",
+									"value": "ANIMATION",
+									"type": "text"
+								},
+								{
+									"key": "projectType[1]",
+									"value": "APP",
+									"type": "text"
+								},
+								{
+									"key": "videoSource",
+									"value": "https://www.youtube.com/embed/ljUUT4BJ_7M",
+									"type": "text"
+								},
+								{
+									"key": "videoSourceThumb",
+									"value": "https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.APP",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"APP\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"COMPETITION\"],\r\n    \"appInfo\": {\r\n      \"appNamePl\": \"VILLA MELBECK\",\r\n      \"appNameEn\": \"VILLA MELBECK\",\r\n      \"appImageFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/phone_melbeck.png?raw=true\",\r\n      \"appImageThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/phone_melbeck__thumb.jpg?raw=true\",\r\n      \"appDescriptionPl\":\r\n        \"Aplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.\",\r\n      \"appDescriptionEn\":\r\n        \"Mobile application VILLA MELBECK is a presentation of 3d model with Augmented Reality technology. When you point your mobile phone camera at printed land development plan (available within the application in PDF format), you will see 3dimensional model of provided building.\",\r\n      \"appAndroidLink\":\r\n        \"https://play.google.com/store/apps/details?id=com.vf.dus160\",\r\n      \"appIOSLink\": \"https://itunes.apple.com/us/app/xantenerstr-12/id1456387858\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.APP - ver: UPLOAD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"APP\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"COMPETITION\"],\r\n    \"appInfo\": {\r\n      \"appNamePl\": \"VILLA MELBECK\",\r\n      \"appNameEn\": \"VILLA MELBECK\",\r\n      \"appImageFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/phone_melbeck.png?raw=true\",\r\n      \"appImageThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/phone_melbeck__thumb.jpg?raw=true\",\r\n      \"appDescriptionPl\":\r\n        \"Aplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.\",\r\n      \"appDescriptionEn\":\r\n        \"Mobile application VILLA MELBECK is a presentation of 3d model with Augmented Reality technology. When you point your mobile phone camera at printed land development plan (available within the application in PDF format), you will see 3dimensional model of provided building.\",\r\n      \"appAndroidLink\":\r\n        \"https://play.google.com/store/apps/details?id=com.vf.dus160\",\r\n      \"appIOSLink\": \"https://itunes.apple.com/us/app/xantenerstr-12/id1456387858\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.GRAPHIC",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"GRAPHIC\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"Wed Feb 16 2000 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"COMPETITION\", \"ANIMATION\"],\r\n    \"images\": [\r\n      {\r\n        \"imageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001.jpg?raw=true\",\r\n        \"imageSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001__thumb.jpg?raw=true\",\r\n        \"imageAltPl\": \"alt pl.\",\r\n        \"imageAltEn\": \"Lounge of the hotel.\",\r\n        \"isBig\": true\r\n      },\r\n      {\r\n        \"imageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002.jpg?raw=true\",\r\n        \"imageSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002__thumb.jpg?raw=true\",\r\n        \"imageAltPl\": \"Przekrój.\",\r\n        \"imageAltEn\": \"Cross-section.\",\r\n        \"isBig\": false\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.PANORAMA",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"PANORAMA\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPl\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"INTERIOR\"],\r\n    \"panoramas\": [\r\n      {\r\n        \"panoramaTitlePl\": \"PANORAMA_1\",\r\n        \"panoramaTitleEn\": \"PANORAMA_1\",\r\n        \"panoramaIcoFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01.jpg?raw=true\",\r\n        \"panoramaIcoThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb.jpg?raw=true\",\r\n        \"panoramaImageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big.jpg?raw=true\",\r\n        \"panoramaImageSourceFullThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big__thumb.jpg?raw=true\"\r\n      },\r\n      {\r\n        \"panoramaTitlePl\": \"PANORAMA_2\",\r\n        \"panoramaTitleEn\": \"PANORAMA_2\",\r\n        \"panoramaIcoFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01.jpg?raw=true\",\r\n        \"panoramaIcoThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb.jpg?raw=true\",\r\n        \"panoramaImageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big.jpg?raw=true\",\r\n        \"panoramaImageSourceFullThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big__thumb.jpg?raw=true\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "project: genre.ERROR",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"ERROR\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"data\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"icoImgFull\": \"ico1\",\r\n    \"icoImgThumb\": \"ico1Thumb\",\r\n    \"projectType\": [\"COMPETITION\"],\r\n        \"appInfo\": {\r\n      \"appNamePl\": \"VILLA MELBECK\",\r\n      \"appNameEn\": \"VILLA MELBECK\",\r\n      \"appImageFull\": \"phoneImage\",\r\n      \"appImageThumb\": \"phoneImageThumb\",\r\n      \"appDescriptionPl\":\r\n        \"Aplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.\",\r\n      \"appDescriptionEn\":\r\n        \"Mobile application VILLA MELBECK is a presentation of 3d model with Augmented Reality technology. When you point your mobile phone camera at printed land development plan (available within the application in PDF format), you will see 3dimensional model of provided building.\",\r\n      \"appAndroidLink\":\r\n        \"https://play.google.com/store/apps/details?id=com.vf.dus160\",\r\n      \"appIOSLink\": \"https://itunes.apple.com/us/app/xantenerstr-12/id1456387858\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "response to unexisting route",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"APP\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"data\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"icoImgFull\": \"ico1\",\r\n    \"icoImgThumb\": \"ico1Thumb\",\r\n    \"type\": [\"COMPETITION\"],\r\n        \"appInfo\": {\r\n      \"appNamePl\": \"VILLA MELBECK\",\r\n      \"appNameEn\": \"VILLA MELBECK\",\r\n      \"appImageFull\": \"phoneImage\",\r\n      \"appImageThumb\": \"phoneImageThumb\",\r\n      \"appDescriptionPl\":\r\n        \"Aplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.\",\r\n      \"appDescriptionEn\":\r\n        \"Mobile application VILLA MELBECK is a presentation of 3d model with Augmented Reality technology. When you point your mobile phone camera at printed land development plan (available within the application in PDF format), you will see 3dimensional model of provided building.\",\r\n      \"appAndroidLink\":\r\n        \"https://play.google.com/store/apps/details?id=com.vf.dus160\",\r\n      \"appIOSLink\": \"https://itunes.apple.com/us/app/xantenerstr-12/id1456387858\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/pdfvsdfvsdf",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"pdfvsdfvsdf"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project GRAPHIC",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"GRAPHIC\",\r\n    \"projNamePl\": \"projNamePl1upd\",\r\n    \"projNameEn\": \"projNameEn1upd\",\r\n    \"completionDate\": \"Wed Feb 16 2000 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1upd\",\r\n    \"cityEn\": \"cityEn1upd\",\r\n    \"countryPl\": \"countryPL1upd\",\r\n    \"countryEn\": \"countryEn1upd\",\r\n        \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"COMPETITION\", \"ANIMATION\", \"APP\"],\r\n    \"images\": [\r\n      {\r\n        \"imageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001.jpg?raw=true\",\r\n        \"imageSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001__thumb.jpg?raw=true\",\r\n        \"imageAltPl\": \"alt pl. upd\",\r\n        \"imageAltEn\": \"Lounge of the hotel.upd\",\r\n        \"isBig\": false\r\n      },\r\n      {\r\n        \"imageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002.jpg?raw=true\",\r\n        \"imageSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002__thumb.jpg?raw=true\",\r\n        \"imageAltPl\": \"Przekrój. upd\",\r\n        \"imageAltEn\": \"Cross-section.upd\",\r\n        \"isBig\": false\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects/6212202141d49697f97f4d0c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"6212202141d49697f97f4d0c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project PANORAMA",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"PANORAMA\",\r\n    \"projNamePl\": \"projNamePl1upd\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPlupd\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1upd\",\r\n    \"countryEn\": \"updountryEn1\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"INTERIOR\"],\r\n        \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"panoramas\": [\r\n      {\r\n        \"panoramaTitlePl\": \"updPANORAMA_1\",\r\n        \"panoramaTitleEn\": \"PANORAMA_1\",\r\n        \"panoramaIcoFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01.jpg?raw=true\",\r\n        \"panoramaIcoThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb.jpg?raw=true\",\r\n        \"panoramaImageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big.jpg?raw=true\",\r\n        \"panoramaImageSourceFullThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big__thumb.jpg?raw=true\"\r\n      },\r\n      {\r\n        \"panoramaTitlePl\": \"PANORAMA_2\",\r\n        \"panoramaTitleEn\": \"updPANORAMA_2\",\r\n        \"panoramaIcoFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01.jpg?raw=true\",\r\n        \"panoramaIcoThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb.jpg?raw=true\",\r\n        \"panoramaImageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big.jpg?raw=true\",\r\n        \"panoramaImageSourceFullThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_pano02big__thumb.jpg?raw=true\"\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects/621222161f6acda05575def5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"621222161f6acda05575def5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project APP",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"APP\",\r\n    \"projNamePl\": \"projNamePl1upd\",\r\n    \"projNameEn\": \"projNameEn2\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1upd\",\r\n    \"cityEn\": \"cityEn1upd\",\r\n    \"countryPl\": \"countryPL1upd\",\r\n    \"countryEn\": \"countryEn1upd\",\r\n        \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"COMPETITION\", \"APP\"],\r\n    \"appInfo\": {\r\n      \"appNamePl\": \"updVILLA MELBECK\",\r\n      \"appNameEn\": \"updVILLA MELBECK\",\r\n      \"appImageFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/phone_melbeck.png?raw=true\",\r\n      \"appImageThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/phone_melbeck__thumb.jpg?raw=true\",\r\n      \"appDescriptionPl\":\r\n        \"updAplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.\",\r\n      \"appDescriptionEn\":\r\n        \"updMobile application VILLA MELBECK is a presentation of 3d model with Augmented Reality technology. When you point your mobile phone camera at printed land development plan (available within the application in PDF format), you will see 3dimensional model of provided building.\",\r\n      \"appAndroidLink\":\r\n        \"https://play.google.com/store/apps/details?id=com.vf.dus160\",\r\n      \"appIOSLink\": \"https://itunes.apple.com/us/app/xantenerstr-12/id1456387858\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects/621220f941d49697f97f4d19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"621220f941d49697f97f4d19"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project ANIMATION",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"ANIMATION\",\r\n    \"projNamePl\": \"updprojNamePl\",\r\n    \"projNameEn\": \"updprojNameEn\",\r\n    \"completionDate\": \"Wed Feb 16 2022 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"updcityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"updcountryEn1\",\r\n        \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"ANIMATION\", \"APP\"],\r\n    \"videoSource\": \"https://www.youtube.com/embed/ljUUT4BJ_7M\",\r\n    \"videoSourceThumb\": \"upd: https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects/621222971f6acda05575deff",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"621222971f6acda05575deff"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update project GRAPHIC with wrong genre",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"APP\",\r\n    \"projNamePl\": \"projNamePl1upd\",\r\n    \"projNameEn\": \"projNameEn1upd\",\r\n    \"completionDate\": \"Wed Feb 16 2000 00:00:00 GMT+0100 (czas środkowoeuropejski standardowy)\",\r\n    \"cityPl\": \"cityPL1upd\",\r\n    \"cityEn\": \"cityEn1upd\",\r\n    \"countryPl\": \"countryPL1upd\",\r\n    \"countryEn\": \"countryEn1upd\",\r\n        \"clientPl\": \"clientPl\",\r\n    \"clientEn\": \"clientEn\",\r\n    \"icoImgFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico.jpg?raw=true\",\r\n    \"icoImgThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2019_07_wnetrze_mieszkalne_essen_niemcy_ico__thumb.jpg?raw=true\",\r\n    \"projectType\": [\"COMPETITION\", \"ANIMATION\", \"APP\"],\r\n    \"images\": [\r\n      {\r\n        \"imageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001.jpg?raw=true\",\r\n        \"imageSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001__thumb.jpg?raw=true\",\r\n        \"imageAltPl\": \"alt pl. upd\",\r\n        \"imageAltEn\": \"Lounge of the hotel.upd\",\r\n        \"isBig\": false\r\n      },\r\n      {\r\n        \"imageSourceFull\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002.jpg?raw=true\",\r\n        \"imageSourceThumb\": \"https://github.com/piotr-kozlowski-reps/ante_app__react/blob/master/src/images/2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_002__thumb.jpg?raw=true\",\r\n        \"imageAltPl\": \"Przekrój. upd\",\r\n        \"imageAltEn\": \"Cross-section.upd\",\r\n        \"isBig\": false\r\n      }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects/6212202141d49697f97f4d0c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"6212202141d49697f97f4d0c"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update non existing project",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"genre\": \"APP\",\r\n    \"projNamePl\": \"projNamePl1\",\r\n    \"projNameEn\": \"projNameEn1\",\r\n    \"completionDate\": \"data\",\r\n    \"cityPl\": \"cityPL1\",\r\n    \"cityEn\": \"cityEn1\",\r\n    \"countryPl\": \"countryPL1\",\r\n    \"countryEn\": \"countryEn1\",\r\n    \"icoImgFull\": \"ico1\",\r\n    \"icoImgThumb\": \"ico1Thumb\",\r\n    \"type\": [\"COMPETITION\"],\r\n        \"appInfo\": {\r\n      \"appNamePl\": \"VILLA MELBECK\",\r\n      \"appNameEn\": \"VILLA MELBECK\",\r\n      \"appImageFull\": \"phoneImage\",\r\n      \"appImageThumb\": \"phoneImageThumb\",\r\n      \"appDescriptionPl\":\r\n        \"Aplikacja mobilna VILLA MELBECK to prezentacja modelu 3d za pomocą technologii Augmented Reality. Gdy skierują Państwo kamerę swojego telefonu na wydrukowany wcześniej plan zagospodarowania terenu (zawarty w aplikacji w formie PDF'a), pojawi się na ekranie model trójwymiarowy budynku.\",\r\n      \"appDescriptionEn\":\r\n        \"Mobile application VILLA MELBECK is a presentation of 3d model with Augmented Reality technology. When you point your mobile phone camera at printed land development plan (available within the application in PDF format), you will see 3dimensional model of provided building.\",\r\n      \"appAndroidLink\":\r\n        \"https://play.google.com/store/apps/details?id=com.vf.dus160\",\r\n      \"appIOSLink\": \"https://itunes.apple.com/us/app/xantenerstr-12/id1456387858\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/projects/580",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"580"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete project",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:5000/api/projects/621225024a9241c3ac92f66c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"projects",
+								"621225024a9241c3ac92f66c"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "login",
+			"item": [
+				{
+					"name": "LOGIN bad full data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"\",\r\n    \"password\": \"\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN bad login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"dfvsdfvsdfv\",\r\n    \"password\": \"11AAaa##\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN bad password",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test\",\r\n    \"password\": \"22DDERdfvd$^%\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN good data",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"test\",\r\n    \"password\": \"11AAaa##\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:5000/api/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

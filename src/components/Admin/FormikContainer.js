@@ -38,12 +38,13 @@ function FormikContainer() {
   ////func
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      await sendRequest(
-        "http://localhost:5000/api/projects",
-        "POST",
-        JSON.stringify(values),
-        { "Content-Type": "application/json" }
-      );
+      const formData = fillFormDataObject(values);
+
+      //logs
+      console.log({ values });
+      console.log("formData: ", [...formData]);
+
+      await sendRequest("http://localhost:5000/api/projects", "POST", formData);
 
       setShowConfirmModal(true);
 
@@ -67,6 +68,56 @@ function FormikContainer() {
     timer();
     clearTimeout(timer);
   };
+
+  function fillFormDataObject(values) {
+    const formData = new FormData();
+    // for (let key in data) {
+    //   if (typeof data[key] === "object") {
+    //     for (let subKey in data[key]) {
+    //       formData.append(`${key}.${subKey}`, data[key][subKey]);
+    //     }
+    //   } else {
+    //     formData.append(key, data[key]);
+    //   }
+    // }
+    fillCommonData(formData, values);
+    fillGenreRelatedData(formData, values);
+
+    return formData;
+  }
+
+  function fillCommonData(formData, values) {
+    formData.append("cityEn", values.cityEn);
+    formData.append("cityPl", values.cityPl);
+    formData.append("clientEn", values.clientEn);
+    formData.append("clientPl", values.clientPl);
+    formData.append("completionDate", values.completionDate.toISOString());
+    formData.append("countryEn", values.countryEn);
+    formData.append("countryPl", values.countryPL);
+    formData.append("genre", values.genre);
+    formData.append("icoImgFull", values.icoImgFull);
+    formData.append("icoImgThumb", values.icoImgThumb);
+    formData.append("projNameEn", values.projNameEn);
+    formData.append("projNamePl", values.projNamePl);
+    values.projectType.forEach((value, index) =>
+      formData.append(`projectType[${index}]`, value)
+    );
+  }
+
+  function fillGenreRelatedData(formData, values) {
+    switch (values.genre) {
+      case "ANIMATION":
+        formData.append("videoSource", values.videoSource);
+        formData.append("videoSourceThumb", values.videoSourceThumb);
+        break;
+      case "APP":
+        formData.append("appInfo", values.appInfo);
+        break;
+
+      default:
+        return;
+    }
+  }
 
   ////jsx
   return (
