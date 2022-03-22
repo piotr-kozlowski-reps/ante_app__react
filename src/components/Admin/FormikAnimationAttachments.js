@@ -29,6 +29,18 @@ const FormikAnimationAttachments = (props) => {
           <div className="form-row">
             <div className="project-details">
               <FormikControl
+                control="image"
+                label="Video thumbnail"
+                name="videoSourceThumb"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="row" id="parent">
+          <div className="form-row">
+            <div className="project-details">
+              <FormikControl
                 control="input"
                 type="text"
                 label="Video thumbnail"
@@ -37,7 +49,7 @@ const FormikAnimationAttachments = (props) => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

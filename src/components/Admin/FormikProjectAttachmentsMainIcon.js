@@ -11,21 +11,6 @@ const FormikProjectAttachmentsMainIcon = (props) => {
       </div>
 
       <div className="form-row small-my">
-        {/* <div className="project-details">
-          <div className="row" id="parent">
-            <div className="form-row">
-              <div className="project-details">
-                <FormikControl
-                  control="input"
-                  type="text"
-                  label="Main project icon"
-                  name="icoImgFull"
-                  placeholder="set main project icon"
-                />
-              </div>
-            </div>
-          </div> */}
-
         <div className="project-details">
           <div className="row" id="parent">
             <div className="form-row">
@@ -34,52 +19,15 @@ const FormikProjectAttachmentsMainIcon = (props) => {
                   control="image"
                   label="Main project icon"
                   name="icoImgFull"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="row" id="parent">
-            <div className="form-row">
-              <div className="project-details">
-                <FormikControl
-                  control="input"
-                  type="text"
-                  label="Main project icon - thumbnail"
-                  name="icoImgThumb"
-                  placeholder="set main project icon thumbnail"
                 />
               </div>
             </div>
           </div>
         </div>
       </div>
+      
     </Fragment>
   );
 };
 
 export default FormikProjectAttachmentsMainIcon;
-
-{
-  /* nowe-start */
-}
-{
-  /* <div className="form-row small-my">
-        <div className="project-details">
-          <div className="row" id="parent">
-            <div className="form-row">
-              <div className="project-details">
-                <FormikControl
-                  control="image"
-                  // type="text"
-                  label="Main project icon"
-                  name="icoImgFull"
-                  placeholder="set main project icon"
-                />
-              </div>
-            </div>
-          </div> */
-}
-{
-  /* nowe-end */
-}

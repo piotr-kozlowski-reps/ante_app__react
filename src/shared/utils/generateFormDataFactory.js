@@ -13,7 +13,6 @@ const commonData = {
   completionDate: new Date("2010-10-10"),
   projectType: ["COMPETITION"],
   icoImgFull: undefined,
-  icoImgThumb: "",
 };
 
 const commonValidation = {
@@ -45,9 +44,6 @@ const commonValidation = {
         value.type === "image/gif"
       );
     }
-  ),
-  icoImgThumb: Yup.string().required(
-    "Entering 'Main Project Icon Thumbnail' is required."
   ),
 };
 
@@ -86,7 +82,7 @@ export const generateInitialValues = (projectGenre) => {
       return {
         genre: projectGenre,
         ...commonData,
-        videoSource: "",
+        videoSource: "https://www.youtube.com/embed/ljUUT4BJ_7M",
         videoSourceThumb: "",
       };
     case genre.PANORAMA:

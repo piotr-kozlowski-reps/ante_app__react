@@ -93,7 +93,7 @@ function FormikContainer() {
     formData.append("clientPl", values.clientPl);
     formData.append("completionDate", values.completionDate.toISOString());
     formData.append("countryEn", values.countryEn);
-    formData.append("countryPl", values.countryPL);
+    formData.append("countryPl", values.countryPl);
     formData.append("genre", values.genre);
     formData.append("icoImgFull", values.icoImgFull);
     formData.append("icoImgThumb", values.icoImgThumb);
