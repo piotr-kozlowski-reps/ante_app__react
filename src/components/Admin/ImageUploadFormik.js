@@ -115,7 +115,6 @@ const ImageUploadFormik = (props) => {
 
   //if (no proper file and rejected file) sets error and isTouched - to show validation error
   //if (is proper file and rejected file) sets modal for a moment saying
-
   useEffect(() => {
     console.log("rejection use Effect");
     const isFileAlready = file && file.path !== "" ? true : false;
