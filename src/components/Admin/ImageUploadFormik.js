@@ -28,10 +28,7 @@ const ImageUploadFormik = (props) => {
   );
   const formikProps = useFormikContext();
 
-  // console.log("values: ", formikProps.values);
   console.log({ formikProps });
-  // console.log({ file });
-  // console.log({ rejectedFile });
 
   const { label, name, errors, touched, additionalClass, ...rest } = props;
 
@@ -186,7 +183,7 @@ const ImageUploadFormik = (props) => {
           <p>{modalContent}</p>
         </div>
       </Modal>
-      <div>
+      <div className={props.additionalClass ? props.additionalClass : ""}>
         <label
           htmlFor={name}
           className={`details ${additionalClass ? additionalClass : ""}`}

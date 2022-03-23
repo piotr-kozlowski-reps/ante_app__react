@@ -35,7 +35,21 @@ const FormikGraphicAttachments = (props) => {
                   {/* pocz */}
                   <div className="row" id="parent">
                     <div className="form-row flex-changer">
-                      <div className="project-details">
+                      <div className="row" id="parent">
+                        <div className="form-row">
+                          <div className="project-details">
+                            <FormikControl
+                              control="image"
+                              label="Image"
+                              name={`images.${index}.imageSourceFull`}
+                              additionalText="(Provide only one file. Formats supported: .jpg .jpeg .png
+                  .gif.)"
+                              additionalClass="image-upload-padding"
+                            />
+                          </div>
+                        </div>
+                      </div>
+                      {/* <div className="project-details">
                         <FormikControl
                           control="input"
                           type="text"
@@ -44,7 +58,8 @@ const FormikGraphicAttachments = (props) => {
                           placeholder="specify image source path"
                           additionalClass="input-wider"
                         />
-                      </div>
+                      </div> */}
+
                       <div className="project-details" style={{ width: "20%" }}>
                         <FormikControl
                           control="checkbox"
@@ -56,7 +71,7 @@ const FormikGraphicAttachments = (props) => {
                     </div>
                   </div>
 
-                  <div className="row" id="parent">
+                  {/* <div className="row" id="parent">
                     <div className="form-row">
                       <div className="project-details">
                         <FormikControl
@@ -68,7 +83,7 @@ const FormikGraphicAttachments = (props) => {
                         />
                       </div>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="row" id="parent">
                     <div className="form-row">
@@ -121,7 +136,7 @@ const FormikGraphicAttachments = (props) => {
                     }
                     className={`button button--default`}
                   >
-                    ADD
+                    ADD NEXT IMAGE
                   </button>
                 )}
               </Fragment>

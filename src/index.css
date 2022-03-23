@@ -752,6 +752,11 @@ form {
   align-self: center;
 }
 
+.image-upload-padding {
+  background-color: red;
+  /* padding-left: 12px; */
+}
+
 .input-box input {
   height: 45px;
   width: 100%;

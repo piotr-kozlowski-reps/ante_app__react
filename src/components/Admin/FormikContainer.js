@@ -103,7 +103,25 @@ function FormikContainer() {
         formData.append("videoSourceThumb", values.videoSourceThumb);
         break;
       case "APP":
-        formData.append("appInfo", values.appInfo);
+        formData.append("appInfo[appNamePl]", values.appInfo.appNamePl);
+        formData.append("appInfo[appNameEn]", values.appInfo.appNameEn);
+        formData.append("appInfo[appImageFull]", values.appInfo.appImageFull);
+        formData.append(
+          "appInfo[appDescriptionPl]",
+          values.appInfo.appDescriptionPl
+        );
+        formData.append(
+          "appInfo[appDescriptionEn]",
+          values.appInfo.appDescriptionEn
+        );
+        formData.append(
+          "appInfo[appAndroidLink]",
+          values.appInfo.appAndroidLink
+        );
+        formData.append("appInfo[appIOSLink]", values.appInfo.appIOSLink);
+        break;
+      case "GRAPHIC":
+        //tutaj
         break;
 
       default:
