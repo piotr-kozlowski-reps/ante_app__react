@@ -46,9 +46,9 @@ const AdminProjects = () => {
       projNamePl: project.projNamePl,
       projNameEn: project.projNameEn,
       completionDate: new Date(project.completionDate),
-      cityPL: project.cityPL,
+      cityPl: project.cityPl,
       cityEn: project.cityEn,
-      countryPL: project.countryPL,
+      countryPl: project.countryPl,
       countryEn: project.countryEn,
       icoImgThumb: project.icoImgThumb,
     };

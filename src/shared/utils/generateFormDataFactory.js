@@ -71,7 +71,6 @@ export const generateInitialValues = (projectGenre) => {
           appNamePl: "",
           appNameEn: "",
           appImageFull: "",
-          appImageThumb: "",
           appDescriptionPl: "",
           appDescriptionEn: "",
           appAndroidLink: "",
@@ -138,11 +137,18 @@ export const generateValidation = (projectGenre) => {
           appNameEn: Yup.string().required(
             "Entering application name is required."
           ),
-          appImageFull: Yup.string().required(
-            "Entering application image source path is required."
-          ),
-          appImageThumb: Yup.string().required(
-            "Entering application image source path thumbnail is required."
+          appImageFull: Yup.mixed().test(
+            "image type",
+            "Uploading aplication image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+            (value) => {
+              if (!value) return;
+              return (
+                value.type === "image/jpeg" ||
+                value.type === "image/png" ||
+                value.type === "image/jpg" ||
+                value.type === "image/gif"
+              );
+            }
           ),
           appDescriptionPl: Yup.string().required(
             "Entering application description is required."

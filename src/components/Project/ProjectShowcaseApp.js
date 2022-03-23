@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import URL_BASE from "../../shared/utils/url-base";
 
 //images
 import buttonAndroid from "../../images/buttons_01-min.png";
@@ -18,7 +19,11 @@ const ProjectShowcaseApp = ({
     <div className="row">
       <div className="col-lg-6 equal-height">
         <div>
-          <img style={{ margin: "0px auto" }} src={appImage}></img>
+          <img
+            style={{ margin: "0px auto" }}
+            src={`${URL_BASE}${appImage}`}
+            alt={appName}
+          ></img>
         </div>
       </div>
 

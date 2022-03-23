@@ -1,5 +1,6 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+
 import Button from "../../shared/components/Button";
 
 const ProjectShowcaseFooter = () => {
@@ -23,7 +24,7 @@ const ProjectShowcaseFooter = () => {
 
             <Button
               className={`button button--default`}
-              onClick={() => navigate(-1)}
+              onClick={() => navigate("../")}
             >
               BACK TO PROJECTS
             </Button>

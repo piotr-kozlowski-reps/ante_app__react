@@ -18,9 +18,9 @@ const AdminProjectItem = (props) => {
     projNamePl,
     projNameEn,
     completionDate,
-    cityPL,
+    cityPl,
     cityEn,
-    countryPL,
+    countryPl,
     countryEn,
     icoImgThumb,
     onDelete,
@@ -48,7 +48,7 @@ const AdminProjectItem = (props) => {
         setTimeout(() => {
           setShowInformationModal(false);
           onDelete(id);
-        }, 1600);
+        }, 800);
       };
       timer();
       clearTimeout(timer);
@@ -137,7 +137,7 @@ const AdminProjectItem = (props) => {
               "MM"
             )}`}
             <br />
-            {`${cityPL}/${cityEn}`} <br /> {`${countryPL}/${countryEn}`}
+            {`${cityPl}/${cityEn}`} <br /> {`${countryPl}/${countryEn}`}
           </p>
         </div>
 

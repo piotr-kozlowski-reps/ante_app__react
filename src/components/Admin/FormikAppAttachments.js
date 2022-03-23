@@ -14,6 +14,34 @@ const FormikAppAttachments = (props) => {
           <div className="form-row">
             <div className="project-details">
               <FormikControl
+                control="image"
+                label="Application image"
+                name="appInfo.appImageFull"
+                additionalText="(Provide only one file. Formats supported: .jpg .jpeg .png
+                  .gif. Remember -> Here PhoneImage with 345x701px resolution.)"
+              />
+            </div>
+          </div>
+        </div>
+
+        {/* <div className="row" id="parent">
+          <div className="form-row">
+            <div className="project-details">
+              <FormikControl
+                control="input"
+                type="text"
+                label="Application image"
+                name="appInfo.appImageFull"
+                placeholder="specify application image source path"
+              />
+            </div>
+          </div>
+        </div> */}
+
+        <div className="row" id="parent">
+          <div className="form-row">
+            <div className="project-details">
+              <FormikControl
                 control="input"
                 type="text"
                 label="Nazwa aplikacji (po polsku)"
@@ -34,21 +62,7 @@ const FormikAppAttachments = (props) => {
           </div>
         </div>
 
-        <div className="row" id="parent">
-          <div className="form-row">
-            <div className="project-details">
-              <FormikControl
-                control="input"
-                type="text"
-                label="Application image"
-                name="appInfo.appImageFull"
-                placeholder="specify application image source path"
-              />
-            </div>
-          </div>
-        </div>
-
-        <div className="row" id="parent">
+        {/* <div className="row" id="parent">
           <div className="form-row">
             <div className="project-details">
               <FormikControl
@@ -60,7 +74,7 @@ const FormikAppAttachments = (props) => {
               />
             </div>
           </div>
-        </div>
+        </div> */}
 
         <div className="row" id="parent">
           <div className="form-row">

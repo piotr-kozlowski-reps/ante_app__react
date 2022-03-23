@@ -32,6 +32,8 @@ const FormikAnimationAttachments = (props) => {
                 control="image"
                 label="Video thumbnail"
                 name="videoSourceThumb"
+                additionalText="(Provide only one file. Formats supported: .jpg .jpeg .png
+                  .gif. Here only thumbnail with 100x75px resolution.)"
               />
             </div>
           </div>

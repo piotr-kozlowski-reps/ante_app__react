@@ -281,8 +281,10 @@ const ImageUploadFormik = (props) => {
                   : "DROP FILE HERE OR CLICK TO CHANGE CHOSEN FILE"}
                 <br />
                 <span className="small-text">
-                  (Provide only one file. Formats supported: .jpg .jpeg .png
-                  .gif)
+                  {props.additionalText
+                    ? props.additionalText
+                    : `(Provide only one file. Formats supported: .jpg .jpeg .png
+                  .gif)`}
                 </span>
               </p>
             </div>
