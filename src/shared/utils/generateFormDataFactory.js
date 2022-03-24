@@ -56,7 +56,6 @@ export const generateInitialValues = (projectGenre) => {
         images: [
           {
             imageSourceFull: "",
-            imageSourceThumb: "",
             imageAltPl: "",
             imageAltEn: "",
             isBig: false,
@@ -93,9 +92,7 @@ export const generateInitialValues = (projectGenre) => {
             panoramaTitlePl: "",
             panoramaTitleEn: "",
             panoramaIcoFull: "",
-            panoramaIcoThumb: "",
             panoramaImageSourceFull: "",
-            panoramaImageSourceFullThumb: "",
           },
         ],
       };
@@ -113,9 +110,6 @@ export const generateValidation = (projectGenre) => {
           Yup.object().shape({
             imageSourceFull: Yup.string().required(
               "Entering image source path is required."
-            ),
-            imageSourceThumb: Yup.string().required(
-              "Entering image source thumbnail path is required."
             ),
             imageAltPl: Yup.string().required(
               "Entering image description (in polish) is required."
@@ -188,14 +182,8 @@ export const generateValidation = (projectGenre) => {
             panoramaIcoFull: Yup.string().required(
               "Entering panorama image icon source path is required."
             ),
-            panoramaIcoThumb: Yup.string().required(
-              "Entering panorama image icon thumbnail source path is required."
-            ),
             panoramaImageSourceFull: Yup.string().required(
               "Entering panorama image source path is required."
-            ),
-            panoramaImageSourceFullThumb: Yup.string().required(
-              "Entering panorama image thumbnail source path is required."
             ),
           })
         ),

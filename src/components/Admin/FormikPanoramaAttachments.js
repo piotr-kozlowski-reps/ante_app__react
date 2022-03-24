@@ -56,11 +56,11 @@ const FormikPanoramaAttachments = (props) => {
                     <div className="form-row">
                       <div className="project-details">
                         <FormikControl
-                          control="input"
-                          type="text"
-                          label="Panorama icon path"
+                          control="image"
+                          label="Panorama icon"
                           name={`panoramas.${index}.panoramaIcoFull`}
-                          placeholder="set panorama icon path"
+                          additionalText="(Provide only one file. Formats supported: .jpg .jpeg .png
+                  .gif. Image with 351x351 px resolution.)"
                         />
                       </div>
                     </div>
@@ -70,39 +70,11 @@ const FormikPanoramaAttachments = (props) => {
                     <div className="form-row">
                       <div className="project-details">
                         <FormikControl
-                          control="input"
-                          type="text"
-                          label="Panorama icon thumbnail path"
-                          name={`panoramas.${index}.panoramaIcoThumb`}
-                          placeholder="set panorama thumbnail icon path"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row" id="parent">
-                    <div className="form-row">
-                      <div className="project-details">
-                        <FormikControl
-                          control="input"
-                          type="text"
-                          label="Panorama image path"
+                          control="image"
+                          label="Panorama image"
                           name={`panoramas.${index}.panoramaImageSourceFull`}
-                          placeholder="set panorama image path"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="row" id="parent">
-                    <div className="form-row">
-                      <div className="project-details">
-                        <FormikControl
-                          control="input"
-                          type="text"
-                          label="Panorama image thumbnail path"
-                          name={`panoramas.${index}.panoramaImageSourceFullThumb`}
-                          placeholder="set panorama image thumbnail path"
+                          additionalText="(Provide only one file. Formats supported: .jpg .jpeg .png
+                  .gif. Image 360 degrees panorama.)"
                         />
                       </div>
                     </div>

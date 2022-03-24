@@ -33,7 +33,11 @@ const FormikGraphicAttachments = (props) => {
                   }
                 >
                   {/* pocz */}
-                  <div className="row" id="parent">
+                  <div
+                    className="row"
+                    id="parent"
+                    style={{ paddingLeft: "14px" }}
+                  >
                     <div className="form-row flex-changer">
                       <div className="row" id="parent">
                         <div className="form-row">
@@ -128,10 +132,9 @@ const FormikGraphicAttachments = (props) => {
                     onClick={() =>
                       push({
                         imageSourceFull: "",
-                        imageSourceThumb: "",
                         imageAltPl: "",
                         imageAltEn: "",
-                        isBig: "false",
+                        isBig: false,
                       })
                     }
                     className={`button button--default`}

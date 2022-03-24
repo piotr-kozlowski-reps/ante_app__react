@@ -1,6 +1,6 @@
 import React, { Fragment, useState } from "react";
 import { Formik, Form } from "formik";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import genre from "../../shared/utils/genre";
 import {
   generateInitialValues,
@@ -8,6 +8,7 @@ import {
 } from "../../shared/utils/generateFormDataFactory";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
+import { formActions } from "../../shared/store/form-slice";
 
 import AdminFormStage from "./AdminFormStage";
 import AdminGenreChooser from "./AdminGenreChooser";
@@ -32,13 +33,15 @@ function FormikContainer() {
   const validationSchema = generateValidation(genreOfProject);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   ////func
   const onSubmit = async (values, onSubmitProps) => {
     try {
-      const formData = fillFormDataObject(values);
+      const formData = new FormData();
+      buildFormData(formData, values, null);
 
       //logs
       console.log({ values });
@@ -61,7 +64,9 @@ function FormikContainer() {
     const timer = () => {
       setTimeout(() => {
         onSubmitProps.setSubmitting(false);
-        onSubmitProps.resetForm();
+        onSubmitProps.setStatus({ success: true });
+        onSubmitProps.resetForm({});
+        dispatch(formActions.resetGenreOfProjectToNull());
         navigate("../../api/projects");
       }, 1750);
     };
@@ -69,65 +74,87 @@ function FormikContainer() {
     clearTimeout(timer);
   };
 
-  function fillFormDataObject(values) {
-    const formData = new FormData();
-
-    fillCommonData(formData, values);
-    fillGenreRelatedData(formData, values);
-
-    return formData;
-  }
-
-  function fillCommonData(formData, values) {
-    formData.append("cityEn", values.cityEn);
-    formData.append("cityPl", values.cityPl);
-    formData.append("clientEn", values.clientEn);
-    formData.append("clientPl", values.clientPl);
-    formData.append("completionDate", values.completionDate.toISOString());
-    formData.append("countryEn", values.countryEn);
-    formData.append("countryPl", values.countryPl);
-    formData.append("genre", values.genre);
-    formData.append("icoImgFull", values.icoImgFull);
-    formData.append("icoImgThumb", values.icoImgThumb);
-    formData.append("projNameEn", values.projNameEn);
-    formData.append("projNamePl", values.projNamePl);
-    values.projectType.forEach((value, index) =>
-      formData.append(`projectType[${index}]`, value)
-    );
-  }
-
-  function fillGenreRelatedData(formData, values) {
-    switch (values.genre) {
-      case "ANIMATION":
-        formData.append("videoSource", values.videoSource);
-        formData.append("videoSourceThumb", values.videoSourceThumb);
-        break;
-      case "APP":
-        formData.append("appInfo[appNamePl]", values.appInfo.appNamePl);
-        formData.append("appInfo[appNameEn]", values.appInfo.appNameEn);
-        formData.append("appInfo[appImageFull]", values.appInfo.appImageFull);
-        formData.append(
-          "appInfo[appDescriptionPl]",
-          values.appInfo.appDescriptionPl
+  function buildFormData(formData, data, parentKey) {
+    if (
+      data &&
+      typeof data === "object" &&
+      !(data instanceof Date) &&
+      !(data instanceof File) &&
+      !(data instanceof Blob)
+    ) {
+      Object.keys(data).forEach((key) => {
+        buildFormData(
+          formData,
+          data[key],
+          parentKey ? `${parentKey}[${key}]` : key
         );
-        formData.append(
-          "appInfo[appDescriptionEn]",
-          values.appInfo.appDescriptionEn
-        );
-        formData.append(
-          "appInfo[appAndroidLink]",
-          values.appInfo.appAndroidLink
-        );
-        formData.append("appInfo[appIOSLink]", values.appInfo.appIOSLink);
-        break;
-      case "GRAPHIC":
-        //tutaj
-        break;
+      });
+    } else {
+      const value = data == null ? "" : data;
 
-      default:
-        return;
+      formData.append(parentKey, value);
     }
   }
+
+  // function fillFormDataObject(values) {
+  //   const formData = new FormData();
+
+  //   fillCommonData(formData, values);
+  //   fillGenreRelatedData(formData, values);
+
+  //   return formData;
+  // }
+
+  // function fillCommonData(formData, values) {
+  //   formData.append("cityEn", values.cityEn);
+  //   formData.append("cityPl", values.cityPl);
+  //   formData.append("clientEn", values.clientEn);
+  //   formData.append("clientPl", values.clientPl);
+  //   formData.append("completionDate", values.completionDate.toISOString());
+  //   formData.append("countryEn", values.countryEn);
+  //   formData.append("countryPl", values.countryPl);
+  //   formData.append("genre", values.genre);
+  //   formData.append("icoImgFull", values.icoImgFull);
+  //   formData.append("icoImgThumb", values.icoImgThumb);
+  //   formData.append("projNameEn", values.projNameEn);
+  //   formData.append("projNamePl", values.projNamePl);
+  //   values.projectType.forEach((value, index) =>
+  //     formData.append(`projectType[${index}]`, value)
+  //   );
+  // }
+
+  // function fillGenreRelatedData(formData, values) {
+  //   switch (values.genre) {
+  //     case "ANIMATION":
+  //       formData.append("videoSource", values.videoSource);
+  //       formData.append("videoSourceThumb", values.videoSourceThumb);
+  //       break;
+  //     case "APP":
+  //       formData.append("appInfo[appNamePl]", values.appInfo.appNamePl);
+  //       formData.append("appInfo[appNameEn]", values.appInfo.appNameEn);
+  //       formData.append("appInfo[appImageFull]", values.appInfo.appImageFull);
+  //       formData.append(
+  //         "appInfo[appDescriptionPl]",
+  //         values.appInfo.appDescriptionPl
+  //       );
+  //       formData.append(
+  //         "appInfo[appDescriptionEn]",
+  //         values.appInfo.appDescriptionEn
+  //       );
+  //       formData.append(
+  //         "appInfo[appAndroidLink]",
+  //         values.appInfo.appAndroidLink
+  //       );
+  //       formData.append("appInfo[appIOSLink]", values.appInfo.appIOSLink);
+  //       break;
+  //     case "GRAPHIC":
+  //       //tutaj
+  //       break;
+
+  //     default:
+  //       return;
+  //   }
+  // }
 
   ////jsx
   return (
@@ -161,6 +188,7 @@ function FormikContainer() {
         >
           {(formik) => {
             const { errors } = formik;
+            console.log({ formik });
 
             //
             let isNextActive = true;

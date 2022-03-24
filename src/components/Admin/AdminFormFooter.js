@@ -22,7 +22,7 @@ const AdminFormFooter = (props) => {
   const confirmCancelWarningHandler = () => {
     dispatch(formActions.resetGenreOfProjectToNull());
     navigate("../../api/projects");
-    resetForm();
+    resetForm({});
   };
 
   const cancelHandler = () => {

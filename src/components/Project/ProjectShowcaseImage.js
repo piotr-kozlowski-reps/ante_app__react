@@ -1,12 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
+import URL_BASE from "../../shared/utils/url-base";
+
 const ProjectShowcaseImage = ({ imageSource, imageAlt, isBig }) => {
   ////jsx
   return (
     <img
       className={isBig ? "big-img" : null}
-      src={imageSource}
+      src={`${URL_BASE}${imageSource}`}
       alt={imageAlt}
     ></img>
   );

@@ -28,8 +28,6 @@ const ImageUploadFormik = (props) => {
   );
   const formikProps = useFormikContext();
 
-  console.log({ formikProps });
-
   const { label, name, errors, touched, additionalClass, ...rest } = props;
 
   //useDropZone - start
@@ -113,12 +111,8 @@ const ImageUploadFormik = (props) => {
   //if (no proper file and rejected file) sets error and isTouched - to show validation error
   //if (is proper file and rejected file) sets modal for a moment saying
   useEffect(() => {
-    console.log("rejection use Effect");
     const isFileAlready = file && file.path !== "" ? true : false;
     const isRejectedFile = rejectedFile;
-
-    console.log({ isFileAlready });
-    console.log({ isRejectedFile });
 
     if (!isFileAlready && isRejectedFile) {
       console.log("setting error and touched");
