@@ -61,6 +61,8 @@ const UpdateProject = () => {
     fetchProject();
   }, [sendRequest, projectId, dispatch, project.genre]);
 
+  console.log({ project });
+
   useEffect(() => {
     if (Object.keys(project).length > 0) setGenreOfProject(project.genre);
   }, [project]);
@@ -122,6 +124,7 @@ const UpdateProject = () => {
         >
           {(formik) => {
             const { errors } = formik;
+            console.log(formik);
 
             //
             let isNextActive = true;

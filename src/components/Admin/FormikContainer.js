@@ -96,66 +96,6 @@ function FormikContainer() {
     }
   }
 
-  // function fillFormDataObject(values) {
-  //   const formData = new FormData();
-
-  //   fillCommonData(formData, values);
-  //   fillGenreRelatedData(formData, values);
-
-  //   return formData;
-  // }
-
-  // function fillCommonData(formData, values) {
-  //   formData.append("cityEn", values.cityEn);
-  //   formData.append("cityPl", values.cityPl);
-  //   formData.append("clientEn", values.clientEn);
-  //   formData.append("clientPl", values.clientPl);
-  //   formData.append("completionDate", values.completionDate.toISOString());
-  //   formData.append("countryEn", values.countryEn);
-  //   formData.append("countryPl", values.countryPl);
-  //   formData.append("genre", values.genre);
-  //   formData.append("icoImgFull", values.icoImgFull);
-  //   formData.append("icoImgThumb", values.icoImgThumb);
-  //   formData.append("projNameEn", values.projNameEn);
-  //   formData.append("projNamePl", values.projNamePl);
-  //   values.projectType.forEach((value, index) =>
-  //     formData.append(`projectType[${index}]`, value)
-  //   );
-  // }
-
-  // function fillGenreRelatedData(formData, values) {
-  //   switch (values.genre) {
-  //     case "ANIMATION":
-  //       formData.append("videoSource", values.videoSource);
-  //       formData.append("videoSourceThumb", values.videoSourceThumb);
-  //       break;
-  //     case "APP":
-  //       formData.append("appInfo[appNamePl]", values.appInfo.appNamePl);
-  //       formData.append("appInfo[appNameEn]", values.appInfo.appNameEn);
-  //       formData.append("appInfo[appImageFull]", values.appInfo.appImageFull);
-  //       formData.append(
-  //         "appInfo[appDescriptionPl]",
-  //         values.appInfo.appDescriptionPl
-  //       );
-  //       formData.append(
-  //         "appInfo[appDescriptionEn]",
-  //         values.appInfo.appDescriptionEn
-  //       );
-  //       formData.append(
-  //         "appInfo[appAndroidLink]",
-  //         values.appInfo.appAndroidLink
-  //       );
-  //       formData.append("appInfo[appIOSLink]", values.appInfo.appIOSLink);
-  //       break;
-  //     case "GRAPHIC":
-  //       //tutaj
-  //       break;
-
-  //     default:
-  //       return;
-  //   }
-  // }
-
   ////jsx
   return (
     <Fragment>

@@ -2,6 +2,7 @@ import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import TextErrorFormik from "./TextErrorFormik";
 import { useDropzone } from "react-dropzone";
+import URL_BASE from "../../shared/utils/url-base";
 
 import Modal from "../../shared/components/Modal";
 import Separator from "../../shared/components/Separator";
@@ -19,6 +20,9 @@ const getNestedObject = (obj, path) => {
 
 const ImageUploadFormik = (props) => {
   ////vars
+  const formikProps = useFormikContext();
+  const { label, name, errors, touched, additionalClass, ...rest } = props;
+
   const [file, setFile] = useState();
   const [rejectedFile, setRejectedFile] = useState();
   const [previewUrl, setPreviewUrl] = useState();
@@ -26,9 +30,8 @@ const ImageUploadFormik = (props) => {
   const [modalContent, setModalContent] = useState(
     "Some error occurred during file validation. Try again, please."
   );
-  const formikProps = useFormikContext();
 
-  const { label, name, errors, touched, additionalClass, ...rest } = props;
+  console.log({ formikProps });
 
   //useDropZone - start
   const onDrop = (acceptedFile, rejectedFile) => {
@@ -95,6 +98,19 @@ const ImageUploadFormik = (props) => {
   };
 
   //effects
+  //set file url if in updateForm mode
+  useEffect(() => {
+    const urlPartGotFromForm = formikProps.values[name];
+    const urlResult = `${URL_BASE}${urlPartGotFromForm}`;
+
+    console.log("eval", eval(`formikProps.values.${name}`));
+
+    console.log({ urlPartGotFromForm });
+    console.log({ name });
+    console.log({ urlResult });
+    setPreviewUrl(urlResult);
+  }, []);
+
   //if file changes and is valid, makes prev and sets "previewUrl" and sets Formik Value and clears error
   useEffect(() => {
     if (!file) return;
@@ -196,7 +212,7 @@ const ImageUploadFormik = (props) => {
               width="100"
               height="80"
               src={previewUrl ? previewUrl : noImagePicked}
-              alt={previewUrl ? file.name : "no file selected"}
+              alt={previewUrl && file ? file.name : "no file selected"}
               className={isErrorPresent && isTouched ? "image-error" : ""}
             ></img>
           </div>
