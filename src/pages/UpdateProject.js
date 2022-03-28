@@ -19,6 +19,7 @@ import FormikAppAttachments from "../components/Admin/FormikAppAttachments";
 import FormikGraphicAttachments from "../components/Admin/FormikGraphicAttachments";
 import FormikPanoramaAttachments from "../components/Admin/FormikPanoramaAttachments";
 import Separator from "../shared/components/Separator";
+import Modal from "../shared/components/Modal";
 
 //temporary
 // import { DUMMY_PROJECT_GRAPHIC } from "../shared/utils/data-models";
@@ -139,6 +140,17 @@ const UpdateProject = () => {
 
   return (
     <Fragment>
+      <Modal
+        header="Information"
+        headerClass="modal-header-mine__show-header-login"
+        show={showConfirmModal}
+        // onCancel={hideLoginModal}
+      >
+        <Separator additionalClass="py-bottom2_5" />
+        <div className="center">
+          <p>Project updated.</p>
+        </div>
+      </Modal>
       <ErrorModal
         error={error}
         onClear={clearAndRedirectWhenNoProjectHandler}
