@@ -171,27 +171,6 @@ const ImageUploadFormik = (props) => {
   const isErrorPresent = getNestedObject(formikProps.errors, name);
   const isTouched = getNestedObject(formikProps.touched, name);
 
-  // const pickImageHandler = () => {
-  //   console.log("pickImageHandler");
-  //   // filePickerRef.current.click();
-  //   filePickerRef.current.click();
-  // };
-
-  // const addFileToFormikField = () => {
-  //   console.log({ file });
-  //   console.log(props.formik);
-  // };
-
-  // const pickHandler = (event) => {
-  //   if (event.target.files && event.target.files.length === 1) {
-  //     const pickedFile = event.target.files[0];
-  //     setIcoFile(pickedFile);
-  //     setIsValid(true);
-  //   } else {
-  //     setIsValid(false);
-  //   }
-  // };
-
   ////jsx
   return (
     <Fragment>
