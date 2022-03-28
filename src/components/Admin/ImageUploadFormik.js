@@ -98,16 +98,29 @@ const ImageUploadFormik = (props) => {
   };
 
   //effects
-  //set file url if in updateForm mode
+  //set file thumbnail url if in updateForm mode and
   useEffect(() => {
-    const urlPartGotFromForm = formikProps.values[name];
-    const urlResult = `${URL_BASE}${urlPartGotFromForm}`;
+    let urlResult = URL_BASE;
+    let fieldPathRestored = "";
 
-    console.log("eval", eval(`formikProps.values.${name}`));
+    if (name.includes(".")) {
+      const urlElements = name.split(".");
+      urlElements.forEach((el, index) => {
+        if (isNaN(el)) fieldPathRestored += `.${el}`;
+        if (!isNaN(el)) fieldPathRestored += `[${el}]`;
+      });
 
-    console.log({ urlPartGotFromForm });
-    console.log({ name });
-    console.log({ urlResult });
+      urlResult += eval(`formikProps.values${fieldPathRestored}`);
+    }
+
+    if (!name.includes(".")) {
+      urlResult += `${formikProps.values[name]}`;
+    }
+
+    if (urlResult.endsWith("/undefined") || urlResult.endsWith(URL_BASE))
+      return;
+
+    //TODO: if string in update provided -> set the thumbnail - not full res image to show
     setPreviewUrl(urlResult);
   }, []);
 

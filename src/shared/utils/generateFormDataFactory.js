@@ -33,10 +33,14 @@ const commonValidation = {
     .required("At least one choosen genre is required")
     .min(1, "Choose at least one project genre."),
   icoImgFull: Yup.mixed().test(
-    "image type",
+    "image type or string",
     "Uploading icon image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
     (value) => {
       if (!value) return;
+      if (Object.prototype.toString.call(value) === "[object String]") {
+        const isNotEmpty = value.trim().length > 0 ? true : false;
+        return isNotEmpty;
+      }
       return (
         value.type === "image/jpeg" ||
         value.type === "image/png" ||
@@ -108,8 +112,24 @@ export const generateValidation = (projectGenre) => {
         ...commonValidation,
         images: Yup.array().of(
           Yup.object().shape({
-            imageSourceFull: Yup.string().required(
-              "Entering image source path is required."
+            imageSourceFull: Yup.mixed().test(
+              "image type or string",
+              "Entering image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+              (value) => {
+                if (!value) return;
+                if (
+                  Object.prototype.toString.call(value) === "[object String]"
+                ) {
+                  const isNotEmpty = value.trim().length > 0 ? true : false;
+                  return isNotEmpty;
+                }
+                return (
+                  value.type === "image/jpeg" ||
+                  value.type === "image/png" ||
+                  value.type === "image/jpg" ||
+                  value.type === "image/gif"
+                );
+              }
             ),
             imageAltPl: Yup.string().required(
               "Entering image description (in polish) is required."
@@ -132,10 +152,14 @@ export const generateValidation = (projectGenre) => {
             "Entering application name is required."
           ),
           appImageFull: Yup.mixed().test(
-            "image type",
+            "image type or string",
             "Uploading aplication image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
             (value) => {
               if (!value) return;
+              if (Object.prototype.toString.call(value) === "[object String]") {
+                const isNotEmpty = value.trim().length > 0 ? true : false;
+                return isNotEmpty;
+              }
               return (
                 value.type === "image/jpeg" ||
                 value.type === "image/png" ||
@@ -164,8 +188,21 @@ export const generateValidation = (projectGenre) => {
         videoSource: Yup.string().required(
           "Entering video source path is required."
         ),
-        videoSourceThumb: Yup.string().required(
-          "Entering video thumbnail is required."
+        videoSourceThumb: Yup.mixed().test(
+          "image type or string",
+          "Entering video thumbnail is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+          (value) => {
+            if (!value) return;
+            if (Object.prototype.toString.call(value) === "[object String]") {
+              return value.trim().length > 0 ? true : false;
+            }
+            return (
+              value.type === "image/jpeg" ||
+              value.type === "image/png" ||
+              value.type === "image/jpg" ||
+              value.type === "image/gif"
+            );
+          }
         ),
       });
     case genre.PANORAMA:
@@ -179,11 +216,41 @@ export const generateValidation = (projectGenre) => {
             panoramaTitleEn: Yup.string().required(
               "Entering panorama name (in English) is required."
             ),
-            panoramaIcoFull: Yup.string().required(
-              "Entering panorama image icon source path is required."
+            panoramaIcoFull: Yup.mixed().test(
+              "image type or string",
+              "Entering panorama image icon is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+              (value) => {
+                if (!value) return;
+                if (
+                  Object.prototype.toString.call(value) === "[object String]"
+                ) {
+                  return value.trim().length > 0 ? true : false;
+                }
+                return (
+                  value.type === "image/jpeg" ||
+                  value.type === "image/png" ||
+                  value.type === "image/jpg" ||
+                  value.type === "image/gif"
+                );
+              }
             ),
-            panoramaImageSourceFull: Yup.string().required(
-              "Entering panorama image source path is required."
+            panoramaImageSourceFull: Yup.mixed().test(
+              "image type or string",
+              "Entering panorama image is required. Image can only be in format -> .jpg/.jpeg/.png/.gif",
+              (value) => {
+                if (!value) return;
+                if (
+                  Object.prototype.toString.call(value) === "[object String]"
+                ) {
+                  return value.trim().length > 0 ? true : false;
+                }
+                return (
+                  value.type === "image/jpeg" ||
+                  value.type === "image/png" ||
+                  value.type === "image/jpg" ||
+                  value.type === "image/gif"
+                );
+              }
             ),
           })
         ),
