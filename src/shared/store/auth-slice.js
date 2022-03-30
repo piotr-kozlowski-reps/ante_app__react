@@ -4,6 +4,8 @@ const initialState = {
   isLoggedIn: false,
   token: null,
   tokenExpirationDate: null,
+  login: null,
+  userId: null,
 };
 
 const authSlice = createSlice({
@@ -12,32 +14,33 @@ const authSlice = createSlice({
   reducers: {
     login(state, action) {
       state.isLoggedIn = true;
-
-      //localStorageData
-      const tokenExpirationDate =
-        action.payload.expirationDate ||
-        new Date(new Date().getTime() + 1000 * 60 * 60);
-
-      localStorage.setItem(
-        "userData",
-        JSON.stringify({
-          login: action.payload.login,
-          token: action.payload.token,
-          expiration: tokenExpirationDate.toISOString(),
-        })
-      );
-
-      state.tokenExpirationDate = tokenExpirationDate.toISOString();
       state.token = action.payload.token;
+      state.login = action.payload.login;
+      if (action.payload.userId) {
+        state.userId = action.payload.userId;
+      }
+      state.tokenExpirationDate = action.payload.expirationDate;
     },
     logout(state) {
+      console.log("logout");
       state.isLoggedIn = false;
       state.token = null;
-      state.expirationDate = null;
+      state.tokenExpirationDate = null;
+      state.login = null;
+      state.userId = null;
       localStorage.removeItem("userData");
     },
   },
 });
+
+export const logoutPostponed = () => {
+  console.log("thunk logoutPostponed");
+  authSlice.actions.logout();
+  // return (dispatch) => {
+  //   console.log("thunk logoutPostponed dispatch");
+  //   dispatch(authActions.logout());
+  // };
+};
 
 export const authActions = authSlice.actions;
 export default authSlice;

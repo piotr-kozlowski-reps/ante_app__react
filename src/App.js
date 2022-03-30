@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
 import authSlice from "./shared/store/auth-slice";
 import footerPositionSlice from "./shared/store/footer-position-slice";
+import { logoutPostponed } from "./shared/store/auth-slice";
 
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -63,7 +64,10 @@ function App(props) {
     if (token && tokenExpirationDate) {
       const remainingTime =
         new Date(tokenExpirationDate).getTime() - new Date().getTime();
-      logoutTimer = setTimeout(dispatch(authActions.logout()), remainingTime);
+
+      // setTimeout(() => dispatch(authActions.logout, 5000));
+
+      logoutTimer = setTimeout(logoutPostponed, remainingTime);
     } else {
       clearTimeout(logoutTimer);
     }

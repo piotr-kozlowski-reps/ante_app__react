@@ -28,6 +28,9 @@ const MainNavigation = () => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const tokenExpirationDateState = useSelector(
+    (state) => state.auth.tokenExpirationDate
+  );
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
@@ -151,11 +154,26 @@ const MainNavigation = () => {
           "Content-Type": "application/json",
         }
       );
+
+      //localStorageData
+      const tokenExpirationDate =
+        tokenExpirationDateState || new Date(new Date().getTime() + 4000);
+
+      localStorage.setItem(
+        "userData",
+        JSON.stringify({
+          login: responseData.login,
+          token: responseData.token,
+          expiration: tokenExpirationDate.toISOString(),
+        })
+      );
+
       dispatch(
         authActions.login({
           userId: responseData.id,
           login: responseData.login,
           token: responseData.token,
+          expirationDate: tokenExpirationDate.toISOString(),
         })
       );
     } catch (error) {}
