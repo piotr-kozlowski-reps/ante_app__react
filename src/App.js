@@ -1,6 +1,7 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { authActions } from "./shared/store/auth-slice";
 import authSlice from "./shared/store/auth-slice";
 import footerPositionSlice from "./shared/store/footer-position-slice";
 
@@ -16,18 +17,57 @@ import NewProject from "./pages/NewProject";
 import UpdateProject from "./pages/UpdateProject";
 import AdminProjects from "./pages/AdminProjects";
 
+let logoutTimer;
+
 function App(props) {
   ////vars
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
   const isFooterToBeMovedToBottom = useSelector(
     (state) => state.footerPosition.isFooterToBeMovedToBottom
   );
+  const token = useSelector((state) => state.auth.token);
+  const tokenExpirationDate = useSelector(
+    (state) => state.auth.tokenExpirationDate
+  );
+  const dispatch = useDispatch();
+
+  console.log({ token });
+  console.log({ tokenExpirationDate });
 
   //moving footer to bottom if needed
   const bodyElement = document.querySelector("body");
   if (isFooterToBeMovedToBottom)
     bodyElement.className = "body-height-to-move-footer";
   else bodyElement.className = "";
+
+  //check if logged in - token in localStorage is present
+  useEffect(() => {
+    const storedData = JSON.parse(localStorage.getItem("userData"));
+    if (
+      storedData &&
+      storedData.token &&
+      new Date(storedData.expiration) > new Date()
+    ) {
+      dispatch(
+        authActions.login({
+          login: storedData.login,
+          token: storedData.token,
+          expirationDate: new Date(storedData.expiration),
+        })
+      );
+    }
+  }, [dispatch]);
+
+  //logout when time expires
+  useEffect(() => {
+    if (token && tokenExpirationDate) {
+      const remainingTime =
+        new Date(tokenExpirationDate).getTime() - new Date().getTime();
+      logoutTimer = setTimeout(dispatch(authActions.logout()), remainingTime);
+    } else {
+      clearTimeout(logoutTimer);
+    }
+  }, [token, tokenExpirationDate, dispatch]);
 
   ////content
   let routes;

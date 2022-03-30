@@ -151,7 +151,13 @@ const MainNavigation = () => {
           "Content-Type": "application/json",
         }
       );
-      dispatch(authActions.login());
+      dispatch(
+        authActions.login({
+          userId: responseData.id,
+          login: responseData.login,
+          token: responseData.token,
+        })
+      );
     } catch (error) {}
 
     setIsShowLoginModal(false);
@@ -252,7 +258,6 @@ const MainNavigation = () => {
           validateOnMount={true}
         >
           {(formik) => {
-            console.log(formik);
             const { errors } = formik;
 
             ////jsx

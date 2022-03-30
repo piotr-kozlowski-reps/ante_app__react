@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import URL_BASE from "../../shared/utils/url-base";
+import { useSelector } from "react-redux";
 
 import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
@@ -28,7 +29,10 @@ const AdminProjectItem = (props) => {
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showInformationModal, setShowInformationModal] = useState(false);
   const navigate = useNavigate();
+  const token = useSelector((state) => state.auth.token);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+
+  console.log({ token });
 
   ////func
   const showDeleteWarningHandler = () => {
@@ -41,7 +45,14 @@ const AdminProjectItem = (props) => {
     setShowConfirmModal(false);
 
     try {
-      await sendRequest(`http://localhost:5000/api/projects/${id}`, "DELETE");
+      await sendRequest(
+        `http://localhost:5000/api/projects/${id}`,
+        "DELETE",
+        null,
+        {
+          Authorization: `Bearer ${token}`,
+        }
+      );
       setShowInformationModal(true);
 
       const timer = () => {

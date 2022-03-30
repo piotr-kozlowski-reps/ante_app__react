@@ -33,6 +33,7 @@ const UpdateProject = () => {
   const [fetchingEnded, setFetchingEnded] = useState(false);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
   const formStageCounter = useSelector((state) => state.form.formStageCounter);
+  const token = useSelector((state) => state.auth.token);
 
   const [project, setProject] = useState({});
   const [genreOfProject, setGenreOfProject] = useState(null);
@@ -89,7 +90,8 @@ const UpdateProject = () => {
       await sendRequest(
         `http://localhost:5000/api/projects/${projectId}`,
         "PATCH",
-        formData
+        formData,
+        { Authorization: `Bearer ${token}` }
       );
 
       setShowConfirmModal(true);

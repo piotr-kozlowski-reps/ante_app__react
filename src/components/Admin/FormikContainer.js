@@ -29,6 +29,7 @@ function FormikContainer() {
   ////vars
   const formStageCounter = useSelector((state) => state.form.formStageCounter);
   const genreOfProject = useSelector((state) => state.form.genreOfProject);
+  const token = useSelector((state) => state.auth.token);
   const initialValues = generateInitialValues(genreOfProject);
   const validationSchema = generateValidation(genreOfProject);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
@@ -44,10 +45,14 @@ function FormikContainer() {
       buildFormData(formData, values, null);
 
       //logs
-      console.log({ values });
       console.log("formData: ", [...formData]);
 
-      await sendRequest("http://localhost:5000/api/projects", "POST", formData);
+      await sendRequest(
+        "http://localhost:5000/api/projects",
+        "POST",
+        formData,
+        { Authorization: `Bearer ${token}` }
+      );
 
       setShowConfirmModal(true);
 
