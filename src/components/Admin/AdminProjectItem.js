@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
-import URL_BASE from "../../shared/utils/url-base";
 import { useSelector } from "react-redux";
 
 import Button from "../../shared/components/Button";
@@ -127,7 +126,7 @@ const AdminProjectItem = (props) => {
       <li>
         <div className="thumbnail-admin">
           <img
-            src={`${URL_BASE}${icoImgThumb}`}
+            src={`${process.env.REACT_APP_BACKEND_URL}${icoImgThumb}`}
             alt={projNamePl}
             onClick={navigateToEditProject}
             style={{ cursor: "pointer" }}

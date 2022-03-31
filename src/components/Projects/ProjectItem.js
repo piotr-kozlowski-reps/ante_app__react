@@ -2,7 +2,6 @@ import React, { forwardRef } from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-import URL_BASE from "../../shared/utils/url-base";
 
 const ProjectItem = forwardRef((props, ref) => {
   ////vars
@@ -20,7 +19,7 @@ const ProjectItem = forwardRef((props, ref) => {
       className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext"
     >
       <div className="box">
-        <img src={`${URL_BASE}${icoImg}`} alt={alt} />
+        <img src={`${process.env.REACT_APP_BACKEND_URL}${icoImg}`} alt={alt} />
         <div className="more">
           <div className="project">
             <Link to={`/${lang}/projects/${id}`} className="link">

@@ -2,8 +2,6 @@ import React, { Fragment, useState, useEffect, useCallback } from "react";
 import { Field, ErrorMessage, useFormikContext } from "formik";
 import TextErrorFormik from "./TextErrorFormik";
 import { useDropzone } from "react-dropzone";
-import URL_BASE from "../../shared/utils/url-base";
-
 import Modal from "../../shared/components/Modal";
 import Separator from "../../shared/components/Separator";
 
@@ -100,7 +98,7 @@ const ImageUploadFormik = (props) => {
   //effects
   //set file thumbnail url if in updateForm mode and
   useEffect(() => {
-    let urlResult = URL_BASE;
+    let urlResult = process.env.REACT_APP_BACKEND_URL;
     let fieldPathRestored = "";
 
     if (name.includes(".")) {
@@ -117,7 +115,10 @@ const ImageUploadFormik = (props) => {
       urlResult += `${formikProps.values[name]}`;
     }
 
-    if (urlResult.endsWith("/undefined") || urlResult.endsWith(URL_BASE))
+    if (
+      urlResult.endsWith("/undefined") ||
+      urlResult.endsWith(process.env.REACT_APP_BACKEND_URL)
+    )
       return;
 
     //TODO: if string in update provided -> set the thumbnail - not full res image to show

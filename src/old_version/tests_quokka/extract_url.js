@@ -38,6 +38,4 @@ console.log(urlResult);
 // console.log({ name });
 // console.log({ urlResult });
 
-// // const urlResult = `${URL_BASE}${urlPartGotFromForm}`;
-
 // setPreviewUrl(urlResult);

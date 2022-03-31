@@ -1,6 +1,5 @@
 import React, { Fragment, useState } from "react";
 import { Link } from "react-router-dom";
-import URL_BASE from "../../shared/utils/url-base";
 
 import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
@@ -41,7 +40,10 @@ const PanoramaLink = ({
 
       <div className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12">
         <div className="box">
-          <img src={`${URL_BASE}${panoramaIco}`} alt={panoramaTitle}></img>
+          <img
+            src={`${process.env.REACT_APP_BACKEND_URL}${panoramaIco}`}
+            alt={panoramaTitle}
+          ></img>
           <div className="more">
             <div className="project">
               <div onClick={openPanoramaModalHandler} className="link">

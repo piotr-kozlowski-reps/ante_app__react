@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import URL_BASE from "../../shared/utils/url-base";
 
 //images
 import buttonAndroid from "../../images/buttons_01-min.png";
@@ -21,7 +20,7 @@ const ProjectShowcaseApp = ({
         <div>
           <img
             style={{ margin: "0px auto" }}
-            src={`${URL_BASE}${appImage}`}
+            src={`${process.env.REACT_APP_BACKEND_URL}${appImage}`}
             alt={appName}
           ></img>
         </div>

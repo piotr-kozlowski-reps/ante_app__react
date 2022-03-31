@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactPannellum, { getConfig } from "react-pannellum";
-import URL_BASE from "../../shared/utils/url-base";
 
 const PanoramaFullView = ({ panoramaImageSource, panoramaTitle }) => {
   ////vars
@@ -15,7 +14,7 @@ const PanoramaFullView = ({ panoramaImageSource, panoramaTitle }) => {
     <ReactPannellum
       id={panoramaTitle}
       sceneId={panoramaTitle}
-      imageSource={`${URL_BASE}${panoramaImageSource}`}
+      imageSource={`${process.env.REACT_APP_BACKEND_URL}${panoramaImageSource}`}
       author="ANTE"
       style={{
         maxWidth: "1500px",
