@@ -48,7 +48,7 @@ function FormikContainer() {
       console.log("formData: ", [...formData]);
 
       await sendRequest(
-        "http://localhost:5000/api/projects",
+        `${process.env.REACT_APP_BACKEND_URL}/api/projects`,
         "POST",
         formData,
         { Authorization: `Bearer ${token}` }

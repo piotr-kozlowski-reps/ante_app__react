@@ -33,7 +33,8 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/projects"
+          // `${process.env.REACT_APP_BACKEND_URL}/api/projects`
+          `https://ante-portfolio-app.herokuapp.com/api/projects`
         );
 
         setCurrentProjectsArray(responseData.projects);

@@ -24,7 +24,7 @@ const AdminProjects = () => {
     const fetchProjects = async () => {
       try {
         const responseData = await sendRequest(
-          "http://localhost:5000/api/projects"
+          `${process.env.REACT_APP_BACKEND_URL}/api/projects`
         );
         setCurrentProjectsArray(responseData.projects);
       } catch (error) {
