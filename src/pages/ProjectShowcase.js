@@ -28,7 +28,7 @@ const ProjectShowcase = () => {
     const fetchProject = async () => {
       try {
         const responseData = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/api/projects/${projectId}`
+          `${process.env.REACT_APP_BACKEND_URL}api/projects/${projectId}`
         );
         setProject(responseData.project);
       } catch (error) {}

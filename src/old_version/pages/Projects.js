@@ -87,7 +87,7 @@ const Projects = () => {
   //jsx
   return (
     <Fragment>
-      <div data-testid="projects-page"></div>
+      {/* <div data-testid="projects-page"></div> */}
       <Carousel />
       <ProjectsTypeNavigation title="Portfolio" />
       <ProjectsList

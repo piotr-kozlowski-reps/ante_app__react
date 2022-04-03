@@ -44,7 +44,7 @@ const UpdateProject = () => {
     const fetchProject = async () => {
       try {
         const projectFetched = await sendRequest(
-          `${process.env.REACT_APP_BACKEND_URL}/api/projects/${projectId}`
+          `${process.env.REACT_APP_BACKEND_URL}api/projects/${projectId}`
         );
 
         const initialProject = { ...projectFetched.project };
@@ -88,7 +88,7 @@ const UpdateProject = () => {
       console.log("formData: ", [...formData]);
 
       await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/api/projects/${projectId}`,
+        `${process.env.REACT_APP_BACKEND_URL}api/projects/${projectId}`,
         "PATCH",
         formData,
         { Authorization: `Bearer ${token}` }

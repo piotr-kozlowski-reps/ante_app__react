@@ -2,9 +2,8 @@ import React, { Fragment, useEffect, Suspense } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
-import authSlice from "./shared/store/auth-slice";
-import footerPositionSlice from "./shared/store/footer-position-slice";
-// import { logoutPostponed } from "./shared/store/auth-slice";
+// import authSlice from "./shared/store/auth-slice";
+// import footerPositionSlice from "./shared/store/footer-position-slice";
 
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -14,20 +13,9 @@ import Header from "./shared/navigation/Header";
 import MainNavigation from "./shared/navigation/MainNavigation";
 import BackgroundTopElements from "./shared/components/BackgroundTopElements";
 import ProjectShowcase from "./pages/ProjectShowcase";
-import LoadingSpinner from "./shared/components/LoadingSpinner";
-// import NewProject from "./pages/NewProject";
-// import UpdateProject from "./pages/UpdateProject";
-// import AdminProjects from "./pages/AdminProjects";
-
-const NewProject = React.lazy(() => {
-  import("./pages/NewProject");
-});
-const UpdateProject = React.lazy(() => {
-  import("./pages/UpdateProject");
-});
-const AdminProjects = React.lazy(() => {
-  import("./pages/AdminProjects");
-});
+import NewProject from "./pages/NewProject";
+import UpdateProject from "./pages/UpdateProject";
+import AdminProjects from "./pages/AdminProjects";
 
 let logoutTimer;
 
@@ -42,10 +30,6 @@ function App(props) {
     (state) => state.auth.tokenExpirationDate
   );
   const dispatch = useDispatch();
-
-  console.log({ token });
-  console.log({ tokenExpirationDate });
-  console.log(process.env.REACT_APP_BACKEND_URL);
 
   //moving footer to bottom if needed
   const bodyElement = document.querySelector("body");
@@ -65,7 +49,7 @@ function App(props) {
         authActions.login({
           login: storedData.login,
           token: storedData.token,
-          expirationDate: new Date(storedData.expiration),
+          expirationDate: new Date(storedData.expiration).toISOString(),
         })
       );
     }
@@ -77,8 +61,6 @@ function App(props) {
       const remainingTime =
         new Date(tokenExpirationDate).getTime() - new Date().getTime();
 
-      // setTimeout(() => dispatch(authActions.logout, 5000));
-
       logoutTimer = setTimeout(logoutPostponed, remainingTime);
     } else {
       clearTimeout(logoutTimer);
@@ -86,7 +68,6 @@ function App(props) {
   }, [token, tokenExpirationDate, dispatch]);
 
   function logoutPostponed() {
-    console.log("thunk logoutPostponed");
     dispatch(authActions.logout());
   }
 
@@ -138,15 +119,7 @@ function App(props) {
         </Header>
       </nav>
 
-      <Suspense
-        fallback={
-          <div className="center">
-            <LoadingSpinner />
-          </div>
-        }
-      >
-        {routes}
-      </Suspense>
+      {routes}
     </Fragment>
   );
 }

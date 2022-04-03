@@ -1,9 +1,9 @@
-import React from "react";
+// import React from "react";
 
-const Header = ({ children }) => {
-  //
-  //jsx
-  return <div className="container">{children}</div>;
-};
+// const Header = ({ children }) => {
+//   //
+//   //jsx
+//   return <div className="container">{children}</div>;
+// };
 
-export default Header;
+// export default Header;

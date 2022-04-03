@@ -144,7 +144,7 @@ const MainNavigation = () => {
     //fetch
     try {
       const responseData = await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}/api/login`,
+        `${process.env.REACT_APP_BACKEND_URL}api/login`,
         "POST",
         JSON.stringify({
           login: values.login,
