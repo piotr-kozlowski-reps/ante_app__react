@@ -1,13 +1,11 @@
 import React from "react";
 import { BrowserRouter, Router } from "react-router-dom";
-import { render, screen } from "./shared/utils/test-utils";
+import { render, screen, cleanup } from "./shared/utils/test-utils";
 import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
-import { useSelector } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
 
 //mock localStorage
-import { validData } from "../__mock__/validLocalStorage";
 import { localStorageMock } from "../__testsUtils__/mock-local-storage.";
 
 import App from "./App";
@@ -20,6 +18,10 @@ const MockApp = () => {
   );
 };
 
+afterEach(() => {
+  cleanup();
+});
+
 describe("APP => general", () => {
   it("renders projects page initialy", () => {
     render(<MockApp />);
@@ -28,13 +30,20 @@ describe("APP => general", () => {
   });
 });
 
-describe("APP => aurtomatic logging in", () => {
-  beforeAll(() => {
+describe("APP => automatic logging in with localStorageData", () => {
+  beforeEach(() => {
     localStorageMock.clear("userData");
   });
-
   it("should show links ADMIN and LOGOUT when proper data is stored in localStorage", () => {
-    localStorageMock.setItem("userData", JSON.stringify(validData));
+    localStorageMock.setItem(
+      "userData",
+      JSON.stringify({
+        login: "PEgaz",
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IlBFZ2F6IiwiaWQiOiI2MjQ0MGMxMGJhMWM1YjAwNjhhMzlmOTgiLCJpYXQiOjE2NDkwMTYxMjYsImV4cCI6MTY0OTAxOTcyNn0.yq4TFV84LJ3d8CBzuIKPhV43aPCH-0NSUP6butBt3GA",
+        expiration: "2150-04-03T21:02:06.736Z",
+      })
+    );
     render(<MockApp />);
 
     const loginElement = screen.queryByText(/LOGIN/i); //?
@@ -46,7 +55,48 @@ describe("APP => aurtomatic logging in", () => {
   });
 
   it("should show links LOGIN and not show ADMIN and LOGOUT when no data is stored in localStorage", () => {
-    localStorageMock.clear("userData");
+    render(<MockApp />);
+
+    const loginElement = screen.queryByText(/LOGIN/i); //?
+    const adminElement = screen.queryByText(/ADMIN/i); //?
+    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    expect(loginElement).toBeInTheDocument();
+    expect(adminElement).not.toBeInTheDocument();
+    expect(logoutElement).not.toBeInTheDocument();
+  });
+
+  it("should show links LOGIN and not show ADMIN and LOGOUT when data that is stored in localStorage is false (no token)", () => {
+    localStorageMock.setItem(
+      "userData",
+      JSON.stringify({
+        login: "PEgaz",
+        token: null,
+        expiration: "2150-04-03T21:02:06.736Z",
+      })
+    );
+
+    console.log(localStorage.getItem("userData"));
+    render(<MockApp />);
+
+    const loginElement = screen.queryByText(/LOGIN/i); //?
+    const adminElement = screen.queryByText(/ADMIN/i); //?
+    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    expect(loginElement).toBeInTheDocument();
+    expect(adminElement).not.toBeInTheDocument();
+    expect(logoutElement).not.toBeInTheDocument();
+  });
+
+  it("should show links LOGIN and not show ADMIN and LOGOUT when data that is stored in localStorage is false (no expiration data)", () => {
+    localStorageMock.setItem(
+      "userData",
+      JSON.stringify({
+        login: "PEgaz",
+        token:
+          "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJsb2dpbiI6IlBFZ2F6IiwiaWQiOiI2MjQ0MGMxMGJhMWM1YjAwNjhhMzlmOTgiLCJpYXQiOjE2NDkwMTYxMjYsImV4cCI6MTY0OTAxOTcyNn0.yq4TFV84LJ3d8CBzuIKPhV43aPCH-0NSUP6butBt3GA",
+        expiration: undefined,
+      })
+    );
+
     console.log(localStorage.getItem("userData"));
     render(<MockApp />);
 
@@ -59,134 +109,50 @@ describe("APP => aurtomatic logging in", () => {
   });
 });
 
-//   it("renders about Page when link(o nas) clicked (PL version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
+describe("APP => logging out when time expires (useEffect)", () => {
+  beforeEach(() => {
+    localStorageMock.clear("userData");
+  });
 
-//     const onasLink = screen.getByRole("link", { name: "O nas" });
-//     const leftClick = { button: 0 };
+  it("should stay logged it when expiration time haven't expired.", () => {
+    localStorageMock.setItem(
+      "userData",
+      JSON.stringify({
+        login: "PEgaz",
+        token: "sfvsdfvsdfvsdfvsdfv",
+        expiration: "2150-04-03T21:02:06.736Z",
+      })
+    );
 
-//     userEvent.click(onasLink, leftClick);
+    render(<MockApp />);
 
-//     const aboutPage = screen.getByTestId("about-page");
-//     expect(aboutPage).toBeInTheDocument();
-//   });
+    const loginElement = screen.queryByText(/LOGIN/i); //?
+    const adminElement = screen.queryByText(/ADMIN/i); //?
+    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    expect(loginElement).not.toBeInTheDocument();
+    expect(adminElement).toBeInTheDocument();
+    expect(logoutElement).toBeInTheDocument();
+  });
 
-//   it("renders contact Page when link(kontakt) clicked (PL version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
+  it("should log out when expiration time has expired.", () => {
+    localStorageMock.setItem(
+      "userData",
+      JSON.stringify({
+        login: "PEgaz",
+        token: "sdfvsdfvsdfvdf",
+        expiration: "2019-04-03T21:02:06.736Z",
+      })
+    );
 
-//     const kontaktLink = screen.getByRole("link", { name: /kontakt/i });
-//     const leftClick = { button: 0 };
+    render(<MockApp />);
 
-//     userEvent.click(kontaktLink, leftClick);
+    const loginElement = screen.queryByText(/LOGIN/i); //?
+    const adminElement = screen.queryByText(/ADMIN/i); //?
+    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    expect(loginElement).toBeInTheDocument();
+    expect(adminElement).not.toBeInTheDocument();
+    expect(logoutElement).not.toBeInTheDocument();
+  });
+});
 
-//     const contactPage = screen.getByTestId("contact-page");
-//     expect(contactPage).toBeInTheDocument();
-//   });
-
-//   it("renders login Page when link(login) clicked (any language version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
-
-//     const loginLink = screen.getByRole("link", { name: /login/i });
-//     const leftClick = { button: 0 };
-
-//     userEvent.click(loginLink, leftClick);
-
-//     const loginPage = screen.getByTestId("login-page");
-//     expect(loginPage).toBeInTheDocument();
-//   });
-
-//   it("renders projects Page when link(project) clicked (PL version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
-
-//     const leftClick = { projectsLink: 0 };
-
-//     //make projects button active
-//     const loginLink = screen.getByRole("link", { name: /login/i });
-//     userEvent.click(loginLink, leftClick);
-
-//     const projectsLink = screen.getByRole("link", { name: /projekty/i });
-//     userEvent.click(projectsLink, leftClick);
-
-//     const projectsPage = screen.getByTestId("projects-page");
-//     expect(projectsPage).toBeInTheDocument();
-//   });
-
-//   //english version set
-//   it("renders about Page when link(about) was clicked (EN version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
-
-//     const leftClick = { button: 0 };
-//     //go to English Version
-//     const languageButton = screen.getByRole("button", { name: /en/i });
-//     userEvent.click(languageButton, leftClick);
-
-//     const aboutLink = screen.getByRole("link", { name: /about/i });
-//     userEvent.click(aboutLink, leftClick);
-
-//     const aboutPage = screen.getByTestId("about-page");
-//     expect(aboutPage).toBeInTheDocument();
-//   });
-
-//   it("renders Contact page when link(contact) was clicked (EN version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
-
-//     const leftClick = { button: 0 };
-
-//     const contactLink = screen.getByRole("link", { name: /contact/i });
-//     userEvent.click(contactLink, leftClick);
-
-//     const contactPage = screen.getByTestId("contact-page");
-//     expect(contactPage).toBeInTheDocument();
-//   });
-
-//   it("renders projects Page when link(project) clicked (EN version)", () => {
-//     const history = createMemoryHistory();
-//     render(
-//       <BrowserRouter history={history}>
-//         <App />
-//       </BrowserRouter>
-//     );
-
-//     const leftClick = { projectsLink: 0 };
-
-//     //make projects button active
-//     const loginLink = screen.getByRole("link", { name: /login/i });
-//     userEvent.click(loginLink, leftClick);
-
-//     const projectsLink = screen.getByRole("link", { name: /projects/i });
-//     userEvent.click(projectsLink, leftClick);
-
-//     const projectsPage = screen.getByTestId("projects-page");
-//     expect(projectsPage).toBeInTheDocument();
-//   });
-// });
+//TODO: testing automatic footer placement - seems not to work always

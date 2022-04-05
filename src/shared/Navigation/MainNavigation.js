@@ -110,6 +110,7 @@ const MainNavigation = () => {
   }, [location.pathname, initialRender]);
 
   //toggle language button
+  ////TESTED
   const languageButtonContent = lang === "pl" ? "EN" : "PL";
   const toggleLanguageHandler = () => {
     if (lang === "pl") {
@@ -419,7 +420,7 @@ const MainNavigation = () => {
       <div className="row">
         <div className="logo-top text-center" ref={(el) => (logo = el)}>
           <Link to={`../../${lang}/projects`}>
-            <img src={logoImg} alt="Ante logo" />
+            <img src={logoImg} alt="Ante logo top" />
           </Link>
         </div>
       </div>

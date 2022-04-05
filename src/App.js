@@ -2,8 +2,6 @@ import React, { Fragment, useEffect, Suspense } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
-// import authSlice from "./shared/store/auth-slice";
-// import footerPositionSlice from "./shared/store/footer-position-slice";
 
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -33,11 +31,13 @@ function App(props) {
 
   //moving footer to bottom if needed
   const bodyElement = document.querySelector("body");
+  console.log({ isFooterToBeMovedToBottom });
   if (isFooterToBeMovedToBottom)
     bodyElement.className = "body-height-to-move-footer";
   else bodyElement.className = "";
 
-  //check if logged in - token in localStorage is present
+  //check if logged in - token in localStorage is present and data didn't expire
+  ////TESTED
   useEffect(() => {
     const storedData = JSON.parse(localStorage.getItem("userData"));
     if (
@@ -56,6 +56,7 @@ function App(props) {
   }, [dispatch]);
 
   //logout when time expires
+  ////TESTED
   useEffect(() => {
     if (token && tokenExpirationDate) {
       const remainingTime =

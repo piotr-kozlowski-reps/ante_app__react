@@ -21,9 +21,21 @@ const BackgroundTopElements = () => {
   ////jsx
   return (
     <Fragment>
-      <div ref={(el) => (darkGrayBackground = el)} id="my-bg-dark-gray"></div>
-      <div ref={(el) => (whiteBackground = el)} id="my-bg-white"></div>
-      <div ref={(el) => (grayBackground = el)} id="my-bg-gray"></div>
+      <div
+        ref={(el) => (darkGrayBackground = el)}
+        id="my-bg-dark-gray"
+        data-testid="div-animate-element"
+      ></div>
+      <div
+        ref={(el) => (whiteBackground = el)}
+        id="my-bg-white"
+        data-testid="div-animate-element"
+      ></div>
+      <div
+        ref={(el) => (grayBackground = el)}
+        id="my-bg-gray"
+        data-testid="div-animate-element"
+      ></div>
     </Fragment>
   );
 };
