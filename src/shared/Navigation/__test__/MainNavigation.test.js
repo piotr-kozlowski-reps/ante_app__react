@@ -3,6 +3,7 @@ import { BrowserRouter } from "react-router-dom";
 import { render, screen, cleanup } from "../../utils/test-utils";
 import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
+import { server, rest } from "../../../../mocks/server";
 
 //mock localStorage
 
@@ -16,11 +17,13 @@ const MockApp = () => {
   );
 };
 
-afterEach(() => {
-  cleanup();
-});
-
 describe("MainNavigation", () => {
+  //setup
+  afterEach(() => {
+    cleanup();
+  });
+
+  //tests
   it("renders logotype properly", () => {
     render(<MockApp />);
     const logo = screen.getByRole("img", { name: "Ante logo top" });
@@ -104,15 +107,172 @@ describe("MainNavigation", () => {
     let loginHeading = screen.queryByRole("heading", {
       name: /login/i,
     });
-    let loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    let loginInput = screen.queryByLabelText("Login");
     let passwordInput = screen.queryByPlaceholderText(/enter your password/i);
-
     let loginButton = screen.queryByRole("link", { name: "Login" });
 
+    expect(loginHeading).not.toBeInTheDocument();
+    expect(loginInput).not.toBeInTheDocument();
+    expect(passwordInput).not.toBeInTheDocument();
+
     userEvent.click(loginButton);
+
+    loginHeading = screen.queryByRole("heading", {
+      name: /login/i,
+    });
+    loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    passwordInput = screen.queryByPlaceholderText(/enter your password/i);
+
+    // screen.getByRole("");
 
     expect(loginHeading).toBeInTheDocument();
     expect(loginInput).toBeInTheDocument();
     expect(passwordInput).toBeInTheDocument();
+  });
+
+  it("should become logged and show appropriate link when logged through the form.", async () => {
+    render(<MockApp />);
+
+    const loginButton = screen.queryByRole("link", { name: "Login" });
+    userEvent.click(loginButton);
+
+    const loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    const passwordInput = screen.queryByPlaceholderText(/enter your password/i);
+    userEvent.type(loginInput, "test");
+    userEvent.type(passwordInput, "testTEST123##$$%");
+
+    const loginSubmitButton = screen.getByRole("button", {
+      name: /login/i,
+    });
+    userEvent.click(loginSubmitButton);
+
+    expect(
+      await screen.findByRole("link", {
+        name: /logout/i,
+      })
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.findByRole("link", {
+        name: /admin/i,
+      })
+    ).toBeInTheDocument();
+
+    expect(
+      screen.queryByRole("link", {
+        name: /login/i,
+      })
+    ).not.toBeInTheDocument();
+
+    expect(localStorage.getItem("userData")).toBeDefined();
+
+    localStorage.setItem("userData", null);
+  });
+
+  it("should stay unlogged when logging through the form with wrong credentials.", async () => {
+    render(<MockApp />);
+
+    const testErrorMessage = `Wrong login, there's no user with login provided.`;
+    server.use(
+      rest.post(
+        `${process.env.REACT_APP_BACKEND_URL}api/login`,
+        async (req, res, ctx) => {
+          return res(ctx.status(403), ctx.json({ message: testErrorMessage }));
+        }
+      )
+    );
+
+    const loginButton = screen.queryByRole("link", { name: "Login" }); //?
+    userEvent.click(loginButton);
+
+    const loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    const passwordInput = screen.queryByPlaceholderText(/enter your password/i);
+    userEvent.type(loginInput, "test");
+    userEvent.type(passwordInput, "testTEST123##$$%");
+
+    const loginSubmitButton = screen.getByRole("button", {
+      name: /login/i,
+    });
+    userEvent.click(loginSubmitButton);
+
+    expect(
+      await screen.findByRole("link", {
+        name: "Login",
+      })
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.queryByRole("link", {
+        name: /admin/i,
+      })
+    ).not.toBeInTheDocument();
+
+    expect(
+      screen.getByRole("heading", {
+        name: /an error occurred!/i,
+      })
+    ).toBeInTheDocument();
+  });
+
+  it("should render PortfolioPage when Projekty_Link clicked", () => {
+    render(<MockApp />);
+
+    let projectsButtonPl = screen.queryByRole("link", { name: "Projekty" });
+    userEvent.click(projectsButtonPl);
+
+    expect(
+      screen.getByRole("heading", {
+        name: /portfolio/i,
+      })
+    ).toBeInTheDocument();
+  });
+
+  it("should render OnasPage when Onas_Link clicked", () => {
+    render(<MockApp />);
+
+    let aboutButtonPl = screen.queryByRole("link", { name: "O nas" });
+    userEvent.click(aboutButtonPl);
+
+    expect(screen.getByTestId("about-page")).toBeInTheDocument();
+  });
+
+  it("should renderKontaktPage when Kontakt_Link clicked", () => {
+    render(<MockApp />);
+
+    let kontaktButtonPl = screen.queryByRole("link", { name: /kontakt/i });
+    userEvent.click(kontaktButtonPl);
+
+    expect(screen.getByTestId("contact-page")).toBeInTheDocument();
+  });
+
+  it("should show proper links when loggedOut", () => {
+    render(<MockApp />);
+
+    const loginButton = screen.queryByRole("link", { name: "Login" });
+    userEvent.click(loginButton);
+
+    const loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    const passwordInput = screen.queryByPlaceholderText(/enter your password/i);
+    userEvent.type(loginInput, "test");
+    userEvent.type(passwordInput, "testTEST123##$$%");
+
+    const loginSubmitButton = screen.getByRole("button", {
+      name: /login/i,
+    });
+    userEvent.click(loginSubmitButton);
+
+    //TODO: I have no idea how to get logout button since it's not in DOM
+
+    // const logoutLink = screen.getByRole("link", {
+    //   name: /logout/i,
+    // });
+
+    // userEvent.click(logoutLink);
+
+    // expect(
+    //   screen.queryByRole("link", {
+    //     name: /logout/i,
+    //   })
+    // ).not.toBeInTheDocument();
   });
 });

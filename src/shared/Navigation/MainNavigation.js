@@ -135,6 +135,7 @@ const MainNavigation = () => {
   }, [dispatch, lang, location.pathname]);
 
   //login modal
+  ////TESTED
   const showLoginModal = () => {
     setIsShowLoginModal(true);
   };
