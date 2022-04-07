@@ -13,7 +13,7 @@ import {
   fadeFromRightPlusScale,
   fadeOutToLeft,
 } from "../utils/animations";
-import { VALIDATOR_EMAIL, VALIDATOR_PASSWORD } from "../utils/validators";
+// import { VALIDATOR_EMAIL, VALIDATOR_PASSWORD } from "../utils/validators";
 
 import Button from "../components/Button";
 import Modal from "../components/Modal";
