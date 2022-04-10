@@ -33,8 +33,7 @@ const Projects = () => {
     const fetchProjects = async () => {
       try {
         const responseData = await sendRequest(
-          // `${process.env.REACT_APP_BACKEND_URL}/api/projects`
-          `https://ante-portfolio-app.herokuapp.com/api/projects`
+          `${process.env.REACT_APP_BACKEND_URL}api/projects`
         );
 
         setCurrentProjectsArray(responseData.projects);
@@ -64,7 +63,7 @@ const Projects = () => {
     };
   });
 
-  // triggering pagination of projects automaticaly when div#pagination-trigger on screen
+  // triggering pagination of projects automatically when div#pagination-trigger on screen
   let refDivTriggeringPagination = useRef();
   const isInViewport = (ref, offset = 0) => {
     if (!ref.current) return false;
@@ -122,7 +121,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
-//TODO: tests Projects: tests of choosing TYPES in Menu i pass proper array further
-//TODO: tests Projects: tests if changing language also changes passed Array further
-//TODO: tests Projects: tests of project 'pagination' - SHOW MORE button

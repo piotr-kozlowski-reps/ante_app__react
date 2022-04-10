@@ -1,6 +1,6 @@
 import React, { useRef, useLayoutEffect, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { fadeFromRight } from "../../shared/utils/animations";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 import slider1 from "../../images/slider_001.png";
 import slider1_pl from "../../images/slider_001_pl.png";
@@ -68,7 +68,7 @@ const Carousel = () => {
         index = 0;
       }
     };
-    const changeSlideInterval = setInterval(changeSlide, 6000);
+    const changeSlideInterval = setInterval(changeSlide, 9000);
 
     return () => {
       clearInterval(changeSlideInterval);
@@ -85,16 +85,16 @@ const Carousel = () => {
       <div className="container">
         <div className="row">
           <div className="col-lg-12">
-            <div
-              id="galleryCarousel"
-              className="carousel slide carousel-fade"
-              data-ride="carousel"
-            >
-              <div className="carousel-inner">
-                <div className="item active">
+            <div id="galleryCarousel">
+              <TransitionGroup className="carousel-inner">
+                <CSSTransition
+                  key={carouselCurrentItem[2]}
+                  timeout={1800}
+                  classNames="carousel"
+                >
                   <CarouselItem carouselCurrentItem={carouselCurrentItem} />
-                </div>
-              </div>
+                </CSSTransition>
+              </TransitionGroup>
             </div>
           </div>
         </div>
@@ -104,5 +104,3 @@ const Carousel = () => {
 };
 
 export default Carousel;
-
-//TODO: finalise Carousel

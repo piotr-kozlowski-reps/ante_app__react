@@ -31,7 +31,6 @@ function App(props) {
 
   //moving footer to bottom if needed
   const bodyElement = document.querySelector("body");
-  console.log({ isFooterToBeMovedToBottom });
   if (isFooterToBeMovedToBottom)
     bodyElement.className = "body-height-to-move-footer";
   else bodyElement.className = "";

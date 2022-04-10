@@ -7,8 +7,6 @@ import React, {
 } from "react";
 import { CSSTransition } from "react-transition-group";
 
-
-
 const CarouselItem = ({ carouselCurrentItem }) => {
   //
   //vars
@@ -20,7 +18,7 @@ const CarouselItem = ({ carouselCurrentItem }) => {
 
   useLayoutEffect(() => {
     setIsShowSlide(true);
-  }, [])
+  }, []);
 
   // useEffect(() => {
   //   setIsShowSlide(false);
@@ -31,7 +29,6 @@ const CarouselItem = ({ carouselCurrentItem }) => {
   if (!carouselCurrentItem) content = null;
   else
     content = (
-      <CSSTransition in={isShowSlide} timeout={4000} classNames="slide-transition">
       <img
         // style={{ opacity: 0 }}
         ref={(el) => (slider1 = el)}
@@ -41,7 +38,6 @@ const CarouselItem = ({ carouselCurrentItem }) => {
         // onMouseEnter={changeGraphicToFullHandler}
         // onMouseLeave={changeGraphicToNameHandler}
       />
-      </CSSTransition>
     );
 
   //

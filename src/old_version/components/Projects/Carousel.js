@@ -57,7 +57,6 @@ const Carousel = () => {
   );
 
   useLayoutEffect(() => {
-
     let index = 1;
     const changeSlide = () => {
       const itemsAmount = currentArrayByLanguage.length;
@@ -70,7 +69,7 @@ const Carousel = () => {
         index = 0;
       }
     };
-    const changeSlideInterval = setInterval(changeSlide, 6000);
+    const changeSlideInterval = setInterval(changeSlide, 200);
 
     return () => {
       clearInterval(changeSlideInterval);
@@ -78,8 +77,8 @@ const Carousel = () => {
   }, [currentArrayByLanguage]);
 
   useEffect(() => {
-    setCurrentArrayByLanguage( lang === "pl" ? carouselPL : carouselEN)
-  }, [lang])
+    setCurrentArrayByLanguage(lang === "pl" ? carouselPL : carouselEN);
+  }, [lang]);
 
   //
   //jsx

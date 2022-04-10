@@ -80,7 +80,8 @@ const ProjectsTypeNavigation = (props) => {
               data-toggle="collapse"
               data-target="#defaultNavbar1"
             >
-              <span className="sr-only">Toggle navigation</span>
+              <span className="sr-only">Toggle navigation</span> //TODO: toggle
+              navigaion in hamburger menu doesn't work
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>

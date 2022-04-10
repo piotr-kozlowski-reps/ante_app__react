@@ -1,11 +1,12 @@
 import React from "react";
 import { BrowserRouter } from "react-router-dom";
-import { render, screen, cleanup } from "../../utils/test-utils";
+import { render, screen, cleanup, within } from "../../utils/test-utils";
 import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
 import { server, rest } from "../../../../mocks/server";
 
-//mock localStorage
+import { useDispatch } from "react-redux";
+import { authActions } from "../../store/auth-slice";
 
 import App from "../../../App";
 
@@ -239,13 +240,16 @@ describe("MainNavigation", () => {
   it("should renderKontaktPage when Kontakt_Link clicked", () => {
     render(<MockApp />);
 
-    let kontaktButtonPl = screen.queryByRole("link", { name: /kontakt/i });
+    const list = screen.getByRole("list");
+    let kontaktButtonPl = within(list).getByRole("link", {
+      name: /kontakt/i,
+    });
     userEvent.click(kontaktButtonPl);
 
     expect(screen.getByTestId("contact-page")).toBeInTheDocument();
   });
 
-  it("should show proper links when loggedOut", () => {
+  it("should show proper links when loggedOut", async () => {
     render(<MockApp />);
 
     const loginButton = screen.queryByRole("link", { name: "Login" });
@@ -260,19 +264,18 @@ describe("MainNavigation", () => {
       name: /login/i,
     });
     userEvent.click(loginSubmitButton);
+    // screen.findByRole("");
 
-    //TODO: I have no idea how to get logout button since it's not in DOM
+    const logoutLink = await screen.findByRole("link", {
+      name: /logout/i,
+    });
 
-    // const logoutLink = screen.getByRole("link", {
-    //   name: /logout/i,
-    // });
+    userEvent.click(logoutLink);
 
-    // userEvent.click(logoutLink);
-
-    // expect(
-    //   screen.queryByRole("link", {
-    //     name: /logout/i,
-    //   })
-    // ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("link", {
+        name: /logout/i,
+      })
+    ).not.toBeInTheDocument();
   });
 });

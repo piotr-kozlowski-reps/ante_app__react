@@ -7177,7 +7177,7 @@ button.close {
 }
 #globe_tabs {
   overflow: auto;
-  background: #fff url("../images/globe_map.gif") no-repeat top center;
+  background: #fff url("../images/globe_map_opacity.png") no-repeat top center;
 }
 @media (max-width: 460px) {
   #globe_tabs .blok {

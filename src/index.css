@@ -9,6 +9,7 @@
   --color-green-100proc: rgb(154, 172, 19);
   --color-green-70proc: rgb(154, 172, 19, 0.7);
   --placeholder-color: #d6d6d6;
+  --transition-speed: 1800ms;
 }
 
 #root {
@@ -44,6 +45,13 @@ body {
   font-size: 13px;
   color: #555;
   height: 100%;
+}
+
+.bigger-text {
+  font-size: 14px;
+  font-weight: 500;
+  /* background-color: red; */
+  padding: 0 4rem 0 4rem;
 }
 
 .body-height-to-move-footer {
@@ -201,33 +209,92 @@ div.project {
   height: 100%;
   width: 100%;
 }
-.carousel-control.right,
+#galleryCarousel {
+  position: relative;
+  width: 1201px;
+  height: 667px;
+}
+#galleryCarousel .carousel-inner {
+  position: relative;
+  width: 1201px;
+  height: 100%;
+}
+
+#galleryCarousel .item {
+  position: absolute;
+  width: 1201px;
+  height: 667px;
+}
+
+#galleryCarousel .item > img {
+  position: absolute;
+  width: 1201px;
+  height: 667px;
+}
+
+#galleryCarousel .item .carousel-img-transform-in {
+  opacity: 0;
+  animation: fadein 5000ms linear 2500ms forwards;
+}
+
+#galleryCarousel .item .carousel-img-transform-out {
+  opacity: 0;
+  animation: fadeout 5800ms linear forwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fadeout {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+/* #galleryCarousel .carousel-inner > .item {
+  position: relative;
+} */
+/* .carousel-control.right,
 .carousel-control.left {
   background-image: none;
-}
-.carousel-fade .carousel-inner .item {
-  opacity: 0;
-  -webkit-transition-property: opacity;
-  -moz-transition-property: opacity;
-  -o-transition-property: opacity;
-  transition-property: opacity;
-}
-.carousel-fade .carousel-inner .active {
+} */
+/* .carousel-fade .carousel-inner .item { */
+/* position: absolute;
+  width: 1201px;
+  height: 667px;
+  left: 0;
+  top: 0; */
+/* opacity: 1; */
+/* -webkit-transition-property: opacity; */
+/* -moz-transition-property: opacity; */
+/* -o-transition-property: opacity; */
+/* transition-property: opacity; */
+/* } */
+/* .carousel-fade .carousel-inner .active {
   opacity: 1;
-}
-.carousel-fade .carousel-inner .active.left,
+} */
+/* .carousel-fade .carousel-inner .active.left,
 .carousel-fade .carousel-inner .active.right {
   left: 0;
   opacity: 0;
   z-index: 1;
-}
-.carousel-fade .carousel-inner .next.left,
+} */
+/* .carousel-fade .carousel-inner .next.left,
 .carousel-fade .carousel-inner .prev.right {
   opacity: 1;
 }
 .carousel-fade .carousel-control {
   z-index: 2;
-}
+} */
 
 .footer {
   clip-path: polygon(0 0, 100% 62%, 100% 100%, 0% 100%);
@@ -1063,6 +1130,10 @@ form {
   margin-bottom: 6rem;
 }
 
+.div-center-no-flex {
+  margin-bottom: 6rem;
+}
+
 .div-center-no-margin {
   display: flex;
   justify-content: center;
@@ -1505,4 +1576,37 @@ input[type="radio"] {
 
 .react-date-picker__inputGroup__input:invalid {
   background: var(--color-invalid-faded);
+}
+
+/* CSS transition group */
+/* appear - on page load */
+.carousel-appear {
+  opacity: 0;
+  z-index: 1;
+}
+.carousel-appear.carousel-appear-active {
+  opacity: 1;
+  transition: opacity var(--transition-speed) linear;
+}
+
+/* enter */
+.carousel-enter {
+  opacity: 0;
+  z-index: 1;
+}
+.carousel-enter.carousel-enter-active {
+  opacity: 1;
+  transition: opacity var(--transition-speed) linear;
+}
+
+/* exit */
+.carousel-exit {
+  opacity: 1;
+}
+.carousel-exit.carousel-exit-active {
+  opacity: 0;
+  transition: opacity var(--transition-speed) linear;
+}
+.carousel-exit-done {
+  opacity: 0;
 }
