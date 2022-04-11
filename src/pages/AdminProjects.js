@@ -79,7 +79,7 @@ const AdminProjects = () => {
         projectType={typeGotFromQuery}
         onDelete={deleteProjectHandler}
       />
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   );
 };

@@ -7,12 +7,13 @@ import logoImg from "../../images/ante-logo.png";
 const Footer = () => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
-  const isFooterToBeMovedToBottom = useSelector(
-    (state) => state.footerPosition.isFooterToBeMovedToBottom
-  );
-  const [] = useState(false);
-  const dispatch = useDispatch();
-  let footerRef = useRef(null);
+  //-------start
+  // const isFooterToBeMovedToBottom = useSelector(
+  //   (state) => state.footerPosition.isFooterToBeMovedToBottom
+  // );
+  // const dispatch = useDispatch();
+  // let footerRef = useRef(null);
+  //-------end
 
   ////content
   let companyName, companyAddress, companyPhone;
@@ -28,34 +29,37 @@ const Footer = () => {
 
   ////func
   //handling scrolling to check if footer is on bottom of page
-  const checkIfFooterHasToBeMovedHandler = useCallback(() => {
-    if (footerRef.current) {
-      const windowHeight = window.innerHeight;
-      const bottomOfFooter = footerRef.current.getBoundingClientRect().bottom;
+  //-------start
+  // const checkIfFooterHasToBeMovedHandler = useCallback(() => {
+  //   if (footerRef.current) {
+  //     const windowHeight = window.innerHeight;
+  //     const bottomOfFooter = footerRef.current.getBoundingClientRect().bottom;
 
-      if (windowHeight - 1 > bottomOfFooter) {
-        dispatch(footerPositionActions.setFooterToBeMovedToBottom());
-        dispatch(footerPositionActions.setWindowHeight(windowHeight));
-      } else {
-        dispatch(footerPositionActions.setFooterNotToBeMovedToBottom());
-      }
-    }
-  }, [dispatch, footerRef]);
-  //triggers
-  useEffect(() => {
-    window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
-    window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
-  });
-  useEffect(() => {
-    checkIfFooterHasToBeMovedHandler();
-  }, []);
+  //     if (windowHeight - 1 > bottomOfFooter) {
+  //       dispatch(footerPositionActions.setFooterToBeMovedToBottom());
+  //       dispatch(footerPositionActions.setWindowHeight(windowHeight));
+  //     } else {
+  //       dispatch(footerPositionActions.setFooterNotToBeMovedToBottom());
+  //     }
+  //   }
+  // }, [dispatch, footerRef]);
+  // //triggers
+  // useEffect(() => {
+  //   window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
+  //   window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
+  // });
+  // useEffect(() => {
+  //   checkIfFooterHasToBeMovedHandler();
+  // }, []);
+  //-------end
 
   ////jsx
   return (
     <div
-      className={`footer ${isFooterToBeMovedToBottom ? "footer-bottom" : ""}`}
+      // className={`footer ${isFooterToBeMovedToBottom ? "footer-bottom" : ""}`}
+      className={`footer`}
       id="kontakt"
-      ref={footerRef}
+      // ref={footerRef}
     >
       <div className="container">
         <div className="row">

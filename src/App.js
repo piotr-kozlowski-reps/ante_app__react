@@ -1,4 +1,4 @@
-import React, { Fragment, useEffect, Suspense } from "react";
+import React, { Fragment, useEffect, useRef, useState } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
@@ -21,9 +21,13 @@ let logoutTimer;
 function App(props) {
   ////vars
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  const isFooterToBeMovedToBottom = useSelector(
-    (state) => state.footerPosition.isFooterToBeMovedToBottom
-  );
+  let refDivTriggerFooterMovement = useRef();
+  let refDivFooter = useRef();
+  console.log({ refDivFooter });
+  const [footerHeight, setFooterHeight] = useState(0);
+  // const isFooterToBeMovedToBottom = useSelector(
+  //   (state) => state.footerPosition.isFooterToBeMovedToBottom
+  // );
   const token = useSelector((state) => state.auth.token);
   const tokenExpirationDate = useSelector(
     (state) => state.auth.tokenExpirationDate
@@ -31,10 +35,12 @@ function App(props) {
   const dispatch = useDispatch();
 
   //moving footer to bottom if needed
-  const bodyElement = document.querySelector("body");
-  if (isFooterToBeMovedToBottom)
-    bodyElement.className = "body-height-to-move-footer";
-  else bodyElement.className = "";
+  //-------start
+  // const bodyElement = document.querySelector("body");
+  // if (isFooterToBeMovedToBottom)
+  //   bodyElement.className = "body-height-to-move-footer";
+  // else bodyElement.className = "";
+  //-------end
 
   //check if logged in - token in localStorage is present and data didn't expire
   ////TESTED
@@ -70,6 +76,21 @@ function App(props) {
       clearTimeout(logoutTimer);
     }
   }, [token, tokenExpirationDate, dispatch]);
+
+  //moving footer to bottom if needed
+  useEffect(() => {
+    if (
+      !refDivFooter ||
+      !refDivFooter.current ||
+      !refDivFooter.current.clientHeight
+    )
+      return;
+
+    if (footerHeight !== refDivFooter.clientHeight) {
+      setFooterHeight(refDivFooter.current.clientHeight);
+    }
+    console.log({ footerHeight });
+  }, [footerHeight, refDivFooter]);
 
   function logoutPostponed() {
     dispatch(authActions.logout());
@@ -124,7 +145,8 @@ function App(props) {
       </nav>
 
       {routes}
-      {/* <Footer /> */}
+      <div id="footer-move-trigger" ref={refDivTriggerFooterMovement}></div>
+      <Footer />
     </Fragment>
   );
 }

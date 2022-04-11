@@ -247,7 +247,7 @@ const About = () => {
         </div>
         {clientsContent}
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   );
 };

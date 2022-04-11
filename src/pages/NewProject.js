@@ -10,7 +10,7 @@ const NewProject = () => {
     <Fragment>
       <AdminTitle title="Create new project" />
       <FormikContainer />
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   );
 };

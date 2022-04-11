@@ -123,7 +123,7 @@ const ProjectShowcase = () => {
 
       <ProjectShowcaseFooter />
 
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   );
 };

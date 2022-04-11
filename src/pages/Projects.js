@@ -115,7 +115,7 @@ const Projects = () => {
         />
       )}
       <div id="pagination-trigger" ref={refDivTriggeringPagination}></div>
-      <Footer />
+      {/* <Footer /> */}
     </Fragment>
   );
 };
