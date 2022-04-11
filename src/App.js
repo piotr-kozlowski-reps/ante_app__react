@@ -14,6 +14,7 @@ import ProjectShowcase from "./pages/ProjectShowcase";
 import NewProject from "./pages/NewProject";
 import UpdateProject from "./pages/UpdateProject";
 import AdminProjects from "./pages/AdminProjects";
+import Footer from "./shared/components/Footer";
 
 let logoutTimer;
 
@@ -38,7 +39,10 @@ function App(props) {
   //check if logged in - token in localStorage is present and data didn't expire
   ////TESTED
   useEffect(() => {
-    const storedData = JSON.parse(localStorage.getItem("userData"));
+    const localStorageUserDataObj = localStorage.getItem("userData");
+    if (!localStorageUserDataObj) return;
+
+    const storedData = JSON.parse(localStorageUserDataObj);
     if (
       storedData &&
       storedData.token &&
@@ -120,6 +124,7 @@ function App(props) {
       </nav>
 
       {routes}
+      {/* <Footer /> */}
     </Fragment>
   );
 }

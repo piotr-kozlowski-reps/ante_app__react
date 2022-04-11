@@ -86,7 +86,7 @@ describe("MainNavigation", () => {
     contactButtonPl = screen.queryByRole("link", { name: "Kontakt" });
     aboutButtonPl = screen.queryByRole("link", { name: "O nas" });
     projectsButtonPl = screen.queryByRole("link", { name: "Projekty" });
-    langButtonEn = screen.queryByRole("button", { name: /en/i });
+    langButtonEn = screen.queryByRole("button", { name: "EN" });
     contactButtonEn = screen.queryByRole("link", { name: "Contact" });
     aboutButtonEn = screen.queryByRole("link", { name: "About" });
     projectsButtonEn = screen.queryByRole("link", { name: "Projects" });
@@ -96,7 +96,7 @@ describe("MainNavigation", () => {
     expect(aboutButtonPl).not.toBeInTheDocument();
     expect(projectsButtonPl).not.toBeInTheDocument();
     expect(langButtonPl).toBeInTheDocument();
-    expect(langButtonEn).not.toBeInTheDocument();
+    expect(langButtonEn).not.toBeInTheDocument(); //?
     expect(contactButtonEn).toBeInTheDocument();
     expect(aboutButtonEn).toBeInTheDocument();
     expect(projectsButtonEn).toBeInTheDocument();
