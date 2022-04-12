@@ -1,10 +1,16 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, {
+  useEffect,
+  useState,
+  useRef,
+  useCallback,
+  forwardRef,
+} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { footerPositionActions } from "../store/footer-position-slice";
 
 import logoImg from "../../images/ante-logo.png";
 
-const Footer = () => {
+const Footer = forwardRef((props, ref) => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
   //-------start
@@ -56,6 +62,7 @@ const Footer = () => {
   ////jsx
   return (
     <div
+      ref={ref}
       // className={`footer ${isFooterToBeMovedToBottom ? "footer-bottom" : ""}`}
       className={`footer`}
       id="kontakt"
@@ -83,6 +90,6 @@ const Footer = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Footer;

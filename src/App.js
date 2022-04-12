@@ -1,4 +1,10 @@
-import React, { Fragment, useEffect, useRef, useState } from "react";
+import React, {
+  Fragment,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
@@ -21,18 +27,21 @@ let logoutTimer;
 function App(props) {
   ////vars
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
-  let refDivTriggerFooterMovement = useRef();
-  let refDivFooter = useRef();
-  console.log({ refDivFooter });
-  const [footerHeight, setFooterHeight] = useState(0);
-  // const isFooterToBeMovedToBottom = useSelector(
-  //   (state) => state.footerPosition.isFooterToBeMovedToBottom
-  // );
   const token = useSelector((state) => state.auth.token);
   const tokenExpirationDate = useSelector(
     (state) => state.auth.tokenExpirationDate
   );
   const dispatch = useDispatch();
+
+  //footer positioning vars
+  let refDivTriggerFooterMovement = useRef();
+  let refDivFooter = useRef();
+  console.log({ refDivTriggerFooterMovement });
+  const [footerHeight, setFooterHeight] = useState(0);
+  const [divTriggerFooterHPosition, setDivTriggerFooterHPosition] = useState(0);
+  // const isFooterToBeMovedToBottom = useSelector(
+  //   (state) => state.footerPosition.isFooterToBeMovedToBottom
+  // );
 
   //moving footer to bottom if needed
   //-------start
@@ -78,6 +87,22 @@ function App(props) {
   }, [token, tokenExpirationDate, dispatch]);
 
   //moving footer to bottom if needed
+  const checkIfFooterHasToBeMovedHandler = useCallback(() => {
+    const windowHeight = window.innerHeight;
+    const marginTopFromFooterClass = 120;
+
+    console.log("checkIfFooterHasToBeMovedHandler");
+    console.log({ footerHeight });
+    console.log({ windowHeight });
+    console.log({ divTriggerFooterHPosition });
+
+    console.log(
+      "move footer?: ",
+      divTriggerFooterHPosition - marginTopFromFooterClass + footerHeight <
+        windowHeight
+    );
+  }, [footerHeight, divTriggerFooterHPosition]);
+
   useEffect(() => {
     if (
       !refDivFooter ||
@@ -86,11 +111,38 @@ function App(props) {
     )
       return;
 
-    if (footerHeight !== refDivFooter.clientHeight) {
+    if (
+      !refDivTriggerFooterMovement ||
+      !refDivTriggerFooterMovement.current ||
+      !refDivTriggerFooterMovement.current.offsetTop
+    )
+      return;
+
+    if (footerHeight !== refDivFooter.current.clientHeight) {
       setFooterHeight(refDivFooter.current.clientHeight);
     }
-    console.log({ footerHeight });
-  }, [footerHeight, refDivFooter]);
+    if (
+      divTriggerFooterHPosition !==
+      refDivTriggerFooterMovement.current.offsetTop
+    ) {
+      setDivTriggerFooterHPosition(
+        refDivTriggerFooterMovement.current.offsetTop
+      );
+    }
+
+    checkIfFooterHasToBeMovedHandler();
+  }, [
+    footerHeight,
+    checkIfFooterHasToBeMovedHandler,
+    divTriggerFooterHPosition,
+    refDivFooter,
+    refDivTriggerFooterMovement,
+  ]);
+  window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
+  window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
+  useEffect(() => {
+    checkIfFooterHasToBeMovedHandler();
+  }, []);
 
   function logoutPostponed() {
     dispatch(authActions.logout());
@@ -146,7 +198,7 @@ function App(props) {
 
       {routes}
       <div id="footer-move-trigger" ref={refDivTriggerFooterMovement}></div>
-      <Footer />
+      <Footer ref={refDivFooter} />
     </Fragment>
   );
 }
