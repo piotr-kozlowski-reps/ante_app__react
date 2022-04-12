@@ -1610,10 +1610,3 @@ input[type="radio"] {
 .carousel-exit-done {
   opacity: 0;
 }
-
-#footer-move-trigger {
-  position: relative;
-  height: 10px;
-  width: 10px;
-  background-color: red;
-}

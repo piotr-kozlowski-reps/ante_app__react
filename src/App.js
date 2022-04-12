@@ -36,20 +36,10 @@ function App(props) {
   //footer positioning vars
   let refDivTriggerFooterMovement = useRef();
   let refDivFooter = useRef();
-  console.log({ refDivTriggerFooterMovement });
   const [footerHeight, setFooterHeight] = useState(0);
   const [divTriggerFooterHPosition, setDivTriggerFooterHPosition] = useState(0);
-  // const isFooterToBeMovedToBottom = useSelector(
-  //   (state) => state.footerPosition.isFooterToBeMovedToBottom
-  // );
-
-  //moving footer to bottom if needed
-  //-------start
-  // const bodyElement = document.querySelector("body");
-  // if (isFooterToBeMovedToBottom)
-  //   bodyElement.className = "body-height-to-move-footer";
-  // else bodyElement.className = "";
-  //-------end
+  const [isToMoveFooter, setIsToMoveFooter] = useState(false);
+  const bodyElement = document.querySelector("body");
 
   //check if logged in - token in localStorage is present and data didn't expire
   ////TESTED
@@ -89,19 +79,24 @@ function App(props) {
   //moving footer to bottom if needed
   const checkIfFooterHasToBeMovedHandler = useCallback(() => {
     const windowHeight = window.innerHeight;
-    const marginTopFromFooterClass = 120;
 
-    console.log("checkIfFooterHasToBeMovedHandler");
-    console.log({ footerHeight });
-    console.log({ windowHeight });
-    console.log({ divTriggerFooterHPosition });
+    //addedAllMarginsFromFooterClasses
+    const marginTopFromFooterClass = 120 + 30 + 20 + 15 + 20 + 15;
 
-    console.log(
-      "move footer?: ",
-      divTriggerFooterHPosition - marginTopFromFooterClass + footerHeight <
-        windowHeight
-    );
-  }, [footerHeight, divTriggerFooterHPosition]);
+    divTriggerFooterHPosition + marginTopFromFooterClass < windowHeight
+      ? moveFooterToBottom()
+      : unmoveFooterToBottom();
+
+    function moveFooterToBottom() {
+      bodyElement.className = "body-height-to-move-footer";
+      setIsToMoveFooter(true);
+    }
+
+    function unmoveFooterToBottom() {
+      bodyElement.className = "";
+      setIsToMoveFooter(false);
+    }
+  }, [divTriggerFooterHPosition, bodyElement]);
 
   useEffect(() => {
     if (
@@ -198,7 +193,7 @@ function App(props) {
 
       {routes}
       <div id="footer-move-trigger" ref={refDivTriggerFooterMovement}></div>
-      <Footer ref={refDivFooter} />
+      <Footer ref={refDivFooter} isToMoveFooter={isToMoveFooter} />
     </Fragment>
   );
 }

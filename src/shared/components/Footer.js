@@ -5,6 +5,7 @@ import React, {
   useCallback,
   forwardRef,
 } from "react";
+import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
 import { footerPositionActions } from "../store/footer-position-slice";
 
@@ -21,6 +22,7 @@ const Footer = forwardRef((props, ref) => {
   // let footerRef = useRef(null);
   //-------end
 
+  console.log(props.isToMoveFooter);
   ////content
   let companyName, companyAddress, companyPhone;
   if (lang === "pl") {
@@ -63,8 +65,8 @@ const Footer = forwardRef((props, ref) => {
   return (
     <div
       ref={ref}
-      // className={`footer ${isFooterToBeMovedToBottom ? "footer-bottom" : ""}`}
-      className={`footer`}
+      className={`footer ${props.isToMoveFooter ? "footer-bottom" : ""}`}
+      // className={`footer`}
       id="kontakt"
       // ref={footerRef}
     >
@@ -91,5 +93,9 @@ const Footer = forwardRef((props, ref) => {
     </div>
   );
 });
+
+Footer.propTypes = {
+  isToMoveFooter: PropTypes.bool,
+};
 
 export default Footer;
