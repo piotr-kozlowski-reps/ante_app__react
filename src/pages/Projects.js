@@ -8,7 +8,6 @@ import { useHttpClient } from "../shared/hooks/http-hook";
 import ProjectsList from "../components/Projects/ProjectsList";
 import Carousel from "../components/Projects/Carousel";
 import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
-import Footer from "../shared/components/Footer";
 import ErrorModal from "../shared/components/ErrorModal";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
 
@@ -115,7 +114,6 @@ const Projects = () => {
         />
       )}
       <div id="pagination-trigger" ref={refDivTriggeringPagination}></div>
-      {/* <Footer /> */}
     </Fragment>
   );
 };

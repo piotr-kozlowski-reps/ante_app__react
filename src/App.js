@@ -32,6 +32,7 @@ function App(props) {
     (state) => state.auth.tokenExpirationDate
   );
   const dispatch = useDispatch();
+  const location = useLocation();
 
   //footer positioning vars
   let refDivTriggerFooterMovement = useRef();
@@ -41,49 +42,17 @@ function App(props) {
   const [isToMoveFooter, setIsToMoveFooter] = useState(false);
   const bodyElement = document.querySelector("body");
 
-  //check if logged in - token in localStorage is present and data didn't expire
-  ////TESTED
-  useEffect(() => {
-    const localStorageUserDataObj = localStorage.getItem("userData");
-    if (!localStorageUserDataObj) return;
-
-    const storedData = JSON.parse(localStorageUserDataObj);
-    if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
-    ) {
-      dispatch(
-        authActions.login({
-          login: storedData.login,
-          token: storedData.token,
-          expirationDate: new Date(storedData.expiration).toISOString(),
-        })
-      );
-    }
-  }, [dispatch]);
-
-  //logout when time expires
-  ////TESTED
-  useEffect(() => {
-    if (token && tokenExpirationDate) {
-      const remainingTime =
-        new Date(tokenExpirationDate).getTime() - new Date().getTime();
-
-      logoutTimer = setTimeout(logoutPostponed, remainingTime);
-    } else {
-      clearTimeout(logoutTimer);
-    }
-  }, [token, tokenExpirationDate, dispatch]);
-
   //moving footer to bottom if needed
   const checkIfFooterHasToBeMovedHandler = useCallback(() => {
     const windowHeight = window.innerHeight;
+    console.log(refDivTriggerFooterMovement.current.offsetTop);
 
     //addedAllMarginsFromFooterClasses
-    const marginTopFromFooterClass = 120 + 30 + 20 + 15 + 20 + 15;
+    // const marginTopFromFooterClass = 120 + 30 + 20 + 15 + 20 + 15; //?
+    const marginTopFromFooterClass = 120;
 
-    divTriggerFooterHPosition + marginTopFromFooterClass < windowHeight
+    divTriggerFooterHPosition + footerHeight - marginTopFromFooterClass <
+    windowHeight
       ? moveFooterToBottom()
       : unmoveFooterToBottom();
 
@@ -96,6 +65,15 @@ function App(props) {
       bodyElement.className = "";
       setIsToMoveFooter(false);
     }
+
+    console.log({ windowHeight });
+    console.log({ footerHeight });
+    console.log({ divTriggerFooterHPosition });
+    console.log({ isToMoveFooter });
+    console.log(
+      "wynik: ",
+      divTriggerFooterHPosition + footerHeight - marginTopFromFooterClass
+    );
   }, [divTriggerFooterHPosition, bodyElement]);
 
   useEffect(() => {
@@ -132,16 +110,53 @@ function App(props) {
     divTriggerFooterHPosition,
     refDivFooter,
     refDivTriggerFooterMovement,
+    location,
   ]);
+
   window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
   window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
   useEffect(() => {
     checkIfFooterHasToBeMovedHandler();
-  }, []);
+  }, [checkIfFooterHasToBeMovedHandler]);
 
   function logoutPostponed() {
     dispatch(authActions.logout());
   }
+
+  //check if logged in - token in localStorage is present and data didn't expire
+  ////TESTED
+  useEffect(() => {
+    const localStorageUserDataObj = localStorage.getItem("userData");
+    if (!localStorageUserDataObj) return;
+
+    const storedData = JSON.parse(localStorageUserDataObj);
+    if (
+      storedData &&
+      storedData.token &&
+      new Date(storedData.expiration) > new Date()
+    ) {
+      dispatch(
+        authActions.login({
+          login: storedData.login,
+          token: storedData.token,
+          expirationDate: new Date(storedData.expiration).toISOString(),
+        })
+      );
+    }
+  }, [dispatch]);
+
+  //logout when time expires
+  ////TESTED
+  useEffect(() => {
+    if (token && tokenExpirationDate) {
+      const remainingTime =
+        new Date(tokenExpirationDate).getTime() - new Date().getTime();
+
+      logoutTimer = setTimeout(logoutPostponed, remainingTime);
+    } else {
+      clearTimeout(logoutTimer);
+    }
+  }, [token, tokenExpirationDate, dispatch]);
 
   ////content
   let routes;

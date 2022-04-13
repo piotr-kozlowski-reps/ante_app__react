@@ -5,24 +5,15 @@ import React, {
   useCallback,
   forwardRef,
 } from "react";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { useDispatch, useSelector } from "react-redux";
-import { footerPositionActions } from "../store/footer-position-slice";
 
 import logoImg from "../../images/ante-logo.png";
 
 const Footer = forwardRef((props, ref) => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
-  //-------start
-  // const isFooterToBeMovedToBottom = useSelector(
-  //   (state) => state.footerPosition.isFooterToBeMovedToBottom
-  // );
-  // const dispatch = useDispatch();
-  // let footerRef = useRef(null);
-  //-------end
 
-  console.log(props.isToMoveFooter);
   ////content
   let companyName, companyAddress, companyPhone;
   if (lang === "pl") {
@@ -35,40 +26,12 @@ const Footer = forwardRef((props, ref) => {
     companyPhone = "0048 691 235 259";
   }
 
-  ////func
-  //handling scrolling to check if footer is on bottom of page
-  //-------start
-  // const checkIfFooterHasToBeMovedHandler = useCallback(() => {
-  //   if (footerRef.current) {
-  //     const windowHeight = window.innerHeight;
-  //     const bottomOfFooter = footerRef.current.getBoundingClientRect().bottom;
-
-  //     if (windowHeight - 1 > bottomOfFooter) {
-  //       dispatch(footerPositionActions.setFooterToBeMovedToBottom());
-  //       dispatch(footerPositionActions.setWindowHeight(windowHeight));
-  //     } else {
-  //       dispatch(footerPositionActions.setFooterNotToBeMovedToBottom());
-  //     }
-  //   }
-  // }, [dispatch, footerRef]);
-  // //triggers
-  // useEffect(() => {
-  //   window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
-  //   window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
-  // });
-  // useEffect(() => {
-  //   checkIfFooterHasToBeMovedHandler();
-  // }, []);
-  //-------end
-
   ////jsx
   return (
     <div
       ref={ref}
       className={`footer ${props.isToMoveFooter ? "footer-bottom" : ""}`}
-      // className={`footer`}
       id="kontakt"
-      // ref={footerRef}
     >
       <div className="container">
         <div className="row">
