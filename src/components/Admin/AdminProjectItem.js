@@ -31,8 +31,6 @@ const AdminProjectItem = (props) => {
   const token = useSelector((state) => state.auth.token);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  console.log({ token });
-
   ////func
   const showDeleteWarningHandler = () => {
     setShowConfirmModal(true);

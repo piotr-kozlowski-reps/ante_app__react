@@ -211,25 +211,25 @@ div.project {
 }
 #galleryCarousel {
   position: relative;
-  width: 1201px;
-  height: 667px;
+  width: 1126px;
+  height: 625px;
 }
 #galleryCarousel .carousel-inner {
   position: relative;
-  width: 1201px;
-  height: 100%;
+  width: inherit;
+  height: inherit;
 }
 
 #galleryCarousel .item {
   position: absolute;
-  width: 1201px;
-  height: 667px;
+  width: inherit;
+  height: inherit;
 }
 
 #galleryCarousel .item > img {
   position: absolute;
-  width: 1201px;
-  height: 667px;
+  width: inherit;
+  height: inherit;
 }
 
 #galleryCarousel .item .carousel-img-transform-in {
@@ -1615,14 +1615,12 @@ input[type="radio"] {
   position: relative;
   height: 1px;
   width: 100%;
-  background-color: red;
+  /* background-color: red; */
 }
 
-#footer-move-trigger::after {
-  content: "";
-  margin-left: 400px;
-  position: absolute;
-  height: 220px;
-  width: 5px;
-  background-color: red;
+#pagination-trigger {
+  position: relative;
+  height: 1px;
+  width: 100%;
+  /* background-color: blue; */
 }

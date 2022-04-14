@@ -45,36 +45,26 @@ function App(props) {
   //moving footer to bottom if needed
   const checkIfFooterHasToBeMovedHandler = useCallback(() => {
     const windowHeight = window.innerHeight;
-    console.log(refDivTriggerFooterMovement.current.offsetTop);
 
-    //addedAllMarginsFromFooterClasses
-    // const marginTopFromFooterClass = 120 + 30 + 20 + 15 + 20 + 15; //?
     const marginTopFromFooterClass = 120;
 
-    divTriggerFooterHPosition + footerHeight - marginTopFromFooterClass <
+    refDivTriggerFooterMovement.current.offsetTop +
+      footerHeight -
+      marginTopFromFooterClass <
     windowHeight
       ? moveFooterToBottom()
-      : unmoveFooterToBottom();
+      : unMoveFooterToBottom();
 
     function moveFooterToBottom() {
       bodyElement.className = "body-height-to-move-footer";
       setIsToMoveFooter(true);
     }
 
-    function unmoveFooterToBottom() {
+    function unMoveFooterToBottom() {
       bodyElement.className = "";
       setIsToMoveFooter(false);
     }
-
-    console.log({ windowHeight });
-    console.log({ footerHeight });
-    console.log({ divTriggerFooterHPosition });
-    console.log({ isToMoveFooter });
-    console.log(
-      "wynik: ",
-      divTriggerFooterHPosition + footerHeight - marginTopFromFooterClass
-    );
-  }, [divTriggerFooterHPosition, bodyElement]);
+  }, [bodyElement, footerHeight]);
 
   useEffect(() => {
     if (

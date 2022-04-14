@@ -427,20 +427,6 @@ describe(`ABOUT -> tdd approach`, () => {
       })
     ).toBeInTheDocument();
   });
-
-  it("should render footer in both languages.", () => {
-    render(<MockApp />);
-    resetLanguageToPolish();
-    goToAboutPageInPl();
-
-    expect(screen.getByText(`firma Ante Piotr Kozłowski`)).toBeInTheDocument();
-    expect(screen.getByText(`691 235 259`)).toBeInTheDocument();
-
-    //en
-    changeLanguageToEn();
-
-    expect(screen.getByText(`ANTE Piotr Kozlowski`)).toBeInTheDocument();
-  });
 });
 
 function goToAboutPageInPl() {
