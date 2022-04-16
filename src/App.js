@@ -34,6 +34,48 @@ function App(props) {
   const dispatch = useDispatch();
   const location = useLocation();
 
+  const refresh = useCallback(() => {
+    // checkIfFooterHasToBeMovedHandler();
+    makeStickyPortfolioIfNeeded();
+  });
+
+  //sticky portfolio
+  function makeStickyPortfolioIfNeeded() {
+    const stickyNavigation = document.querySelector("#the-sticky-div");
+    // const divAfterStickyNavigationWithPy =
+    //   document.querySelector("#defaultNavbar1");
+    console.log({ stickyNavigation });
+    // console.log({ divAfterStickyNavigationWithPy });
+    if (stickyNavigation) {
+      const stickyDivPosition =
+        stickyNavigation.getBoundingClientRect().top + window.pageYOffset;
+      const windowOffsetInY = window.pageYOffset;
+      console.log({ stickyDivPosition });
+      console.log({ windowOffsetInY });
+      console.log(stickyDivPosition >= stickyDivPosition);
+
+      if (windowOffsetInY >= stickyDivPosition) {
+        stickyNavigation.classList.add("sticky");
+        // if (divAfterStickyNavigationWithPy)
+        //   divAfterStickyNavigationWithPy.classList.remove("py-admin");
+      } else {
+        stickyNavigation.classList.remove("sticky");
+        // if (divAfterStickyNavigationWithPy)
+        //   divAfterStickyNavigationWithPy.classList.add("py-admin");
+      }
+    }
+  }
+
+  //   <script>
+  // var $window = $(window),
+  //      $stickyEl = $('#the-sticky-div'),
+  //      elTop = $stickyEl.offset().top;
+
+  //  $window.scroll(function() {
+  //       $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
+  //   });
+  // </script>
+
   //footer positioning vars
   let refDivTriggerFooterMovement = useRef();
   let refDivFooter = useRef();
@@ -45,7 +87,6 @@ function App(props) {
   //moving footer to bottom if needed
   const checkIfFooterHasToBeMovedHandler = useCallback(() => {
     const windowHeight = window.innerHeight;
-
     const marginTopFromFooterClass = 120;
 
     refDivTriggerFooterMovement.current.offsetTop +
@@ -103,11 +144,11 @@ function App(props) {
     location,
   ]);
 
-  window.addEventListener("resize", checkIfFooterHasToBeMovedHandler, true);
-  window.addEventListener("scroll", checkIfFooterHasToBeMovedHandler, true);
+  window.addEventListener("resize", refresh, true);
+  window.addEventListener("scroll", refresh, true);
   useEffect(() => {
-    checkIfFooterHasToBeMovedHandler();
-  }, [checkIfFooterHasToBeMovedHandler]);
+    refresh();
+  }, [refresh]);
 
   function logoutPostponed() {
     dispatch(authActions.logout());

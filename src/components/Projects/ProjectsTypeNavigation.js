@@ -68,6 +68,7 @@ const ProjectsTypeNavigation = (props) => {
       ref={(el) => (portfolioElement = el)}
     >
       <div
+        id="div-after-sticky-with-extra-py"
         className={`row ${
           props.additionalTitleClass ? props.additionalTitleClass : ""
         }`}
