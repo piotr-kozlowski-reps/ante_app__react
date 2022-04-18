@@ -35,26 +35,24 @@ function App(props) {
   const location = useLocation();
 
   const refresh = useCallback(() => {
-    // checkIfFooterHasToBeMovedHandler();
+    checkIfFooterHasToBeMovedHandler();
     makeStickyPortfolioIfNeeded();
   });
 
   //sticky portfolio
+  //TODO: check after tests if it really works well when more projects will be provided
   function makeStickyPortfolioIfNeeded() {
     const stickyNavigation = document.querySelector("#the-sticky-div");
-    // const divAfterStickyNavigationWithPy =
-    //   document.querySelector("#defaultNavbar1");
-    console.log({ stickyNavigation });
-    // console.log({ divAfterStickyNavigationWithPy });
+    const divAfterStickyNavigationWithPy = document.querySelector(
+      "#the-sticky-div > .py-admin"
+    );
+
     if (stickyNavigation) {
       const stickyDivPosition =
         stickyNavigation.getBoundingClientRect().top + window.pageYOffset;
       const windowOffsetInY = window.pageYOffset;
-      console.log({ stickyDivPosition });
-      console.log({ windowOffsetInY });
-      console.log(stickyDivPosition >= stickyDivPosition);
 
-      if (windowOffsetInY >= stickyDivPosition) {
+      if (windowOffsetInY > stickyDivPosition) {
         stickyNavigation.classList.add("sticky");
         // if (divAfterStickyNavigationWithPy)
         //   divAfterStickyNavigationWithPy.classList.remove("py-admin");
@@ -65,16 +63,6 @@ function App(props) {
       }
     }
   }
-
-  //   <script>
-  // var $window = $(window),
-  //      $stickyEl = $('#the-sticky-div'),
-  //      elTop = $stickyEl.offset().top;
-
-  //  $window.scroll(function() {
-  //       $stickyEl.toggleClass('sticky', $window.scrollTop() > elTop);
-  //   });
-  // </script>
 
   //footer positioning vars
   let refDivTriggerFooterMovement = useRef();

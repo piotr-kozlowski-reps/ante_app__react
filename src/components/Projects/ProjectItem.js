@@ -18,14 +18,20 @@ const ProjectItem = forwardRef((props, ref) => {
       ref={ref}
       className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext"
     >
-      <div className="box">
+      <div className="box" data-testid="project-item">
         <img src={`${process.env.REACT_APP_BACKEND_URL}${icoImg}`} alt={alt} />
         <div className="more">
           <div className="project">
-            <Link to={`/${lang}/projects/${id}`} className="link">
+            <Link
+              to={`/${lang}/projects/${id}`}
+              className="link"
+              data-testid="project-item-link"
+            >
               <div className="desc">
-                <h3>{projName.toUpperCase()}</h3>
-                <h4>
+                <h3 data-testid="project-item-name">
+                  {projName.toUpperCase()}
+                </h3>
+                <h4 data-testid="project-item-date-city-country">
                   {`${format(
                     completionDate,
                     "yyyy"

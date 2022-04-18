@@ -222,3 +222,7 @@ ProjectsTypeNavigation.propTypes = {
 };
 
 export default ProjectsTypeNavigation;
+
+//TODO: check if sticky really works when more projects
+//TODO: make hamburger menu
+//TODO: check mobile css if everything works

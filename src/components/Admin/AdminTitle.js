@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 
 const AdminTitle = ({ title }) => {
   return (
-    <div id="the-no-sticky-div" className="container">
-      <div className="container">
+    <div id="the-no-sticky-div">
+      <div>
         <div className="row py-admin">
           <div className="col-lg-12">
             <h2 className="text-center">{title}</h2>

@@ -96,7 +96,7 @@ describe("MainNavigation", () => {
     expect(aboutButtonPl).not.toBeInTheDocument();
     expect(projectsButtonPl).not.toBeInTheDocument();
     expect(langButtonPl).toBeInTheDocument();
-    expect(langButtonEn).not.toBeInTheDocument(); //?
+    expect(langButtonEn).not.toBeInTheDocument();
     expect(contactButtonEn).toBeInTheDocument();
     expect(aboutButtonEn).toBeInTheDocument();
     expect(projectsButtonEn).toBeInTheDocument();
@@ -123,8 +123,6 @@ describe("MainNavigation", () => {
     });
     loginInput = screen.queryByPlaceholderText(/enter your login/i);
     passwordInput = screen.queryByPlaceholderText(/enter your password/i);
-
-    // screen.getByRole("");
 
     expect(loginHeading).toBeInTheDocument();
     expect(loginInput).toBeInTheDocument();
@@ -183,7 +181,7 @@ describe("MainNavigation", () => {
       )
     );
 
-    const loginButton = screen.queryByRole("link", { name: "Login" }); //?
+    const loginButton = screen.queryByRole("link", { name: "Login" });
     userEvent.click(loginButton);
 
     const loginInput = screen.queryByPlaceholderText(/enter your login/i);
@@ -209,7 +207,7 @@ describe("MainNavigation", () => {
     ).not.toBeInTheDocument();
 
     expect(
-      screen.getByRole("heading", {
+      await screen.findByRole("heading", {
         name: /an error occurred!/i,
       })
     ).toBeInTheDocument();

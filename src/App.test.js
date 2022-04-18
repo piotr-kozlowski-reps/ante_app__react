@@ -46,9 +46,9 @@ describe("APP => automatic logging in with localStorageData", () => {
     );
     render(<MockApp />);
 
-    const loginElement = screen.queryByText(/LOGIN/i); //?
-    const adminElement = screen.queryByText(/ADMIN/i); //?
-    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    const loginElement = screen.queryByText(/LOGIN/i);
+    const adminElement = screen.queryByText(/ADMIN/i);
+    const logoutElement = screen.queryByText(/LOGOUT/i);
     expect(loginElement).not.toBeInTheDocument();
     expect(adminElement).toBeInTheDocument();
     expect(logoutElement).toBeInTheDocument();
@@ -78,9 +78,9 @@ describe("APP => automatic logging in with localStorageData", () => {
     console.log(localStorage.getItem("userData"));
     render(<MockApp />);
 
-    const loginElement = screen.queryByText(/LOGIN/i); //?
-    const adminElement = screen.queryByText(/ADMIN/i); //?
-    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    const loginElement = screen.queryByText(/LOGIN/i);
+    const adminElement = screen.queryByText(/ADMIN/i);
+    const logoutElement = screen.queryByText(/LOGOUT/i);
     expect(loginElement).toBeInTheDocument();
     expect(adminElement).not.toBeInTheDocument();
     expect(logoutElement).not.toBeInTheDocument();
@@ -97,12 +97,11 @@ describe("APP => automatic logging in with localStorageData", () => {
       })
     );
 
-    console.log(localStorage.getItem("userData"));
     render(<MockApp />);
 
-    const loginElement = screen.queryByText(/LOGIN/i); //?
-    const adminElement = screen.queryByText(/ADMIN/i); //?
-    const logoutElement = screen.queryByText(/LOGOUT/i); //?
+    const loginElement = screen.queryByText(/LOGIN/i);
+    const adminElement = screen.queryByText(/ADMIN/i);
+    const logoutElement = screen.queryByText(/LOGOUT/i);
     expect(loginElement).toBeInTheDocument();
     expect(adminElement).not.toBeInTheDocument();
     expect(logoutElement).not.toBeInTheDocument();

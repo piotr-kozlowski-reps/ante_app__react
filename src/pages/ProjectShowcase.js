@@ -9,7 +9,6 @@ import ProjectShowcaseTitle from "../components/Project/ProjectShowcaseTitle";
 import ProjectShowcaseImage from "../components/Project/ProjectShowcaseImage";
 import ProjectShowcaseVideo from "../components/Project/ProjectShowcaseVideo";
 import ProjectShowcaseApp from "../components/Project/ProjectShowcaseApp";
-import Footer from "../shared/components/Footer";
 import ProjectShowcasePanorama from "../components/Project/ProjectShowcasePanorama";
 import ProjectShowcaseFooter from "../components/Project/ProjectShowcaseFooter";
 import ErrorModal from "../shared/components/ErrorModal";
@@ -31,6 +30,7 @@ const ProjectShowcase = () => {
           `${process.env.REACT_APP_BACKEND_URL}api/projects/${projectId}`
         );
         setProject(responseData.project);
+        console.log(responseData.project);
       } catch (error) {}
     };
     fetchProject();

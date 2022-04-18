@@ -30,6 +30,8 @@ const TextareaFormik = (props) => {
 
           return (
             <textarea
+              // rows={12}
+              // cols="50"
               id={name}
               name={name}
               placeholder={placeholder}
