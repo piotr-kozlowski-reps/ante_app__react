@@ -36,7 +36,7 @@ const Projects = () => {
         );
 
         setCurrentProjectsArray(responseData.projects);
-        console.log(responseData.projects);
+        // console.log(responseData.projects);
       } catch (error) {
         console.log(error);
       }

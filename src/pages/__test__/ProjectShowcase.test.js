@@ -88,11 +88,13 @@ describe("ProjectShowcase", () => {
     const myProjectLink = await screen.findAllByTestId("project-item-link");
     userEvent.click(myProjectLink[0]);
 
-    expect(
-      await screen.findByRole("heading", {
-        name: /an error occurred!/i,
-      })
-    ).toBeInTheDocument();
+    await screen.findByRole("");
+
+    // expect(
+    //   await screen.findByRole("heading", {
+    //     name: /an error occurred!/i,
+    //   })
+    // ).toBeInTheDocument();
 
     expect(
       await screen.findByText(/Network request failed/i)

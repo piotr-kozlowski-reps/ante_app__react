@@ -5,9 +5,6 @@ import { createMemoryHistory } from "history";
 import userEvent from "@testing-library/user-event";
 import { server, rest } from "../../../../mocks/server";
 
-import { useDispatch } from "react-redux";
-import { authActions } from "../../store/auth-slice";
-
 import App from "../../../App";
 
 const MockApp = () => {
