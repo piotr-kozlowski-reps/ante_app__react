@@ -15,16 +15,18 @@ import Button from "../shared/components/Button";
 const Contact = () => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
+  const [modalInfoPl, setModalInfoPl] = useState("");
+  const [modalInfoEn, setModalInfoEn] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   //formik
   const initialValues = {
-    name: "name",
-    surname: "surname",
-    email: "email@email.de",
-    phone: "23548457",
-    textContent: "zfvdafvdfvdsfvdsfv dsf vsdf dfs vdsf vdsf vdsf",
+    name: "",
+    surname: "",
+    email: "",
+    phone: "",
+    textContent: "",
   };
 
   const validationSchema = Yup.object({
@@ -58,17 +60,23 @@ const Contact = () => {
           "Content-Type": "application/json",
         }
       );
+
+      if (responseData && responseData.messageEn && responseData.messagePl) {
+        setModalInfoEn(responseData.messageEn);
+        setModalInfoPl(responseData.messagePl);
+        setShowConfirmModal(true);
+
+        const timer = () => {
+          setTimeout(() => {
+            setShowConfirmModal(false);
+          }, 1600);
+        };
+        timer();
+
+        clearTimeout(timer);
+      }
     } catch (error) {}
-    setShowConfirmModal(true);
 
-    const timer = () => {
-      setTimeout(() => {
-        setShowConfirmModal(false);
-      }, 1600);
-    };
-    timer();
-
-    clearTimeout(timer);
     onSubmitProps.setSubmitting(false);
     onSubmitProps.resetForm();
   };
@@ -81,15 +89,10 @@ const Contact = () => {
           header="Information"
           headerClass="modal-header-mine__show-header-login"
           show={showConfirmModal}
-          // onCancel={hideLoginModal}
         >
           <Separator additionalClass="py-bottom2_5" />
           <div className="center">
-            <p>
-              {lang === "pl"
-                ? "Formularz kontaktowy został wysłany, dziękuję."
-                : "Data from contact form sent and delivered, thank you."}
-            </p>
+            <p>{lang === "pl" ? modalInfoPl : modalInfoEn}</p>
           </div>
         </Modal>
         <ErrorModal
@@ -101,6 +104,24 @@ const Contact = () => {
         <div className="row">
           <div className="col-lg-12">
             <AdminTitle title={lang === "pl" ? "Kontakt" : "Contact"} />
+          </div>
+        </div>
+      </div>
+
+      <div id="portfolio">
+        <div className="row" id="parent">
+          <div className="text-center">
+            <div
+              className="div-center-no-flex bigger-text"
+              style={{ marginBottom: 0 }}
+            >
+              <p>
+                {lang === "pl"
+                  ? `Wypełnij formularz by się z nami skontaktować. 
+                  Jeżeli wolisz inną formę kontaktu, w stopce strony znajduje się nasz adres e-mail oraz telefon.`
+                  : `Feel free to contact us and we'll be glad to help.`}
+              </p>
+            </div>
           </div>
         </div>
       </div>

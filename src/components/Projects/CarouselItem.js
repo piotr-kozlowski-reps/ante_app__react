@@ -12,7 +12,7 @@ const CarouselItem = ({ carouselCurrentItem }) => {
   ////jsx
   return (
     <Fragment>
-      <div className="item active">
+      <div className="item active absolute-carousel">
         <img
           data-testid="carousel-base-img"
           src={slide}

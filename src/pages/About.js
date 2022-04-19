@@ -177,11 +177,7 @@ const About = () => {
           </div>
         </div>
 
-        <div
-          id="portfolio"
-          className="container"
-          style={{ paddingTop: "5rem" }}
-        >
+        <div id="portfolio" style={{ paddingTop: "5rem" }}>
           <div className="row" id="parent">
             <div className="text-center">
               <div className="div-center-no-flex bigger-text">
