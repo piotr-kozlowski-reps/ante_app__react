@@ -69,132 +69,41 @@ describe(`CONTACT -> tdd approach`, () => {
     ).toBeInTheDocument();
   });
 
-  //////////////////////////////////////////
-
   it("should render form in both languages.", () => {
     render(<MockApp />);
     resetLanguageToPolish();
     goToContactPageInPl();
 
-    expect(
-      screen.getByRole("textbox", {
-        name: /imię/i,
-      })
-    ).toBeInTheDocument();
+    expect(getFormField("imię")).toBeInTheDocument();
+    expect(getFormField("nazwisko")).toBeInTheDocument();
+    expect(queryFormField("surname")).not.toBeInTheDocument();
+    expect(getFormField("e-mail")).toBeInTheDocument();
+    expect(getFormField("numer telefonu")).toBeInTheDocument();
+    expect(getFormField("zapytanie")).toBeInTheDocument();
+    expect(getFormField("numer telefonu")).toBeInTheDocument();
 
-    expect(
-      screen.getByRole("textbox", {
-        name: /nazwisko/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /e\-mail/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /numer telefonu/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /zapytanie/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("button", {
-        name: /wyczyść/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("button", {
-        name: /wyślij/i,
-      })
-    ).toBeInTheDocument();
+    expect(getButton("wyczyść")).toBeInTheDocument();
+    expect(getButton("wyślij")).toBeInTheDocument();
 
     //en
     changeLanguageToEn();
 
-    expect(
-      screen.queryByRole("textbox", {
-        name: /imię/i,
-      })
-    ).not.toBeInTheDocument();
-
+    expect(queryFormField("imię")).not.toBeInTheDocument();
     expect(screen.getByPlaceholderText("Your name")).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("textbox", {
-        name: /nazwisko/i,
-      })
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /surname/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /e\-mail/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("textbox", {
-        name: /numer telefonu/i,
-      })
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /phone number/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("textbox", {
-        name: /zapytanie/i,
-      })
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.getByRole("textbox", {
-        name: /your contact message/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("button", {
-        name: /wyczyść/i,
-      })
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.getByRole("button", {
-        name: /clear/i,
-      })
-    ).toBeInTheDocument();
-
-    expect(
-      screen.queryByRole("button", {
-        name: /wyślij/i,
-      })
-    ).not.toBeInTheDocument();
-
-    expect(
-      screen.getByRole("button", {
-        name: /send/i,
-      })
-    ).toBeInTheDocument();
+    expect(queryFormField("nazwisko")).not.toBeInTheDocument();
+    expect(getFormField("surname")).toBeInTheDocument();
+    expect(getFormField("e-mail")).toBeInTheDocument();
+    expect(queryFormField("numer telefonu")).not.toBeInTheDocument();
+    expect(getFormField("phone number")).toBeInTheDocument();
+    expect(queryFormField("zapytanie")).not.toBeInTheDocument();
+    expect(getFormField("your contact message")).toBeInTheDocument();
+    expect(queryButton("wyczyść")).not.toBeInTheDocument();
+    expect(getButton("clear")).toBeInTheDocument();
+    expect(queryButton("wyślij")).not.toBeInTheDocument();
+    expect(getButton("send")).toBeInTheDocument();
   });
+
+  it("Contact Form -> Happy Path - should be sent when all fields are filled", () => {});
 });
 
 function goToContactPageInPl() {
@@ -223,4 +132,32 @@ function resetLanguageToPolish() {
     });
     userEvent.click(langButton);
   }
+}
+
+function getFormField(fieldName) {
+  const regex = new RegExp(fieldName, "i");
+  return screen.getByRole("textbox", {
+    name: regex,
+  });
+}
+
+function queryFormField(fieldName) {
+  const regex = new RegExp(fieldName, "i");
+  return screen.queryByRole("textbox", {
+    name: regex,
+  });
+}
+
+function getButton(buttonName) {
+  const regex = new RegExp(buttonName, "i");
+  return screen.getByRole("button", {
+    name: regex,
+  });
+}
+
+function queryButton(buttonName) {
+  const regex = new RegExp(buttonName, "i");
+  return screen.queryByRole("button", {
+    name: regex,
+  });
 }

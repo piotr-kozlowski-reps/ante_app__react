@@ -142,11 +142,7 @@ describe("MainNavigation", () => {
     });
     userEvent.click(loginSubmitButton);
 
-    expect(
-      await screen.findByRole("link", {
-        name: /logout/i,
-      })
-    ).toBeInTheDocument();
+    expect(await screen.findByText("Logout")).toBeInTheDocument();
 
     expect(
       await screen.findByRole("link", {
@@ -188,17 +184,19 @@ describe("MainNavigation", () => {
 
     const loginSubmitButton = screen.getByRole("button", {
       name: /login/i,
-    });
+    }); //?
     userEvent.click(loginSubmitButton);
+
+    // await screen.findByRole("");
 
     expect(
       await screen.findByRole("link", {
         name: "Login",
-      })
+      }) //?
     ).toBeInTheDocument();
 
     expect(
-      await screen.queryByRole("link", {
+      screen.queryByRole("link", {
         name: /admin/i,
       })
     ).not.toBeInTheDocument();
@@ -261,9 +259,7 @@ describe("MainNavigation", () => {
     userEvent.click(loginSubmitButton);
     // screen.findByRole("");
 
-    const logoutLink = await screen.findByRole("link", {
-      name: /logout/i,
-    });
+    const logoutLink = await screen.findByText(/logout/i);
 
     userEvent.click(logoutLink);
 

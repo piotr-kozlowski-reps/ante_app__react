@@ -367,6 +367,7 @@ const MainNavigation = () => {
             {!isLoggedIn && (
               <li>
                 <NavLink
+                  data-testid="login-main-navigation"
                   ref={(el) => (loginLink = el)}
                   to={`./`}
                   className={({ isActive }) =>

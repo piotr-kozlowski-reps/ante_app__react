@@ -146,8 +146,16 @@ function App(props) {
   ////TESTED
   useEffect(() => {
     const localStorageUserDataObj = localStorage.getItem("userData");
-    if (!localStorageUserDataObj) return;
 
+    if (
+      !localStorageUserDataObj ||
+      !localStorageUserDataObj.token ||
+      !localStorageUserDataObj.expiration ||
+      !localStorageUserDataObj.login
+    )
+      return;
+
+    console.log(localStorageUserDataObj); //?
     const storedData = JSON.parse(localStorageUserDataObj);
     if (
       storedData &&
