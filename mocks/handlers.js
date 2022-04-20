@@ -162,6 +162,24 @@ export const handlers = [
     }
   ),
 
+  //contact
+  rest.post(
+    `${process.env.REACT_APP_BACKEND_URL}api/contact`,
+    (req, res, ctx) => {
+      return res(
+        ctx.status(200),
+        ctx.json({
+          lang: "pl",
+          name: "Imię",
+          surname: "Nazwisko",
+          email: "test@test.pl",
+          phone: "9649234",
+          textContent: "Zapytanie jakieś tutaj",
+        })
+      );
+    }
+  ),
+
   //projects
   rest.get(
     `${process.env.REACT_APP_BACKEND_URL}api/projects`,

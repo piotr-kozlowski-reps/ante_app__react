@@ -42,7 +42,7 @@ const Contact = () => {
   });
 
   const onSubmit = async (values, onSubmitProps) => {
-    console.log(values);
+    // console.log(values);
     // fetch
     try {
       const responseData = await sendRequest(
@@ -133,7 +133,7 @@ const Contact = () => {
         validateOnMount={true}
       >
         {(formik) => {
-          console.log({ formik });
+          // console.log({ formik });
           return (
             <Form className="form">
               <div id="portfolio" className="container">
@@ -243,5 +243,3 @@ const Contact = () => {
 };
 
 export default Contact;
-
-//TODO: make tests and api/contact route in backend

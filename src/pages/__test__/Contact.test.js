@@ -1,5 +1,12 @@
 import React from "react";
-import { render, screen, cleanup } from "../../shared/utils/test-utils";
+import {
+  render,
+  screen,
+  cleanup,
+  waitFor,
+  debug,
+  act,
+} from "../../shared/utils/test-utils";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
 import { server, rest } from "../../../mocks/server";
@@ -19,7 +26,7 @@ afterEach(() => {
   cleanup();
 });
 
-describe(`CONTACT -> tdd approach`, () => {
+describe(`CONTACT: `, () => {
   it("should have div with test-id in the DOM.", () => {
     render(<MockApp />);
     goToContactPageInPl();
@@ -103,9 +110,120 @@ describe(`CONTACT -> tdd approach`, () => {
     expect(getButton("send")).toBeInTheDocument();
   });
 
-  it("Contact Form -> Happy Path - should be sent when all fields are filled", () => {});
+  it("Contact Form -> Happy Path - should be sent when all fields are filled", async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+    goToContactPageInPl();
+    const onSubmit = jest.fn();
+
+    userEvent.type(getFormField("imię"), "Imię");
+    userEvent.type(getFormField("nazwisko"), "Nazwisko");
+    userEvent.type(getFormField("e-mail"), "test@test.pl");
+    userEvent.type(getFormField("numer telefonu"), "9649234");
+    userEvent.type(getFormField("zapytanie"), "Zapytanie jakieś tutaj");
+
+    userEvent.click(getButton("wyślij"));
+
+    // await waitFor(() => {
+    //   expect(onSubmit).toHaveBeenCalledWith({ lazy: true });
+    // });
+
+    // await waitFor(() => {
+    //   expect(onSubmit).toHaveBeenCalledTimes(1);
+    // });
+    //TODO: how to check if there was submission
+  });
+
+  it("should show all errors when empty form is sent", async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+    goToContactPageInPl();
+
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/entering name is required\./i)
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.findByText(/entering surname is required\./i)
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.findByText(/entering e\-mail is required\./i)
+    ).toBeInTheDocument();
+
+    expect(
+      await screen.findByText(/entering your contact message is required\./i)
+    ).toBeInTheDocument();
+  });
 });
 
+describe("email field", () => {
+  it("shows error when wrong email is provided", async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+    goToContactPageInPl();
+
+    userEvent.type(getFormField("e-mail"), "test");
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/enter valid e\-mail, please\./i)
+    ).toBeInTheDocument();
+
+    userEvent.type(getFormField("e-mail"), "test@test");
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/enter valid e\-mail, please\./i)
+    ).toBeInTheDocument();
+
+    userEvent.type(getFormField("e-mail"), "@test.pl");
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/enter valid e\-mail, please\./i)
+    ).toBeInTheDocument();
+
+    userEvent.type(getFormField("e-mail"), "test.pl");
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/enter valid e\-mail, please\./i)
+    ).toBeInTheDocument();
+  });
+});
+
+describe("Zapytanie field", () => {
+  it("shows error when less than 10 chars are provided", async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+    goToContactPageInPl();
+
+    userEvent.type(getFormField("zapytanie"), "123456789");
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/textcontent must be at least 10 characters/i)
+    ).toBeInTheDocument();
+  });
+
+  it("shows error when less none char is provided", async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+    goToContactPageInPl();
+
+    userEvent.type(getFormField("zapytanie"), "");
+    userEvent.click(getButton("wyślij"));
+
+    expect(
+      await screen.findByText(/entering your contact message is required/i)
+    ).toBeInTheDocument();
+  });
+});
+
+//utils
 function goToContactPageInPl() {
   userEvent.click(
     screen.getByRole("link", {
