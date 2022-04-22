@@ -169,8 +169,125 @@ describe("ProjectsTypeNavigation", () => {
       "main-nav-link  main-nav-link-active active"
     );
   });
+
+  it(`renders correct amount of projects when "konkursy" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /konkursy/i,
+      })
+    );
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(7);
+  });
+
+  it(`renders correct amount of projects when "wnętrza" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(screen.getByText("Wnętrza"));
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(6);
+  });
+
+  it(`renders correct amount of projects when "zewnętrza" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /zewnętrza/i,
+      })
+    );
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(5);
+  });
+
+  it(`renders correct amount of projects when "animacje" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /animacje/i,
+      })
+    );
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(4);
+  });
+
+  it(`renders correct amount of projects when "modelowanie produktów" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /modelowanie produktów/i,
+      })
+    );
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(3);
+  });
+
+  it(`renders correct amount of projects when "panoramy 360" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /panoramy 360°/i,
+      })
+    );
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(2);
+  });
+
+  it(`renders correct amount of projects when "AR APPS" - clicked`, async () => {
+    render(<MockApp />);
+    resetLanguageToPolish();
+
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /ar apps/i,
+      })
+    );
+
+    const findprojects = async () =>
+      await screen.findAllByTestId("project-item");
+    const projects = await findprojects();
+
+    expect(projects.length).toBe(1);
+  });
 });
 
+////
+//utils
 function changeLanguageToEn() {
   const langButton = screen.getByRole("button", {
     name: "EN",

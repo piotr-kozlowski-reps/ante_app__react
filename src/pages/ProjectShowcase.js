@@ -70,7 +70,7 @@ const ProjectShowcase = () => {
                         lang === "pl"
                           ? `${format(projectDateAsObject, "MM.yyyy")}r. ${
                               project.projNamePl
-                            }, ${project.cityPL}. Kraj: ${project.countryPL}. ${
+                            }, ${project.cityPl}. Kraj: ${project.countryPl}. ${
                               image.imageAltPl
                             }`
                           : `${format(projectDateAsObject, "LLLL, yyyy")}. ${

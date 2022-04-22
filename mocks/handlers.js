@@ -184,6 +184,7 @@ export const handlers = [
   rest.get(
     `${process.env.REACT_APP_BACKEND_URL}api/projects`,
     (req, res, ctx) => {
+      console.log(mockProjects);
       return res(ctx.status(200), ctx.json(mockProjects));
     }
   ),
