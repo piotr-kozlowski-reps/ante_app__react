@@ -30,7 +30,7 @@ const ProjectShowcase = () => {
           `${process.env.REACT_APP_BACKEND_URL}api/projects/${projectId}`
         );
         setProject(responseData.project);
-        console.log(responseData.project);
+        // console.log(responseData.project);
       } catch (error) {}
     };
     fetchProject();
@@ -121,7 +121,7 @@ const ProjectShowcase = () => {
         </div>
       )}
 
-      <ProjectShowcaseFooter />
+      <ProjectShowcaseFooter lang={lang} />
 
       {/* <Footer /> */}
     </Fragment>

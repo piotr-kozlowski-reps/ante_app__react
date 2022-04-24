@@ -10,6 +10,7 @@ const ModalOverlay = (props) => {
     <div
       className={`modal--mine ${props.className ? props.className : ""}`}
       style={props.style}
+      data-testid="modal"
     >
       <header
         className={`modal__header--mine ${

@@ -28,7 +28,9 @@ const PanoramaLink = ({
         headerClass="modal-header-mine__panorama"
         footer={
           <div className="text-center">
-            <Button onClick={closePanoramaModalHandler}>Close</Button>
+            <Button onClick={closePanoramaModalHandler}>
+              {lang === "pl" ? "ZAMKNIJ" : "Close"}
+            </Button>
           </div>
         }
       >
@@ -49,7 +51,7 @@ const PanoramaLink = ({
               <div onClick={openPanoramaModalHandler} className="link">
                 <div className="desc">
                   <h3>{panoramaTitle}</h3>
-                  <h4>
+                  <h4 data-testid="img-panorama-link">
                     {lang === "pl"
                       ? "[kliknij by powiększyć]"
                       : "[click to enlarge]"}

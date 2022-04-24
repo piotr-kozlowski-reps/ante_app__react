@@ -35,8 +35,6 @@ describe("ProjectsList", () => {
     );
     render(<MockApp />);
 
-    // await screen.findByRole("");
-
     expect(
       await screen.findByRole("heading", {
         name: /no projects found/i,
@@ -51,7 +49,7 @@ describe("ProjectsList", () => {
     expect(await (await screen.findAllByTestId("project-item")).length).toBe(7);
   });
 
-  it("shows appropriate amount of projectswhen links are clicked", async () => {
+  it("shows appropriate amount of projects when links are clicked", async () => {
     render(<MockApp />);
     resetLanguageToPolish();
 

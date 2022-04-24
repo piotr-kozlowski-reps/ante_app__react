@@ -5,13 +5,13 @@ const mockProjects = {
     {
       id: "6248412a7784607e156a545ca3",
       genre: "GRAPHIC",
-      projNamePl: "projNamePl",
-      projNameEn: "projNameEn",
-      completionDate: "2010-10-10T00:00:00.000Z",
-      cityPl: "cityPl",
-      cityEn: "cityEn",
-      countryPl: "countryPl",
-      countryEn: "countryEn",
+      projNamePl: "projNamePl_doTestów",
+      projNameEn: "projNameEn_forTests",
+      completionDate: "2020-12-10T00:00:00.000Z",
+      cityPl: "cityPl_doTestów",
+      cityEn: "cityEn_forTests",
+      countryPl: "countryPl_doTestów",
+      countryEn: "countryEn_forTests",
       icoImgFull:
         "uploads\\images\\2019_07_wnetrze_mieszkalne_essen_niemcy_ico_1648902442189.jpeg",
       icoImgThumb:

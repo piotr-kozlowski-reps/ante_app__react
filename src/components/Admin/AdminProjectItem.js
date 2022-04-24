@@ -12,6 +12,8 @@ import ErrorModal from "../../shared/components/ErrorModal";
 import Separator from "../../shared/components/Separator";
 
 const AdminProjectItem = (props) => {
+  console.log(props);
+
   ////vars
   const {
     id,
@@ -24,6 +26,7 @@ const AdminProjectItem = (props) => {
     countryEn,
     icoImgThumb,
     onDelete,
+    lang,
   } = props;
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const [showInformationModal, setShowInformationModal] = useState(false);
@@ -121,7 +124,7 @@ const AdminProjectItem = (props) => {
       </Modal>
       {/* modal delete - end */}
 
-      <li>
+      <li data-testId="project-item-admin">
         <div className="thumbnail-admin">
           <img
             src={`${process.env.REACT_APP_BACKEND_URL}${icoImgThumb}`}
@@ -154,14 +157,14 @@ const AdminProjectItem = (props) => {
             onClick={navigateToEditProject}
             additionalClass="btn-portfolio"
           >
-            EDIT
+            {lang === "pl" ? "ZMIEŃ" : "EDIT"}
           </Button>
 
           <Button
             onClick={showDeleteWarningHandler}
             additionalClass="btn-portfolio btn-delete warning-color"
           >
-            DELETE
+            {lang === "pl" ? "KASUJ" : "DELETE"}
           </Button>
         </div>
       </li>
@@ -181,6 +184,7 @@ AdminProjectItem.propsTypes = {
   icoImgThumb: PropTypes.string.isRequired,
   onClick: PropTypes.func,
   onDelete: PropTypes.func,
+  lang: PropTypes.string,
 };
 
 export default AdminProjectItem;

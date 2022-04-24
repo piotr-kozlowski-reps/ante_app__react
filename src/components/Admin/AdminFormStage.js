@@ -13,8 +13,11 @@ const AdminFormStage = () => {
           <div className="div-center">
             <div className="buttons">
               <ul id="progressbar">
-                <li className="active">CHOOSE PROJECT GENRE</li>
+                <li className="active" data-testid="choose-project-genre">
+                  CHOOSE PROJECT GENRE
+                </li>
                 <li
+                  data-testid="common-data"
                   className={
                     formStageCounter === 1 || formStageCounter === 2
                       ? "active"
@@ -23,7 +26,10 @@ const AdminFormStage = () => {
                 >
                   Common data
                 </li>
-                <li className={formStageCounter === 2 ? "active" : ""}>
+                <li
+                  className={formStageCounter === 2 ? "active" : ""}
+                  data-testid="project-attachments"
+                >
                   Project attachments
                 </li>
               </ul>

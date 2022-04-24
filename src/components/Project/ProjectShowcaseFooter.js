@@ -1,10 +1,13 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import Button from "../../shared/components/Button";
 
-const ProjectShowcaseFooter = () => {
+const ProjectShowcaseFooter = ({ lang }) => {
   const navigate = useNavigate();
+
+  console.log(lang);
 
   return (
     <div id="portfolio" className="container">
@@ -14,25 +17,21 @@ const ProjectShowcaseFooter = () => {
             <div className="separator"></div>
           </div>
           <div className="text-center my-bottom">
-            {/* <button
-              type="button"
-              onClick={() => {}}
-              className={`button button--default`}
-            >
-              BACK TO PROJECTS
-            </button> */}
-
             <Button
               className={`button button--default`}
               onClick={() => navigate("../")}
             >
-              BACK TO PROJECTS
+              {lang === "pl" ? "POWRÓT DO PROJEKTÓW" : "BACK TO PROJECTS"}
             </Button>
           </div>
         </div>
       </div>
     </div>
   );
+};
+
+ProjectShowcaseFooter.propTypes = {
+  lang: PropTypes.string,
 };
 
 export default ProjectShowcaseFooter;

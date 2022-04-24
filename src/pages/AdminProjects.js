@@ -2,20 +2,19 @@ import React, { Fragment, useState, useEffect } from "react";
 import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
 import { useLocation } from "react-router-dom";
 import { useHttpClient } from "../shared/hooks/http-hook";
+import { useSelector } from "react-redux";
 
 import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
 import AdminProjectsList from "../components/Admin/AdminProjectsList";
-import Footer from "../shared/components/Footer";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
 import ErrorModal from "../shared/components/ErrorModal";
-import Modal from "../shared/components/Modal";
-import Separator from "../shared/components/Separator";
 
 const AdminProjects = () => {
   ////vars
   const [currentProjectsArray, setCurrentProjectsArray] = useState([]);
   const location = useLocation();
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const lang = useSelector((state) => state.language.lang);
 
   const typeGotFromQuery =
     new URLSearchParams(location.search).get("type") || "all";
@@ -71,7 +70,7 @@ const AdminProjects = () => {
         headerClass="modal-header-mine__show-header-login"
       />
       <ProjectsTypeNavigation
-        title="PROJECTS LIST"
+        title={lang === "pl" ? "LISTA PROJEKTÓW" : "PROJECTS LIST"}
         additionalTitleClass="py-admin"
       />
       <AdminProjectsList

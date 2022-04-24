@@ -1,7 +1,8 @@
 import React, { Fragment } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../shared/store/form-slice";
 import { useNavigate } from "react-router-dom";
+import type from "../../shared/utils/type";
 import PropTypes from "prop-types";
 
 import Button from "../../shared/components/Button";
@@ -11,11 +12,44 @@ const AdminProjectsList = (props) => {
   ////vars
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const lang = useSelector((state) => state.language.lang);
 
   ////func
   const createNewProjectHandler = () => {
     dispatch(formActions.resetToInitialStage());
     navigate("/api/projects/new-project");
+  };
+
+  const projectTypeNamesInPolish = (projectType) => {
+    console.log(projectType);
+    switch (projectType) {
+      case "all":
+        return "wszystkie";
+
+      case "competitions":
+        return "konkursy";
+
+      case "interiors":
+        return "wnętrza";
+
+      case "exteriors":
+        return "zewnętrza";
+
+      case "animations":
+        return "animacje";
+
+      case "3dmodeling":
+        return "modelowanie produktów";
+
+      case "panoramas":
+        return "panoramy 360";
+
+      case "apps":
+        return "AR apps";
+
+      default:
+        return "wszystkie";
+    }
   };
 
   ////jsx
@@ -30,11 +64,17 @@ const AdminProjectsList = (props) => {
               additionalClass="btn-portfolio"
               onClick={createNewProjectHandler}
             >
-              CREATE NEW PROJECT
+              {lang === "pl" ? "UTWÓRZ NOWY PROJEKT" : "CREATE NEW PROJECT"}
             </Button>
           </div>
 
-          <div className="list-name">{`list of: ${props.projectType} `}</div>
+          <div className="list-name">
+            {lang === "pl"
+              ? `lista projektów: ${projectTypeNamesInPolish(
+                  props.projectType
+                )}`
+              : `list of projects: ${props.projectType} `}
+          </div>
 
           {!props.projectsList ||
             (props.projectsList.length === 0 && (
@@ -60,6 +100,7 @@ const AdminProjectsList = (props) => {
                   countryEn={project.countryEn}
                   icoImgThumb={project.icoImgThumb}
                   onDelete={props.onDelete}
+                  lang={lang}
                 />
               ))}
             </ol>

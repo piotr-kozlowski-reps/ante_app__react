@@ -43,13 +43,13 @@ const ProjectShowcaseApp = ({
           </p>
           <div className="row">
             <div className="col-lg-6">
-              <a href={appAndroidLink}>
+              <a href={appAndroidLink} data-testid="app-android-link">
                 <img src={buttonAndroid} alt="Android"></img>
               </a>
             </div>
 
             <div className="col-lg-6">
-              <a href={appIOSLink}>
+              <a href={appIOSLink} data-testid="app-ios-link">
                 <img src={buttonIOS} alt="IOS"></img>
               </a>
             </div>
