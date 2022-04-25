@@ -67,5 +67,3 @@ const PanoramaLink = ({
 };
 
 export default PanoramaLink;
-
-//TODO: animation of Modal

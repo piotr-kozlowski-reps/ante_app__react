@@ -24,11 +24,12 @@ const commonValidation = {
   countryEn: Yup.string().required("Entering 'Country Name' is required."),
   clientPl: Yup.string().required("Entering 'Client Name' is required."),
   clientEn: Yup.string().required("Entering 'Client Name' is required."),
-  completionDate: Yup.date()
-    .required("Entering 'Date' is required.")
-    .min(new Date("01-01-1990"), "Date should be after: 12.12.1989")
-    .max(new Date("01-01-2050"), "Date should be before: 12.12.2049")
-    .nullable(),
+  // completionDate: Yup.date()
+  //   .required("Entering 'Date' is required.")
+  //   .min(new Date("01-01-1990"), "Date should be after: 12.12.1989")
+  //   .max(new Date("01-01-2050"), "Date should be before: 12.12.2049")
+  //   .nullable(),
+  completionDate: Yup.string().required("Entering date is required."),
   projectType: Yup.array()
     .required("At least one choosen genre is required")
     .min(1, "Choose at least one project genre."),

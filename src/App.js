@@ -35,7 +35,7 @@ function App(props) {
   const location = useLocation();
 
   const refresh = useCallback(() => {
-    checkIfFooterHasToBeMovedHandler();
+    // checkIfFooterHasToBeMovedHandler();
     makeStickyPortfolioIfNeeded();
   });
 
@@ -73,70 +73,70 @@ function App(props) {
   const bodyElement = document.querySelector("body");
 
   //moving footer to bottom if needed
-  const checkIfFooterHasToBeMovedHandler = useCallback(() => {
-    const windowHeight = window.innerHeight;
-    const marginTopFromFooterClass = 120;
+  // const checkIfFooterHasToBeMovedHandler = useCallback(() => {
+  //   const windowHeight = window.innerHeight;
+  //   const marginTopFromFooterClass = 120;
 
-    refDivTriggerFooterMovement.current.offsetTop +
-      footerHeight -
-      marginTopFromFooterClass <
-    windowHeight
-      ? moveFooterToBottom()
-      : unMoveFooterToBottom();
+  //   refDivTriggerFooterMovement.current.offsetTop +
+  //     footerHeight -
+  //     marginTopFromFooterClass <
+  //   windowHeight
+  //     ? moveFooterToBottom()
+  //     : unMoveFooterToBottom();
 
-    function moveFooterToBottom() {
-      bodyElement.className = "body-height-to-move-footer";
-      setIsToMoveFooter(true);
-    }
+  //   function moveFooterToBottom() {
+  //     bodyElement.className = "body-height-to-move-footer";
+  //     setIsToMoveFooter(true);
+  //   }
 
-    function unMoveFooterToBottom() {
-      bodyElement.className = "";
-      setIsToMoveFooter(false);
-    }
-  }, [bodyElement, footerHeight]);
+  //   function unMoveFooterToBottom() {
+  //     bodyElement.className = "";
+  //     setIsToMoveFooter(false);
+  //   }
+  // }, [bodyElement, footerHeight]);
 
-  useEffect(() => {
-    if (
-      !refDivFooter ||
-      !refDivFooter.current ||
-      !refDivFooter.current.clientHeight
-    )
-      return;
+  // useEffect(() => {
+  //   if (
+  //     !refDivFooter ||
+  //     !refDivFooter.current ||
+  //     !refDivFooter.current.clientHeight
+  //   )
+  //     return;
 
-    if (
-      !refDivTriggerFooterMovement ||
-      !refDivTriggerFooterMovement.current ||
-      !refDivTriggerFooterMovement.current.offsetTop
-    )
-      return;
+  //   if (
+  //     !refDivTriggerFooterMovement ||
+  //     !refDivTriggerFooterMovement.current ||
+  //     !refDivTriggerFooterMovement.current.offsetTop
+  //   )
+  //     return;
 
-    if (footerHeight !== refDivFooter.current.clientHeight) {
-      setFooterHeight(refDivFooter.current.clientHeight);
-    }
-    if (
-      divTriggerFooterHPosition !==
-      refDivTriggerFooterMovement.current.offsetTop
-    ) {
-      setDivTriggerFooterHPosition(
-        refDivTriggerFooterMovement.current.offsetTop
-      );
-    }
+  //   if (footerHeight !== refDivFooter.current.clientHeight) {
+  //     setFooterHeight(refDivFooter.current.clientHeight);
+  //   }
+  //   if (
+  //     divTriggerFooterHPosition !==
+  //     refDivTriggerFooterMovement.current.offsetTop
+  //   ) {
+  //     setDivTriggerFooterHPosition(
+  //       refDivTriggerFooterMovement.current.offsetTop
+  //     );
+  //   }
 
-    checkIfFooterHasToBeMovedHandler();
-  }, [
-    footerHeight,
-    checkIfFooterHasToBeMovedHandler,
-    divTriggerFooterHPosition,
-    refDivFooter,
-    refDivTriggerFooterMovement,
-    location,
-  ]);
+  //   checkIfFooterHasToBeMovedHandler();
+  // }, [
+  //   footerHeight,
+  //   checkIfFooterHasToBeMovedHandler,
+  //   divTriggerFooterHPosition,
+  //   refDivFooter,
+  //   refDivTriggerFooterMovement,
+  //   location,
+  // ]);
 
-  window.addEventListener("resize", refresh, true);
-  window.addEventListener("scroll", refresh, true);
-  useEffect(() => {
-    refresh();
-  }, [refresh]);
+  // window.addEventListener("resize", refresh, true);
+  // window.addEventListener("scroll", refresh, true);
+  // useEffect(() => {
+  //   refresh();
+  // }, [refresh]);
 
   function logoutPostponed() {
     dispatch(authActions.logout());

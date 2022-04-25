@@ -49,4 +49,4 @@ ProjectShowcasePanorama.propTypes = {
 
 export default ProjectShowcasePanorama;
 
-//TODO: lang to do
+//TODO: size and placement of modal with panorama in big resolutions is shitty - correct it
