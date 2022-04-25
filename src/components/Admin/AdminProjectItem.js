@@ -124,7 +124,7 @@ const AdminProjectItem = (props) => {
       </Modal>
       {/* modal delete - end */}
 
-      <li data-testId="project-item-admin">
+      <li data-testid="project-item-admin">
         <div className="thumbnail-admin">
           <img
             src={`${process.env.REACT_APP_BACKEND_URL}${icoImgThumb}`}

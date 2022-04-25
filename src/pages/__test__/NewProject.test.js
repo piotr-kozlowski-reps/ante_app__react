@@ -5,7 +5,6 @@ import userEvent from "@testing-library/user-event";
 import { server, rest } from "../../../mocks/server";
 
 import App from "../../App";
-import { func } from "prop-types";
 
 const MockApp = () => {
   return (
@@ -22,11 +21,12 @@ afterEach(() => {
 describe("NewProject", () => {
   it("shows CREATE_NEW_PROJECT / stages of a form / buttons.", async () => {
     render(<MockApp />);
-    resetLanguageToPolish();
-    logoutIfNeeded();
-    await login();
-    await goToAdminPage();
-    await goToCreateNewProject();
+
+    await resetLanguageToPolish()
+      .then(await logoutIfNeeded())
+      .then(await login())
+      .then(await goToAdminPage())
+      .then(await goToCreateNewProject());
 
     expect(
       await screen.findByTestId("choose-project-genre")
@@ -64,21 +64,33 @@ describe("NewProject", () => {
 
   it("goes though happy path of graphics_form ", async () => {
     render(<MockApp />);
-    resetLanguageToPolish();
-    logoutIfNeeded();
-    await login();
-    await goToAdminPage();
-    // await goToCreateNewProject();
+    // await resetLanguageToPolish()
+    //   .then(await logoutIfNeeded())
+    //   .then(await login())
+    //   .then(await goToAdminPage())
+    //   .then(await goToCreateNewProject());
 
-    userEvent.click(await screen.findByRole("button", { name: /GRAPHIC/i }));
+    // const graphicsButton = await screen.findByRole("button", {
+    //   name: /graphic/i,
+    // });
+    // userEvent.click(graphicsButton);
 
-    // await screen.findByRole("input");
+    // expect(
+    //   await screen.findByRole("textbox", {
+    //     name: /nazwa projektu \(po polsku\)\./i,
+    //   })
+    // ).toBeInTheDocument();
+
+    // userEvent.click(await screen.findByRole("button", { name: /GRAPHIC/i }));
+
+    // await screen.findByRole("");
   });
 });
 
 ////
 //utils
 async function login() {
+  console.log("login func starts");
   userEvent.click(
     screen.getByRole("link", {
       name: /login/i,
@@ -93,6 +105,7 @@ async function login() {
     name: /login/i,
   });
   userEvent.click(loginSubmitButton);
+  console.log("login func ends");
 }
 
 async function logoutIfNeeded() {
@@ -115,7 +128,7 @@ async function goToAdminPage() {
   userEvent.click(adminButton);
 }
 
-function resetLanguageToPolish() {
+async function resetLanguageToPolish() {
   if (
     !screen.queryByRole("link", {
       name: /o nas/i,
