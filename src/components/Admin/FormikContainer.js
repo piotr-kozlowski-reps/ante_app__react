@@ -39,44 +39,57 @@ function FormikContainer() {
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
   ////func
+  // const onSubmit = async (values, onSubmitProps) => {
+  //   try {
+  //     const formData = new FormData();
+  //     buildFormData(formData, values, null);
+
+  //     //logs
+  //     console.log("formData: ", [...formData]);
+
+  //     await sendRequest(
+  //       `${process.env.REACT_APP_BACKEND_URL}api/projects`,
+  //       "POST",
+  //       formData,
+  //       { Authorization: `Bearer ${token}` }
+  //     );
+
+  //     setShowConfirmModal(true);
+
+  //     const timer = () => {
+  //       setTimeout(() => {
+  //         setShowConfirmModal(false);
+  //       }, 1600);
+  //     };
+  //     timer();
+
+  //     clearTimeout(timer);
+  //   } catch (error) {}
+
+  //   const timer = () => {
+  //     setTimeout(() => {
+  //       onSubmitProps.setSubmitting(false);
+  //       onSubmitProps.setStatus({ success: true });
+  //       onSubmitProps.resetForm({});
+  //       dispatch(formActions.resetGenreOfProjectToNull());
+  //       navigate("../../api/projects");
+  //     }, 1750);
+  //   };
+  //   timer();
+  //   clearTimeout(timer);
+  // };
+
   const onSubmit = async (values, onSubmitProps) => {
-    try {
-      const formData = new FormData();
-      buildFormData(formData, values, null);
+    console.log("image: ", values.icoImgFull);
 
-      //logs
-      console.log("formData: ", [...formData]);
+    const { icoImgFull } = values;
 
-      await sendRequest(
-        `${process.env.REACT_APP_BACKEND_URL}api/projects`,
-        "POST",
-        formData,
-        { Authorization: `Bearer ${token}` }
-      );
+    const cloudinaryUrlBase = "......";
+    const formData = new FormData();
+    formData.append("file", icoImgFull);
+    formData.append("key", key);
 
-      setShowConfirmModal(true);
-
-      const timer = () => {
-        setTimeout(() => {
-          setShowConfirmModal(false);
-        }, 1600);
-      };
-      timer();
-
-      clearTimeout(timer);
-    } catch (error) {}
-
-    const timer = () => {
-      setTimeout(() => {
-        onSubmitProps.setSubmitting(false);
-        onSubmitProps.setStatus({ success: true });
-        onSubmitProps.resetForm({});
-        dispatch(formActions.resetGenreOfProjectToNull());
-        navigate("../../api/projects");
-      }, 1750);
-    };
-    timer();
-    clearTimeout(timer);
+    const url = await sendRequest(cloudinaryUrlBase, "POST", formData);
   };
 
   function buildFormData(formData, data, parentKey) {
