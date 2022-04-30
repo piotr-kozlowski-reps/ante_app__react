@@ -84,35 +84,39 @@ function FormikContainer() {
 
     const { icoImgFull } = values;
 
-    const cloudinaryUrlBase = "......";
+    const cloudinaryUrlBase =
+      "https://api.cloudinary.com/v1_1/demo/image/upload";
+    const preset = "docs_upload_example_us_preset";
+
     const formData = new FormData();
     formData.append("file", icoImgFull);
-    formData.append("key", key);
+    formData.append("upload_preset", preset);
 
-    const url = await sendRequest(cloudinaryUrlBase, "POST", formData);
+    const responseData = await sendRequest(cloudinaryUrlBase, "POST", formData);
+    console.log(responseData);
   };
 
-  function buildFormData(formData, data, parentKey) {
-    if (
-      data &&
-      typeof data === "object" &&
-      !(data instanceof Date) &&
-      !(data instanceof File) &&
-      !(data instanceof Blob)
-    ) {
-      Object.keys(data).forEach((key) => {
-        buildFormData(
-          formData,
-          data[key],
-          parentKey ? `${parentKey}[${key}]` : key
-        );
-      });
-    } else {
-      const value = data == null ? "" : data;
+  // function buildFormData(formData, data, parentKey) {
+  //   if (
+  //     data &&
+  //     typeof data === "object" &&
+  //     !(data instanceof Date) &&
+  //     !(data instanceof File) &&
+  //     !(data instanceof Blob)
+  //   ) {
+  //     Object.keys(data).forEach((key) => {
+  //       buildFormData(
+  //         formData,
+  //         data[key],
+  //         parentKey ? `${parentKey}[${key}]` : key
+  //       );
+  //     });
+  //   } else {
+  //     const value = data == null ? "" : data;
 
-      formData.append(parentKey, value);
-    }
-  }
+  //     formData.append(parentKey, value);
+  //   }
+  // }
 
   ////jsx
   return (
