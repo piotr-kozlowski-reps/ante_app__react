@@ -14,7 +14,7 @@ const PanoramaFullView = ({ panoramaImageSource, panoramaTitle }) => {
     <ReactPannellum
       id={panoramaTitle}
       sceneId={panoramaTitle}
-      imageSource={`${process.env.REACT_APP_BACKEND_URL}${panoramaImageSource}`}
+      imageSource={panoramaImageSource}
       author="ANTE"
       style={{
         maxWidth: "1500px",

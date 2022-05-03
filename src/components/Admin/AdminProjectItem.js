@@ -127,7 +127,7 @@ const AdminProjectItem = (props) => {
       <li data-testid="project-item-admin">
         <div className="thumbnail-admin">
           <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${icoImgThumb}`}
+            src={icoImgThumb}
             alt={projNamePl}
             onClick={navigateToEditProject}
             style={{ cursor: "pointer" }}

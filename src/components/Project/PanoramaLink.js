@@ -42,10 +42,7 @@ const PanoramaLink = ({
 
       <div className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12">
         <div className="box">
-          <img
-            src={`${process.env.REACT_APP_BACKEND_URL}${panoramaIco}`}
-            alt={panoramaTitle}
-          ></img>
+          <img src={panoramaIco} alt={panoramaTitle}></img>
           <div className="more">
             <div className="project">
               <div onClick={openPanoramaModalHandler} className="link">

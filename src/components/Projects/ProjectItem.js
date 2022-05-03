@@ -19,7 +19,7 @@ const ProjectItem = forwardRef((props, ref) => {
       className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext"
     >
       <div className="box" data-testid="project-item">
-        <img src={`${process.env.REACT_APP_BACKEND_URL}${icoImg}`} alt={alt} />
+        <img src={icoImg} alt={alt} />
         <div className="more">
           <div className="project">
             <Link

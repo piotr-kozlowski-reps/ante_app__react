@@ -29,8 +29,6 @@ const ImageUploadFormik = (props) => {
     "Some error occurred during file validation. Try again, please."
   );
 
-  console.log({ formikProps });
-
   //useDropZone - start
   const onDrop = (acceptedFile, rejectedFile) => {
     if (acceptedFile.length === 1) {

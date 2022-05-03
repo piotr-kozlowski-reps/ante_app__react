@@ -9,6 +9,7 @@ import {
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
 import { formActions } from "../../shared/store/form-slice";
+import _ from "lodash";
 
 import AdminFormStage from "./AdminFormStage";
 import AdminGenreChooser from "./AdminGenreChooser";
@@ -33,6 +34,7 @@ function FormikContainer() {
   const initialValues = generateInitialValues(genreOfProject);
   const validationSchema = generateValidation(genreOfProject);
   const [showConfirmModal, setShowConfirmModal] = useState(false);
+  const [showSpinner, setShowSpinner] = useState(false);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -80,20 +82,198 @@ function FormikContainer() {
   // };
 
   const onSubmit = async (values, onSubmitProps) => {
-    console.log("image: ", values.icoImgFull);
+    try {
+      setShowSpinner(true);
+      const originalValues = { ...values };
+      const finalDataToBeSent = _.cloneDeep(originalValues);
 
-    const { icoImgFull } = values;
+      //icoImgCloudinaryUpload
+      await uploadImageWithThumbnail(
+        finalDataToBeSent.icoImgFull,
+        finalDataToBeSent,
+        "icoImgFull",
+        "icoImgThumb"
+      );
 
-    const cloudinaryUrlBase =
-      "https://api.cloudinary.com/v1_1/demo/image/upload";
-    const preset = "docs_upload_example_us_preset";
+      //projects genre dependent details
+      const { genre } = finalDataToBeSent;
+      console.log(genre);
+      switch (genre) {
+        case "APP":
+          await uploadImageWithoutThumbnail(
+            originalValues.appInfo.appImageFull,
+            finalDataToBeSent,
+            "appInfo.appImageFull"
+          );
+          break;
 
-    const formData = new FormData();
-    formData.append("file", icoImgFull);
-    formData.append("upload_preset", preset);
+        case "ANIMATION":
+          await uploadImageWithoutThumbnail(
+            originalValues.videoSourceThumb,
+            finalDataToBeSent,
+            "videoSourceThumb"
+          );
+          break;
 
-    const responseData = await sendRequest(cloudinaryUrlBase, "POST", formData);
-    console.log(responseData);
+        case "GRAPHIC":
+          await generateArrayForGraphicsWithCloudinaryUrls(finalDataToBeSent);
+          break;
+
+        case "PANORAMA":
+          await generateArrayForPanoramaWithCloudinaryUrls(finalDataToBeSent);
+          break;
+
+        default:
+      }
+
+      console.log({ originalValues });
+      console.log({ finalDataToBeSent });
+
+      ////TODO: send request do backend
+
+      setShowSpinner(false);
+
+      //confirmation modal
+      setShowConfirmModal(true);
+
+      const timer = () => {
+        setTimeout(() => {
+          setShowConfirmModal(false);
+        }, 1600);
+      };
+      timer();
+
+      clearTimeout(timer);
+    } catch (error) {
+      setShowSpinner(false);
+      console.log(error);
+    }
+
+    //full reset of form
+    const timer = () => {
+      setTimeout(() => {
+        onSubmitProps.setSubmitting(false);
+        onSubmitProps.setStatus({ success: true });
+        onSubmitProps.resetForm({});
+        dispatch(formActions.resetGenreOfProjectToNull());
+        navigate("../../api/projects");
+      }, 1750);
+    };
+    timer();
+    clearTimeout(timer);
+  };
+
+  const uploadImageWithThumbnail = async (
+    image,
+    finalObject,
+    fullImageFieldName,
+    thumbnailFieldName
+  ) => {
+    return new Promise(async (resolve, reject) => {
+      const presetWithThumbnail = "j4s64pa3";
+      const cloudName = "dn8l30dkf";
+      const cloudinaryUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", presetWithThumbnail);
+
+      const responseData = await sendRequest(
+        cloudinaryUrlBase,
+        "POST",
+        formData
+      );
+
+      const imageUrlWithOriginalSize = responseData.secure_url;
+      const imageUrlThumbnailSize = responseData.eager[0].secure_url;
+
+      if (imageUrlWithOriginalSize && imageUrlThumbnailSize) {
+        const updateFullImageFieldNameString = `finalObject.${fullImageFieldName}="${imageUrlWithOriginalSize}"`;
+        const updateThumbnailImageFieldNameString = `finalObject.${thumbnailFieldName}="${imageUrlThumbnailSize}"`;
+
+        eval(updateFullImageFieldNameString);
+        eval(updateThumbnailImageFieldNameString);
+
+        resolve(true);
+      } else {
+        reject(false);
+      }
+    });
+  };
+
+  const uploadImageWithoutThumbnail = async (
+    image,
+    finalObject,
+    fullImageFieldName
+  ) => {
+    return new Promise(async (resolve, reject) => {
+      const presetWithThumbnail = "wajdla87";
+      const cloudName = "dn8l30dkf";
+      const cloudinaryUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", presetWithThumbnail);
+      const responseData = await sendRequest(
+        cloudinaryUrlBase,
+        "POST",
+        formData
+      );
+      const imageUrlWithOriginalSize = responseData.secure_url;
+
+      if (imageUrlWithOriginalSize) {
+        const updateFullImageFieldNameString = `finalObject.${fullImageFieldName}="${imageUrlWithOriginalSize}"`;
+        eval(updateFullImageFieldNameString);
+        resolve(true);
+      } else {
+        reject(false);
+      }
+    });
+  };
+
+  const generateArrayForGraphicsWithCloudinaryUrls = async (
+    finalDataObject
+  ) => {
+    return new Promise((resolve, reject) => {
+      try {
+        finalDataObject.images.map((image, index) => {
+          uploadImageWithThumbnail(
+            image.imageSourceFull,
+            finalDataObject,
+            `images[${index}].imageSourceFull`,
+            `images[${index}].imageSourceThumb`
+          );
+        });
+      } catch (error) {
+        reject(false);
+      }
+      resolve(true);
+    });
+  };
+
+  const generateArrayForPanoramaWithCloudinaryUrls = async (
+    finalDataObject
+  ) => {
+    return new Promise((resolve, reject) => {
+      try {
+        finalDataObject.panoramas.map((panorama, index) => {
+          uploadImageWithThumbnail(
+            panorama.panoramaIcoFull,
+            finalDataObject,
+            `panoramas[${index}].panoramaIcoFull`,
+            `panoramas[${index}].panoramaIcoThumb`
+          );
+          uploadImageWithThumbnail(
+            panorama.panoramaImageSourceFull,
+            finalDataObject,
+            `panoramas[${index}].panoramaImageSourceFull`,
+            `panoramas[${index}].panoramaImageSourceFullThumb`
+          );
+        });
+      } catch (error) {
+        reject(false);
+      }
+      resolve(true);
+    });
   };
 
   // function buildFormData(formData, data, parentKey) {
@@ -137,7 +317,7 @@ function FormikContainer() {
         onClear={clearError}
         headerClass="modal-header-mine__show-header-login"
       />
-      {isLoading && <LoadingSpinner asOverlay />}
+      {showSpinner && <LoadingSpinner asOverlay />}
       <AdminFormStage />
       {/* stage0 */}
       {formStageCounter === 0 && <AdminGenreChooser />}

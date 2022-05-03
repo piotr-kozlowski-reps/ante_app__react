@@ -44,7 +44,7 @@ describe("AdminProjectItem", () => {
       await screen.findByRole("img", { name: /projNamePl_doTestów/i })
     ).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2019_07_wnetrze_mieszkalne_essen_niemcy_ico_1648902442189__thumbnail.jpeg"
+      "uploads\\images\\2019_07_wnetrze_mieszkalne_essen_niemcy_ico_1648902442189__thumbnail.jpeg"
     );
 
     expect(

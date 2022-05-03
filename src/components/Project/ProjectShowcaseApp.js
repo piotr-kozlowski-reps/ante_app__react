@@ -20,7 +20,7 @@ const ProjectShowcaseApp = ({
         <div>
           <img
             style={{ margin: "0px auto" }}
-            src={`${process.env.REACT_APP_BACKEND_URL}${appImage}`}
+            src={appImage}
             alt={appName}
           ></img>
         </div>

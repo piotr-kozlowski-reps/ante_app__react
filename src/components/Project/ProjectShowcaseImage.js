@@ -6,7 +6,7 @@ const ProjectShowcaseImage = ({ imageSource, imageAlt, isBig }) => {
   return (
     <img
       className={isBig ? "big-img" : null}
-      src={`${process.env.REACT_APP_BACKEND_URL}${imageSource}`}
+      src={imageSource}
       alt={imageAlt}
     ></img>
   );

@@ -36,7 +36,7 @@ const Projects = () => {
         );
 
         setCurrentProjectsArray(responseData.projects);
-        // console.log(responseData.projects);
+        console.log(responseData.projects);
       } catch (error) {
         console.log(error);
       }
@@ -77,6 +77,7 @@ const Projects = () => {
   };
 
   //add more projects to be shown
+  ////TODO: something isn't working with pagination adding more than 8 projects
   const projectsPaginated = projectsFiltered
     ? projectsFiltered.splice(0, paginationNumber)
     : [];
