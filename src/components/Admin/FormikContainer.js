@@ -100,10 +100,11 @@ function FormikContainer() {
       console.log(genre);
       switch (genre) {
         case "APP":
-          await uploadImageWithoutThumbnail(
+          await uploadImageWithThumbnail(
             originalValues.appInfo.appImageFull,
             finalDataToBeSent,
-            "appInfo.appImageFull"
+            "appInfo.appImageFull",
+            "appInfo.appImageThumb"
           );
           break;
 
@@ -116,7 +117,10 @@ function FormikContainer() {
           break;
 
         case "GRAPHIC":
-          await generateArrayForGraphicsWithCloudinaryUrls(finalDataToBeSent);
+          await generateArrayForGraphicsWithCloudinaryUrls(
+            originalValues,
+            finalDataToBeSent
+          );
           break;
 
         case "PANORAMA":
@@ -129,7 +133,12 @@ function FormikContainer() {
       console.log({ originalValues });
       console.log({ finalDataToBeSent });
 
-      ////TODO: send request do backend
+      await sendRequest(
+        `${process.env.REACT_APP_BACKEND_URL}api/projects`,
+        "POST",
+        JSON.stringify(finalDataToBeSent),
+        { Authorization: `Bearer ${token}`, "Content-Type": "application/json" }
+      );
 
       setShowSpinner(false);
 
@@ -231,16 +240,20 @@ function FormikContainer() {
   };
 
   const generateArrayForGraphicsWithCloudinaryUrls = async (
+    originalObject,
     finalDataObject
   ) => {
     return new Promise((resolve, reject) => {
       try {
-        finalDataObject.images.map((image, index) => {
-          uploadImageWithThumbnail(
+        originalObject.images.map(async (image, index) => {
+          const fullImageFieldName = `images[${index}].imageSourceFull`;
+          const thumbnailImageFieldName = `images[${index}].imageSourceThumb`;
+
+          await uploadImageWithThumbnail(
             image.imageSourceFull,
             finalDataObject,
-            `images[${index}].imageSourceFull`,
-            `images[${index}].imageSourceThumb`
+            fullImageFieldName,
+            thumbnailImageFieldName
           );
         });
       } catch (error) {
