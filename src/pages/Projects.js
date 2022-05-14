@@ -1,6 +1,5 @@
 import React, { Fragment, useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
-import type from "../shared/utils/type";
 import { useSelector } from "react-redux";
 import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
 import { useHttpClient } from "../shared/hooks/http-hook";
@@ -36,7 +35,7 @@ const Projects = () => {
         );
 
         setCurrentProjectsArray(responseData.projects);
-        console.log(responseData.projects);
+        console.log("Fetched projects: ", responseData.projects);
       } catch (error) {
         console.log(error);
       }
@@ -45,7 +44,7 @@ const Projects = () => {
     fetchProjects();
   }, [sendRequest]);
 
-  //custom-hook
+  //filtering projects by Type
   const projectsFilteredFromHook = useTypeFiltering(
     typeGotFromQuery,
     currentProjectsArray
@@ -63,9 +62,11 @@ const Projects = () => {
     };
   });
 
+  /* automatic pagination - start*/
   // triggering pagination of projects automatically when div#pagination-trigger on screen
   let refDivTriggeringPagination = useRef();
   const isInViewport = (ref, offset = 0) => {
+    console.log(ref);
     if (!ref.current) return false;
     const top = ref.current.getBoundingClientRect().top;
     return top + offset >= 0 && top - offset <= window.innerHeight;
@@ -76,8 +77,7 @@ const Projects = () => {
     }
   };
 
-  //add more projects to be shown
-  ////TODO: something isn't working with pagination adding more than 8 projects
+  //add more projects to be shown if possible
   const projectsPaginated = projectsFiltered
     ? projectsFiltered.splice(0, paginationNumber)
     : [];
@@ -91,10 +91,17 @@ const Projects = () => {
     }
   };
 
-  // useEffect(() => {
-  //   if (allProjectsNumber === currentProjectsNumberToBeShown)
-  //     setIsShowMoreButtonShown(false);
-  // }, [allProjectsNumber, currentProjectsNumberToBeShown]);
+  window.addEventListener(
+    "resize",
+    scrollOfDivTriggeringPaginationHandler,
+    true
+  );
+  window.addEventListener(
+    "scroll",
+    scrollOfDivTriggeringPaginationHandler,
+    true
+  );
+  /* automatic pagination - end*/
 
   ////jsx
   return (

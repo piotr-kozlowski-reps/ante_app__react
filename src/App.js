@@ -67,10 +67,10 @@ function App(props) {
   //footer positioning vars
   let refDivTriggerFooterMovement = useRef();
   let refDivFooter = useRef();
-  const [footerHeight, setFooterHeight] = useState(0);
-  const [divTriggerFooterHPosition, setDivTriggerFooterHPosition] = useState(0);
+  // const [footerHeight, setFooterHeight] = useState(0);
+  // const [divTriggerFooterHPosition, setDivTriggerFooterHPosition] = useState(0);
   const [isToMoveFooter, setIsToMoveFooter] = useState(false);
-  const bodyElement = document.querySelector("body");
+  // const bodyElement = document.querySelector("body");
 
   //moving footer to bottom if needed
   // const checkIfFooterHasToBeMovedHandler = useCallback(() => {
@@ -145,28 +145,31 @@ function App(props) {
   //check if logged in - token in localStorage is present and data didn't expire
   ////TESTED
   useEffect(() => {
-    const localStorageUserDataObj = localStorage.getItem("userData");
+    const localStorageUserDataObj = JSON.parse(
+      localStorage.getItem("userData")
+    );
 
     if (
       !localStorageUserDataObj ||
       !localStorageUserDataObj.token ||
       !localStorageUserDataObj.expiration ||
       !localStorageUserDataObj.login
-    )
+    ) {
       return;
+    }
 
-    console.log(localStorageUserDataObj); //?
-    const storedData = JSON.parse(localStorageUserDataObj);
     if (
-      storedData &&
-      storedData.token &&
-      new Date(storedData.expiration) > new Date()
+      localStorageUserDataObj &&
+      localStorageUserDataObj.token &&
+      new Date(localStorageUserDataObj.expiration) > new Date()
     ) {
       dispatch(
         authActions.login({
-          login: storedData.login,
-          token: storedData.token,
-          expirationDate: new Date(storedData.expiration).toISOString(),
+          login: localStorageUserDataObj.login,
+          token: localStorageUserDataObj.token,
+          expirationDate: new Date(
+            localStorageUserDataObj.expiration
+          ).toISOString(),
         })
       );
     }

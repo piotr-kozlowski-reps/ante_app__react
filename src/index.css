@@ -215,6 +215,12 @@ div.project {
   padding-top: calc(625 / 1126 * 100%);
 }
 
+#galleryCarouselFourOFour {
+  position: relative;
+  width: 100%;
+  padding-top: calc(427 / 1126 * 100%);
+}
+
 #galleryCarousel .carousel-inner {
   position: absolute;
   top: 0px;
@@ -229,6 +235,14 @@ div.project {
   left: 0px;
   width: 100%;
   padding-top: calc(625 / 1126 * 100%);
+}
+
+#galleryCarouselFourOFour .itemFourOFour {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  padding-top: calc(427 / 1126 * 100%);
 }
 
 #galleryCarousel .item > img {
