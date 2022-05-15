@@ -215,8 +215,23 @@ div.project {
   padding-top: calc(625 / 1126 * 100%);
 }
 
-#galleryCarouselFourOFour {
+.galleryCarouselFourOFour {
   position: relative;
+  width: 100%;
+  padding-top: calc(427 / 1126 * 100%);
+}
+
+.text-fourOFour {
+  margin-bottom: 4rem;
+  font-size: 2rem;
+  line-height: 2.5rem;
+  margin-top: -2.5rem;
+}
+
+.galleryCarouselFourOFour .carousel-inner {
+  position: absolute;
+  top: 0px;
+  left: 0px;
   width: 100%;
   padding-top: calc(427 / 1126 * 100%);
 }
@@ -237,15 +252,41 @@ div.project {
   padding-top: calc(625 / 1126 * 100%);
 }
 
-#galleryCarouselFourOFour .itemFourOFour {
+.galleryCarouselFourOFour .itemFourOFour {
   position: absolute;
   top: 0px;
   left: 0px;
   width: 100%;
+  /* background-color: green; */
   padding-top: calc(427 / 1126 * 100%);
 }
 
+.itemFourOFour > img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+  /* background-color: red; */
+}
+
+/* #galleryCarousel .item > img {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+} */
+
 #galleryCarousel .item > img {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+
+#galleryCarouselFourOFour .item > img {
   position: absolute;
   top: 0px;
   left: 0px;
@@ -1614,4 +1655,10 @@ input[type="radio"] {
   height: 1px;
   width: 100%;
   /* background-color: blue; */
+}
+
+.last-div-fill {
+  position: absolute;
+  width: 100%;
+  background-color: #e9e9e9;
 }

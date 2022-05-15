@@ -12,7 +12,7 @@ import ErrorModal from "../../shared/components/ErrorModal";
 import Separator from "../../shared/components/Separator";
 
 const AdminProjectItem = (props) => {
-  console.log(props);
+  // console.log(props);
 
   ////vars
   const {

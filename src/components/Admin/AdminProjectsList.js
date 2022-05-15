@@ -21,7 +21,6 @@ const AdminProjectsList = (props) => {
   };
 
   const projectTypeNamesInPolish = (projectType) => {
-    console.log(projectType);
     switch (projectType) {
       case "all":
         return "wszystkie";

@@ -40,6 +40,37 @@ function FormikContainer() {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
+  console.log(
+    JSON.stringify({
+      genre: "GRAPHIC",
+      projNamePl: "fgb",
+      projNameEn: "dfgb",
+      cityPl: "dfgb",
+      cityEn: "dfgb",
+      countryPl: "dfgb",
+      countryEn: "dfgb",
+      clientPl: "dfgb",
+      clientEn: "dfgb",
+      completionDate: "2010-10-10T00:00:00.000Z",
+      projectType: ["COMPETITION"],
+      icoImgFull:
+        "https://res.cloudinary.com/dn8l30dkf/image/upload/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_rxgbf7.jpg",
+      images: [
+        {
+          imageAltPl: "vf",
+          imageAltEn: "fvds",
+          isBig: true,
+          imageSourceFull:
+            "https://res.cloudinary.com/dn8l30dkf/image/upload/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb_vuijwg.jpg",
+          imageSourceThumb:
+            "https://res.cloudinary.com/dn8l30dkf/image/upload/c_scale,h_80,q_39,w_100/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb_vuijwg.jpg",
+        },
+      ],
+      icoImgThumb:
+        "https://res.cloudinary.com/dn8l30dkf/image/upload/c_scale,h_80,q_39,w_100/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_rxgbf7.jpg",
+    })
+  );
+
   ////func
   // const onSubmit = async (values, onSubmitProps) => {
   //   try {
@@ -97,7 +128,6 @@ function FormikContainer() {
 
       //projects genre dependent details
       const { genre } = finalDataToBeSent;
-      console.log(genre);
       switch (genre) {
         case "APP":
           await uploadImageWithThumbnail(
@@ -117,10 +147,16 @@ function FormikContainer() {
           break;
 
         case "GRAPHIC":
-          await generateArrayForGraphicsWithCloudinaryUrls(
-            originalValues,
-            finalDataToBeSent
-          );
+          try {
+            const resultImagesArray =
+              await generateArrayForGraphicsWithCloudinaryUrls(
+                originalValues,
+                finalDataToBeSent
+              );
+            finalDataToBeSent.images = resultImagesArray;
+          } catch (error) {
+            console.log(error);
+          }
           break;
 
         case "PANORAMA":
@@ -170,6 +206,40 @@ function FormikContainer() {
     };
     timer();
     clearTimeout(timer);
+  };
+
+  const uploadImageAndCreateThumbnailInCloudinary = async (
+    image,
+    fullImageName,
+    ThumbnailImageName
+  ) => {
+    return new Promise(async (resolve, reject) => {
+      const presetWithThumbnail = "j4s64pa3";
+      const cloudName = "dn8l30dkf";
+      const cloudinaryUrlBase = `https://api.cloudinary.com/v1_1/${cloudName}/image/upload`;
+
+      const formData = new FormData();
+      formData.append("file", image);
+      formData.append("upload_preset", presetWithThumbnail);
+
+      const responseData = await sendRequest(
+        cloudinaryUrlBase,
+        "POST",
+        formData
+      );
+
+      const imageUrlWithOriginalSize = responseData.secure_url;
+      const imageUrlThumbnailSize = responseData.eager[0].secure_url;
+
+      if (imageUrlWithOriginalSize && imageUrlThumbnailSize) {
+        const result = {};
+        result[fullImageName] = imageUrlWithOriginalSize;
+        result[ThumbnailImageName] = imageUrlThumbnailSize;
+        resolve(result);
+      } else {
+        reject({ error: "Some problem has occured." });
+      }
+    });
   };
 
   const uploadImageWithThumbnail = async (
@@ -244,22 +314,35 @@ function FormikContainer() {
     finalDataObject
   ) => {
     return new Promise((resolve, reject) => {
+      const resultImages = [];
       try {
         originalObject.images.map(async (image, index) => {
-          const fullImageFieldName = `images[${index}].imageSourceFull`;
-          const thumbnailImageFieldName = `images[${index}].imageSourceThumb`;
+          console.log({ image });
 
-          await uploadImageWithThumbnail(
+          const newImage = {};
+
+          newImage.imageAltPl = image.imageAltPl;
+          newImage.imageAltEn = image.imageAltEn;
+          newImage.isBig = image.isBig;
+
+          const originalSizeImageName = "imageSourceFull";
+          const thumbnailImageName = "imageSourceThumb";
+
+          const imagesFields = await uploadImageAndCreateThumbnailInCloudinary(
             image.imageSourceFull,
-            finalDataObject,
-            fullImageFieldName,
-            thumbnailImageFieldName
+            originalSizeImageName,
+            thumbnailImageName
           );
+
+          newImage[originalSizeImageName] = imagesFields[originalSizeImageName];
+          newImage[thumbnailImageName] = imagesFields[thumbnailImageName];
+
+          resultImages.push(newImage);
         });
       } catch (error) {
-        reject(false);
+        reject(error);
       }
-      resolve(true);
+      resolve(resultImages);
     });
   };
 

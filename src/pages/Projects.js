@@ -66,7 +66,6 @@ const Projects = () => {
   // triggering pagination of projects automatically when div#pagination-trigger on screen
   let refDivTriggeringPagination = useRef();
   const isInViewport = (ref, offset = 0) => {
-    console.log(ref);
     if (!ref.current) return false;
     const top = ref.current.getBoundingClientRect().top;
     return top + offset >= 0 && top - offset <= window.innerHeight;
