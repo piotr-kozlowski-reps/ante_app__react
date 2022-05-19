@@ -2,7 +2,6 @@ import React from "react";
 import { render, screen, cleanup } from "../../shared/utils/test-utils";
 import userEvent from "@testing-library/user-event";
 import { BrowserRouter } from "react-router-dom";
-import { useNavigate } from "react-router";
 
 import App from "../../App";
 import NotFound from "../NotFound";
