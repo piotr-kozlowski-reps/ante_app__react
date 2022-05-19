@@ -1,14 +1,17 @@
 import React from "react";
 import { render, screen, cleanup } from "../../shared/utils/test-utils";
 import userEvent from "@testing-library/user-event";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Router } from "react-router-dom";
+import { createMemoryHistory } from "history";
 
 import App from "../../App";
-import NotFound from "../NotFound";
+// import NotFound from "../NotFound";
 
 // const MockApp = () => {
+//   const history = createMemoryHistory();
+//   history.push("/non-existing/route");
 //   return (
-//     <BrowserRouter>
+//     <BrowserRouter location={history.location} navigator={history}>
 //       <App />
 //     </BrowserRouter>
 //   );
@@ -19,13 +22,19 @@ afterEach(() => {
 });
 
 describe("404 (NotFound)", () => {
+  // it("should have div with test-id in the DOM.", () => {
+  //   render(<MockApp />);
+  //   screen.getByRole("");
+  //   // expect(screen.getByTestId("404-page")).toBeInTheDocument();
+  // });
+
   it("should have div with test-id in the DOM.", () => {
-    render(<NotFound />);
+    goToNonExistingRoute();
     expect(screen.getByTestId("404-page")).toBeInTheDocument();
   });
 
   it("should render image of 404", () => {
-    render(<NotFound />);
+    goToNonExistingRoute();
     const imageOfError = screen.getByRole("img", {
       name: "404 error. There's no such a route.",
     });
@@ -162,3 +171,12 @@ describe("404 (NotFound)", () => {
 // }
 
 ////utils
+function goToNonExistingRoute() {
+  const history = createMemoryHistory();
+  history.push("/some/bad/route");
+  render(
+    <Router location={history.location} navigator={history}>
+      <App />
+    </Router>
+  );
+}
