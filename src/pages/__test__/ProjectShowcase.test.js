@@ -86,13 +86,13 @@ describe("ProjectShowcase", () => {
     expect(await findImageOnePl()).toHaveClass("big-img");
     expect(await findImageOnePl()).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191.jpeg"
+      "uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191.jpeg"
     );
     expect(await findImageTwoPl()).toBeInTheDocument();
     expect(await findImageTwoPl()).not.toHaveClass("big-img");
     expect(await findImageTwoPl()).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191drugi.jpeg"
+      "uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191drugi.jpeg"
     );
 
     //en
@@ -109,13 +109,13 @@ describe("ProjectShowcase", () => {
     expect(await findImageOneEn()).toHaveClass("big-img");
     expect(await findImageOneEn()).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191.jpeg"
+      "uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191.jpeg"
     );
     expect(await findImageTwoEn()).toBeInTheDocument();
     expect(await findImageTwoEn()).not.toHaveClass("big-img");
     expect(await findImageTwoEn()).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191drugi.jpeg"
+      "uploads\\images\\2009_02_centrum_hotelowo_kongresowe_wroclaw_polska_001_1648902442191drugi.jpeg"
     );
 
     //no polish in english version
@@ -347,7 +347,7 @@ describe("ProjectShowcase", () => {
       await screen.findByRole("img", { name: /nazw pano pl/i })
     ).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_1650142199865.jpeg"
+      "uploads\\images\\2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_1650142199865.jpeg"
     );
     expect(
       await screen.findByRole("heading", { name: /nazw pano pl/i })
@@ -365,7 +365,7 @@ describe("ProjectShowcase", () => {
       await screen.findByRole("img", { name: /nazw pano2 pl/i })
     ).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico_1650142199905.jpeg"
+      "uploads\\images\\2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico_1650142199905.jpeg"
     );
     expect(
       await screen.findByRole("heading", { name: /nazw pano2 pl/i })
@@ -394,7 +394,7 @@ describe("ProjectShowcase", () => {
       await screen.findByRole("img", { name: /nazw pano en/i })
     ).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_1650142199865.jpeg"
+      "uploads\\images\\2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_1650142199865.jpeg"
     );
     expect(
       await screen.findByRole("heading", { name: /nazw pano en/i })
@@ -412,7 +412,7 @@ describe("ProjectShowcase", () => {
       await screen.findByRole("img", { name: /nazw pano2 en/i })
     ).toHaveAttribute(
       "src",
-      "http://localhost:5000/uploads\\images\\2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico_1650142199905.jpeg"
+      "uploads\\images\\2020_05_osiedle_mieszkaniowe_dormagen_niemcy_ico_1650142199905.jpeg"
     );
     expect(
       await screen.findByRole("heading", { name: /nazw pano2 en/i })

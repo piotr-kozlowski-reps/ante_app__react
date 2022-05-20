@@ -25,8 +25,8 @@ afterEach(() => {
 describe("AdminProjectItem", () => {
   it("renders all desired data", async () => {
     render(<MockApp />);
-    resetLanguageToPolish();
-    logoutIfNeeded();
+    await resetLanguageToPolish();
+    await logoutIfNeeded();
     await login();
     await goToAdminPage();
 
@@ -121,53 +121,82 @@ describe("AdminProjectItem", () => {
 ////
 //utils
 async function login() {
-  userEvent.click(
-    screen.getByRole("link", {
-      name: /login/i,
-    })
-  );
+  return new Promise(async (resolve, reject) => {
+    userEvent.click(
+      screen.getByRole("link", {
+        name: /login/i,
+      })
+    );
 
-  const loginInput = screen.queryByPlaceholderText(/enter your login/i);
-  const passwordInput = screen.queryByPlaceholderText(/enter your password/i);
-  userEvent.type(loginInput, "test");
-  userEvent.type(passwordInput, "testTEST123##$$%");
-  const loginSubmitButton = screen.getByRole("button", {
-    name: /login/i,
+    const loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    const passwordInput = screen.queryByPlaceholderText(/enter your password/i);
+    userEvent.type(loginInput, "test");
+    userEvent.type(passwordInput, "testTEST123##$$%");
+    const loginSubmitButton = screen.getByRole("button", {
+      name: /login/i,
+    });
+    userEvent.click(loginSubmitButton);
+
+    // await screen.findByRole("");
+
+    const logoutButton = await screen.findByText(/logout/i);
+    if (logoutButton) resolve(true);
+    else reject(false);
   });
-  userEvent.click(loginSubmitButton);
 }
 
 async function logoutIfNeeded() {
-  if (
-    screen.queryByRole("link", {
-      name: /admin/i,
-    })
-  ) {
-    const logoutButton = screen.queryByRole("button", {
-      name: /logout/i,
-    });
-    userEvent.click(logoutButton);
-  }
+  return new Promise((resolve, reject) => {
+    if (
+      screen.queryByRole("link", {
+        name: /admin/i,
+      })
+    ) {
+      const logoutButton = screen.queryByRole("button", {
+        name: /logout/i,
+      });
+      userEvent.click(logoutButton);
+    }
+    resolve(true);
+  });
 }
 
 async function goToAdminPage() {
-  const adminButton = await screen.findByRole("link", {
-    name: /admin/i,
+  return new Promise(async (resolve, reject) => {
+    const adminButton = await screen.findByRole("link", {
+      name: /admin/i,
+    });
+    userEvent.click(adminButton);
+
+    const listaProjectowText = await screen.findByRole("heading", {
+      name: /LISTA PROJEKTÓW/i,
+    });
+    if (listaProjectowText) resolve(true);
+    else reject(false);
   });
-  userEvent.click(adminButton);
 }
 
-function resetLanguageToPolish() {
-  if (
-    !screen.queryByRole("link", {
-      name: /o nas/i,
-    })
-  ) {
-    const langButton = screen.queryByRole("button", {
-      name: /pl/i,
-    });
-    userEvent.click(langButton);
-  }
+async function resetLanguageToPolish() {
+  return new Promise((resolve, reject) => {
+    if (
+      !screen.queryByRole("link", {
+        name: /o nas/i,
+      })
+    ) {
+      const langButton = screen.queryByRole("button", {
+        name: /pl/i,
+      });
+      userEvent.click(langButton);
+    }
+
+    if (
+      screen.queryByRole("button", {
+        name: "EN",
+      })
+    ) {
+      resolve(true);
+    } else reject(false);
+  });
 }
 
 function changeLanguageToEn() {
