@@ -40,37 +40,6 @@ function FormikContainer() {
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
 
-  console.log(
-    JSON.stringify({
-      genre: "GRAPHIC",
-      projNamePl: "fgb",
-      projNameEn: "dfgb",
-      cityPl: "dfgb",
-      cityEn: "dfgb",
-      countryPl: "dfgb",
-      countryEn: "dfgb",
-      clientPl: "dfgb",
-      clientEn: "dfgb",
-      completionDate: "2010-10-10T00:00:00.000Z",
-      projectType: ["COMPETITION"],
-      icoImgFull:
-        "https://res.cloudinary.com/dn8l30dkf/image/upload/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_rxgbf7.jpg",
-      images: [
-        {
-          imageAltPl: "vf",
-          imageAltEn: "fvds",
-          isBig: true,
-          imageSourceFull:
-            "https://res.cloudinary.com/dn8l30dkf/image/upload/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb_vuijwg.jpg",
-          imageSourceThumb:
-            "https://res.cloudinary.com/dn8l30dkf/image/upload/c_scale,h_80,q_39,w_100/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb_vuijwg.jpg",
-        },
-      ],
-      icoImgThumb:
-        "https://res.cloudinary.com/dn8l30dkf/image/upload/c_scale,h_80,q_39,w_100/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_rxgbf7.jpg",
-    })
-  );
-
   ////func
   // const onSubmit = async (values, onSubmitProps) => {
   //   try {
@@ -149,18 +118,19 @@ function FormikContainer() {
         case "GRAPHIC":
           try {
             const resultImagesArray =
-              await generateArrayForGraphicsWithCloudinaryUrls(
-                originalValues,
-                finalDataToBeSent
-              );
-            finalDataToBeSent.images = resultImagesArray;
+              await generateArrayForGraphicsWithCloudinaryUrls(originalValues);
+            finalDataToBeSent.images = [...resultImagesArray];
           } catch (error) {
             console.log(error);
           }
           break;
 
         case "PANORAMA":
-          await generateArrayForPanoramaWithCloudinaryUrls(finalDataToBeSent);
+          try {
+            const resultPanoramasArray =
+              await generateArrayForPanoramaWithCloudinaryUrls(originalValues);
+            finalDataToBeSent.panoramas = [...resultPanoramasArray];
+          } catch (error) {}
           break;
 
         default:
@@ -309,21 +279,16 @@ function FormikContainer() {
     });
   };
 
-  const generateArrayForGraphicsWithCloudinaryUrls = async (
-    originalObject,
-    finalDataObject
-  ) => {
-    return new Promise((resolve, reject) => {
+  const generateArrayForGraphicsWithCloudinaryUrls = async (originalObject) => {
+    return new Promise(async (resolve, reject) => {
       const resultImages = [];
       try {
-        originalObject.images.map(async (image, index) => {
-          console.log({ image });
+        for (let image of originalObject.images) {
+          const newImageArrayDataSet = {};
 
-          const newImage = {};
-
-          newImage.imageAltPl = image.imageAltPl;
-          newImage.imageAltEn = image.imageAltEn;
-          newImage.isBig = image.isBig;
+          newImageArrayDataSet.imageAltPl = image.imageAltPl;
+          newImageArrayDataSet.imageAltEn = image.imageAltEn;
+          newImageArrayDataSet.isBig = image.isBig;
 
           const originalSizeImageName = "imageSourceFull";
           const thumbnailImageName = "imageSourceThumb";
@@ -334,11 +299,13 @@ function FormikContainer() {
             thumbnailImageName
           );
 
-          newImage[originalSizeImageName] = imagesFields[originalSizeImageName];
-          newImage[thumbnailImageName] = imagesFields[thumbnailImageName];
+          newImageArrayDataSet[originalSizeImageName] =
+            imagesFields[originalSizeImageName];
+          newImageArrayDataSet[thumbnailImageName] =
+            imagesFields[thumbnailImageName];
 
-          resultImages.push(newImage);
-        });
+          resultImages.push(newImageArrayDataSet);
+        }
       } catch (error) {
         reject(error);
       }
@@ -346,29 +313,52 @@ function FormikContainer() {
     });
   };
 
-  const generateArrayForPanoramaWithCloudinaryUrls = async (
-    finalDataObject
-  ) => {
-    return new Promise((resolve, reject) => {
+  const generateArrayForPanoramaWithCloudinaryUrls = async (originalValues) => {
+    return new Promise(async (resolve, reject) => {
+      const resultPanoramas = [];
       try {
-        finalDataObject.panoramas.map((panorama, index) => {
-          uploadImageWithThumbnail(
-            panorama.panoramaIcoFull,
-            finalDataObject,
-            `panoramas[${index}].panoramaIcoFull`,
-            `panoramas[${index}].panoramaIcoThumb`
-          );
-          uploadImageWithThumbnail(
-            panorama.panoramaImageSourceFull,
-            finalDataObject,
-            `panoramas[${index}].panoramaImageSourceFull`,
-            `panoramas[${index}].panoramaImageSourceFullThumb`
-          );
-        });
+        for (let panorama of originalValues.panoramas) {
+          console.log({ panorama });
+
+          const newPanoramaArrayDataSet = {};
+
+          newPanoramaArrayDataSet.panoramaTitlePl = panorama.panoramaTitlePl;
+          newPanoramaArrayDataSet.panoramaTitleEn = panorama.panoramaTitleEn;
+
+          //panorama Icon image
+          let originalSizePanoramaName = "panoramaIcoFull";
+          let thumbnailPanoramaName = "panoramaIcoThumb";
+          let panoramaImagesFields =
+            await uploadImageAndCreateThumbnailInCloudinary(
+              panorama.panoramaIcoFull,
+              originalSizePanoramaName,
+              thumbnailPanoramaName
+            );
+          newPanoramaArrayDataSet[originalSizePanoramaName] =
+            panoramaImagesFields[originalSizePanoramaName];
+          newPanoramaArrayDataSet[thumbnailPanoramaName] =
+            panoramaImagesFields[thumbnailPanoramaName];
+
+          //panorama Source Image
+          originalSizePanoramaName = "panoramaImageSourceFull";
+          thumbnailPanoramaName = "panoramaImageSourceFullThumb";
+          panoramaImagesFields =
+            await uploadImageAndCreateThumbnailInCloudinary(
+              panorama.panoramaImageSourceFull,
+              originalSizePanoramaName,
+              thumbnailPanoramaName
+            );
+          newPanoramaArrayDataSet[originalSizePanoramaName] =
+            panoramaImagesFields[originalSizePanoramaName];
+          newPanoramaArrayDataSet[thumbnailPanoramaName] =
+            panoramaImagesFields[thumbnailPanoramaName];
+
+          resultPanoramas.push(newPanoramaArrayDataSet);
+        }
       } catch (error) {
         reject(false);
       }
-      resolve(true);
+      resolve(resultPanoramas);
     });
   };
 

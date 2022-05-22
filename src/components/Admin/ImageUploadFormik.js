@@ -4,6 +4,7 @@ import TextErrorFormik from "./TextErrorFormik";
 import { useDropzone } from "react-dropzone";
 import Modal from "../../shared/components/Modal";
 import Separator from "../../shared/components/Separator";
+import { changeDesiredFieldNameToAppropriateThumbnail } from "../../shared/utils/general-utils";
 
 import noImagePicked from "../../images/nima.jpg";
 
@@ -65,7 +66,7 @@ const ImageUploadFormik = (props) => {
   ////func
   const setErrorAndTouched = () => {
     formikProps.setFieldTouched(name, true);
-    formikProps.setFieldError(name, "dfvsdfv");
+    formikProps.setFieldError(name, "Error");
   };
 
   const setIsTouchedWhenFocused = () => {
@@ -96,11 +97,14 @@ const ImageUploadFormik = (props) => {
   //effects
   //set file thumbnail url if in updateForm mode and
   useEffect(() => {
-    let urlResult = process.env.REACT_APP_BACKEND_URL;
+    let urlResult = "";
     let fieldPathRestored = "";
 
-    if (name.includes(".")) {
-      const urlElements = name.split(".");
+    const nameChangedToThumbnail =
+      changeDesiredFieldNameToAppropriateThumbnail(name);
+
+    if (nameChangedToThumbnail.includes(".")) {
+      const urlElements = nameChangedToThumbnail.split(".");
       urlElements.forEach((el, index) => {
         if (isNaN(el)) fieldPathRestored += `.${el}`;
         if (!isNaN(el)) fieldPathRestored += `[${el}]`;
@@ -109,8 +113,8 @@ const ImageUploadFormik = (props) => {
       urlResult += eval(`formikProps.values${fieldPathRestored}`);
     }
 
-    if (!name.includes(".")) {
-      urlResult += `${formikProps.values[name]}`;
+    if (!nameChangedToThumbnail.includes(".")) {
+      urlResult += `${formikProps.values[nameChangedToThumbnail]}`;
     }
 
     if (
@@ -119,7 +123,6 @@ const ImageUploadFormik = (props) => {
     )
       return;
 
-    //TODO: if string in update provided -> set the thumbnail - not full res image to show
     setPreviewUrl(urlResult);
   }, []);
 

@@ -14,9 +14,9 @@ const MockApp = () => {
   );
 };
 
-afterEach(() => {
-  cleanup();
-});
+// afterEach(() => {
+//   cleanup();
+// });
 
 describe("NewProject", () => {
   it("shows CREATE_NEW_PROJECT / stages of a form / buttons.", async () => {
@@ -62,24 +62,60 @@ describe("NewProject", () => {
     ).toBeInTheDocument();
   });
 
-  it("goes though happy path of graphics_form ", async () => {
-    // render(<MockApp />);
-    // await resetLanguageToPolish();
-    // await logoutIfNeeded();
-    // await loginIfNeeded();
-    // await goToAdminPage();
-    // await goToCreateNewProject();
-    // const graphicsButton = await screen.findByRole("button", {
-    //   name: /graphic/i,
-    // });
-    // userEvent.click(graphicsButton);
-    // expect(
-    //   await screen.findByRole("textbox", {
-    //     name: /nazwa projektu \(po polsku\)\./i,
-    //   })
-    // ).toBeInTheDocument();
-    // userEvent.click(await screen.findByRole("button", { name: /GRAPHIC/i }));
+  it("goes though happy path of graphics_form", async () => {
+    render(<MockApp />);
+    await resetLanguageToPolish();
+    await logoutIfNeeded();
+    await loginIfNeeded();
+    await goToAdminPage();
+    await goToCreateNewProject();
+
+    const graphicsButton = await screen.findByRole("button", {
+      name: /graphic/i,
+    });
+    userEvent.click(graphicsButton);
+    expect(
+      await screen.findByRole("textbox", {
+        name: /nazwa projektu \(po polsku\)\./i,
+      })
+    ).toBeInTheDocument();
+
+    //TODO: further test of happy path with Graphic form
+
     // await screen.findByRole("");
+  });
+
+  it("tests if JSON.stringify makes its work", () => {
+    const dataToBeSent = {
+      genre: "GRAPHIC",
+      projNamePl: "fgb",
+      projNameEn: "dfgb",
+      cityPl: "dfgb",
+      cityEn: "dfgb",
+      countryPl: "dfgb",
+      countryEn: "dfgb",
+      clientPl: "dfgb",
+      clientEn: "dfgb",
+      completionDate: "2010-10-10T00:00:00.000Z",
+      projectType: ["COMPETITION"],
+      icoImgFull:
+        "https://res.cloudinary.com/dn8l30dkf/image/upload/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_rxgbf7.jpg",
+      images: [
+        {
+          imageAltPl: "vf",
+          imageAltEn: "fvds",
+          isBig: true,
+          imageSourceFull:
+            "https://res.cloudinary.com/dn8l30dkf/image/upload/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb_vuijwg.jpg",
+          imageSourceThumb:
+            "https://res.cloudinary.com/dn8l30dkf/image/upload/c_scale,h_80,q_39,w_100/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01__thumb_vuijwg.jpg",
+        },
+      ],
+      icoImgThumb:
+        "https://res.cloudinary.com/dn8l30dkf/image/upload/c_scale,h_80,q_39,w_100/v1652644149/ante_portfolio_images/2013_08_osiedle_mieszkaniowe_dusseldorf_niemcy_ico01_rxgbf7.jpg",
+    };
+
+    console.log(JSON.stringify(dataToBeSent)); //?
   });
 });
 
@@ -89,8 +125,8 @@ async function loginIfNeeded() {
   return new Promise(async (resolve, reject) => {
     const loginButton = screen.queryByRole("link", {
       name: /login/i,
-    });
-    const logoutButton = screen.queryByText(/logout/i);
+    }); //?
+    let logoutButton = screen.queryByText(/logout/i); //?
 
     if (logoutButton) resolve(true);
 
@@ -110,6 +146,8 @@ async function loginIfNeeded() {
         name: /login/i,
       });
       userEvent.click(loginSubmitButton);
+
+      logoutButton = await screen.findByText(/logout/i);
 
       if (logoutButton) resolve(true);
       else reject(false);
