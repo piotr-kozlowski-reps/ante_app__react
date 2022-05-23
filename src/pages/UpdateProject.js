@@ -6,7 +6,6 @@ import { formActions } from "../shared/store/form-slice";
 import { Formik, Form } from "formik";
 import genre from "../shared/utils/genre";
 import { generateValidation } from "../shared/utils/generateFormDataFactory";
-import { changeDesiredFieldNameToAppropriateThumbnail } from "../shared/utils/general-utils";
 import _ from "lodash";
 
 import ErrorModal from "../shared/components/ErrorModal";
@@ -22,11 +21,6 @@ import FormikGraphicAttachments from "../components/Admin/FormikGraphicAttachmen
 import FormikPanoramaAttachments from "../components/Admin/FormikPanoramaAttachments";
 import Separator from "../shared/components/Separator";
 import Modal from "../shared/components/Modal";
-import { type } from "@testing-library/user-event/dist/type";
-
-//temporary
-// import { DUMMY_PROJECT_GRAPHIC } from "../shared/utils/data-models";
-// const DUMMY_ARRAY = [DUMMY_PROJECT_GRAPHIC];
 
 const UpdateProject = () => {
   ////vars
@@ -83,27 +77,14 @@ const UpdateProject = () => {
       const originalValues = { ...values };
       const finalDataToBeSent = _.cloneDeep(originalValues);
 
-      //icoImgCloudinaryUpload If Needed
-      const isIcoImgFullACloudinaryUrl = checkIfIsCloudinaryUrl(
-        originalValues.icoImgFull
+      //icoImg Cloudinary Upload If Needed
+      await sendToCloudinaryIfNeededAndFillSourceAndThumbnailFields(
+        finalDataToBeSent,
+        originalValues.icoImgFull,
+        originalValues.icoImgThumb,
+        "icoImgFull",
+        "icoImgThumb"
       );
-      const isIcoImgThumbACloudinaryUrl = checkIfIsCloudinaryUrl(
-        originalValues.icoImgThumb
-      );
-
-      if (!isIcoImgFullACloudinaryUrl || !isIcoImgThumbACloudinaryUrl) {
-        const icoImgReturnArrayAfterSendingToCloudinary =
-          await uploadImageWithThumbnailToCloudinary(
-            originalValues.icoImgFull,
-            "icoImgFull",
-            "icoImgThumb"
-          );
-
-        finalDataToBeSent.icoImgFull =
-          icoImgReturnArrayAfterSendingToCloudinary.icoImgFull;
-        finalDataToBeSent.icoImgThumb =
-          icoImgReturnArrayAfterSendingToCloudinary.icoImgThumb;
-      }
 
       //projects genre dependent details
       const { genre } = finalDataToBeSent;
@@ -166,7 +147,7 @@ const UpdateProject = () => {
               await updateArrayFoPanoramasWithCloudinaryUrls(
                 originalValues.panoramas
               );
-            //   finalDataToBeSent.images = [...resultImagesArray];
+            finalDataToBeSent.panoramas = [...resultPanoramasArray];
           } catch (error) {
             console.log(error);
           }
@@ -363,67 +344,6 @@ const UpdateProject = () => {
     });
   };
 
-  // const onSubmit = async (values, onSubmitProps) => {
-  //   try {
-  //     const formData = new FormData();
-  //     buildFormData(formData, values, null);
-
-  //     //logs
-  //     console.log("formData: ", [...formData]);
-
-  //     await sendRequest(
-  //       `${process.env.REACT_APP_BACKEND_URL}api/projects/${projectId}`,
-  //       "PATCH",
-  //       formData,
-  //       { Authorization: `Bearer ${token}` }
-  //     );
-
-  //     setShowConfirmModal(true);
-  //     const timer = () => {
-  //       setTimeout(() => {
-  //         setShowConfirmModal(false);
-  //       }, 1600);
-  //     };
-  //     timer();
-  //     clearTimeout(timer);
-  //   } catch (error) {}
-
-  //   const timer = () => {
-  //     setTimeout(() => {
-  //       onSubmitProps.setSubmitting(false);
-  //       onSubmitProps.setStatus({ success: true });
-  //       onSubmitProps.resetForm({});
-  //       dispatch(formActions.resetGenreOfProjectToNull());
-  //       navigate("../../api/projects");
-  //     }, 1750);
-  //   };
-  //   timer();
-  //   clearTimeout(timer);
-  //   console.log("submit");
-  // };
-
-  function buildFormData(formData, data, parentKey) {
-    if (
-      data &&
-      typeof data === "object" &&
-      !(data instanceof Date) &&
-      !(data instanceof File) &&
-      !(data instanceof Blob)
-    ) {
-      Object.keys(data).forEach((key) => {
-        buildFormData(
-          formData,
-          data[key],
-          parentKey ? `${parentKey}[${key}]` : key
-        );
-      });
-    } else {
-      const value = data == null ? "" : data;
-
-      formData.append(parentKey, value);
-    }
-  }
-
   return (
     <Fragment>
       <Modal
@@ -552,40 +472,6 @@ export function generateListOfImagesToBeDeleted(originalArray, finalArray) {
   }
   return result;
 }
-
-// const generateArrayForGraphicsWithCloudinaryUrls = async (originalObject) => {
-//   return new Promise(async (resolve, reject) => {
-//     const resultImages = [];
-//     try {
-//       for (let image of originalObject.images) {
-//         const newImageArrayDataSet = {};
-
-//         newImageArrayDataSet.imageAltPl = image.imageAltPl;
-//         newImageArrayDataSet.imageAltEn = image.imageAltEn;
-//         newImageArrayDataSet.isBig = image.isBig;
-
-//         const originalSizeImageName = "imageSourceFull";
-//         const thumbnailImageName = "imageSourceThumb";
-
-//         const imagesFields = await uploadImageAndCreateThumbnailInCloudinary(
-//           image.imageSourceFull,
-//           originalSizeImageName,
-//           thumbnailImageName
-//         );
-
-//         newImageArrayDataSet[originalSizeImageName] =
-//           imagesFields[originalSizeImageName];
-//         newImageArrayDataSet[thumbnailImageName] =
-//           imagesFields[thumbnailImageName];
-
-//         resultImages.push(newImageArrayDataSet);
-//       }
-//     } catch (error) {
-//       reject(error);
-//     }
-//     resolve(resultImages);
-//   });
-// };
 
 function objectFlattenDeep(obj) {
   const result = [];
