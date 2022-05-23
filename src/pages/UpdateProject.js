@@ -160,6 +160,18 @@ const UpdateProject = () => {
           }
           break;
 
+        case "PANORAMA":
+          try {
+            const resultPanoramasArray =
+              await updateArrayFoPanoramasWithCloudinaryUrls(
+                originalValues.panoramas
+              );
+            //   finalDataToBeSent.images = [...resultImagesArray];
+          } catch (error) {
+            console.log(error);
+          }
+          break;
+
         default:
           throw new Error(`Provided genre: ${genre} Was not matched.`);
       }
@@ -210,31 +222,6 @@ const UpdateProject = () => {
     clearTimeout(timer);
   };
 
-  //       case "GRAPHIC":
-  //         try {
-  //           const resultImagesArray =
-  //             await generateArrayForGraphicsWithCloudinaryUrls(
-  //               originalValues
-  //             );
-  //           finalDataToBeSent.images = [...resultImagesArray];
-  //         } catch (error) {
-  //           console.log(error);
-  //         }
-  //         break;
-
-  //       case "PANORAMA":
-  //         try {
-  //           const resultPanoramasArray =
-  //             await generateArrayForPanoramaWithCloudinaryUrls(
-  //               originalValues
-  //             );
-  //           finalDataToBeSent.panoramas = [...resultPanoramasArray];
-  //         } catch (error) {}
-  //         break;
-
-  //       default:
-  //     }
-
   async function updateArrayForGraphicsWithCloudinaryUrls(imagesArray) {
     return new Promise(async (resolve, reject) => {
       const result = [];
@@ -247,32 +234,15 @@ const UpdateProject = () => {
           newImageArrayDataSet.imageAltEn = image.imageAltEn;
           newImageArrayDataSet.isBig = image.isBig;
 
-          const isImageSourceFullACloudinaryUrl = checkIfIsCloudinaryUrl(
-            image.imageSourceFull
-          );
-          const isImageSourceThumbACloudinaryUrl = checkIfIsCloudinaryUrl(
-            image.imageSourceThumb
+          //imageSource
+          await sendToCloudinaryIfNeededAndFillSourceAndThumbnailFields(
+            newImageArrayDataSet,
+            image.imageSourceFull,
+            image.imageSourceThumb,
+            "imageSourceFull",
+            "imageSourceThumb"
           );
 
-          if (
-            !isImageSourceFullACloudinaryUrl ||
-            !isImageSourceThumbACloudinaryUrl
-          ) {
-            const imagesFieldsReturnArrayAfterSendingToCloudinary =
-              await uploadImageWithThumbnailToCloudinary(
-                image.imageSourceFull,
-                "imageSourceFull",
-                "imageSourceThumb"
-              );
-
-            newImageArrayDataSet.imageSourceFull =
-              imagesFieldsReturnArrayAfterSendingToCloudinary.imageSourceFull;
-            newImageArrayDataSet.imageSourceThumb =
-              imagesFieldsReturnArrayAfterSendingToCloudinary.imageSourceThumb;
-          } else {
-            newImageArrayDataSet.imageSourceFull = image.imageSourceFull;
-            newImageArrayDataSet.imageSourceThumb = image.imageSourceThumb;
-          }
           result.push(newImageArrayDataSet);
         }
       } catch (error) {
@@ -280,6 +250,82 @@ const UpdateProject = () => {
       }
 
       resolve(result);
+    });
+  }
+
+  async function updateArrayFoPanoramasWithCloudinaryUrls(panoramasArray) {
+    return new Promise(async (resolve, reject) => {
+      const result = [];
+
+      try {
+        for (const panorama of panoramasArray) {
+          const newPanoramaArrayDataSet = {};
+
+          newPanoramaArrayDataSet.panoramaTitlePl = panorama.panoramaTitlePl;
+          newPanoramaArrayDataSet.panoramaTitleEn = panorama.panoramaTitleEn;
+
+          //panoramaIco
+          await sendToCloudinaryIfNeededAndFillSourceAndThumbnailFields(
+            newPanoramaArrayDataSet,
+            panorama.panoramaIcoFull,
+            panorama.panoramaIcoThumb,
+            "panoramaIcoFull",
+            "panoramaIcoThumb"
+          );
+
+          //panoramaImageSource
+          await sendToCloudinaryIfNeededAndFillSourceAndThumbnailFields(
+            newPanoramaArrayDataSet,
+            panorama.panoramaImageSourceFull,
+            panorama.panoramaImageSourceFullThumb,
+            "panoramaImageSourceFull",
+            "panoramaImageSourceFullThumb"
+          );
+
+          result.push(newPanoramaArrayDataSet);
+        }
+      } catch (error) {
+        reject(error);
+      }
+
+      resolve(result);
+    });
+  }
+
+  async function sendToCloudinaryIfNeededAndFillSourceAndThumbnailFields(
+    obj,
+    sourceImageField,
+    thumbImageField,
+    sourceImageName,
+    thumbImageName
+  ) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        const isSourceImageACloudinaryUrl =
+          checkIfIsCloudinaryUrl(sourceImageField);
+        const isThumbImageACloudinaryUrl =
+          checkIfIsCloudinaryUrl(thumbImageField);
+
+        if (!isSourceImageACloudinaryUrl || !isThumbImageACloudinaryUrl) {
+          const fieldsArrayReturnedAfterSendingToCloudinary =
+            await uploadImageWithThumbnailToCloudinary(
+              sourceImageField,
+              sourceImageName,
+              thumbImageName
+            );
+
+          obj[sourceImageName] =
+            fieldsArrayReturnedAfterSendingToCloudinary[sourceImageName];
+          obj[thumbImageName] =
+            fieldsArrayReturnedAfterSendingToCloudinary[thumbImageName];
+        } else {
+          obj[sourceImageName] = sourceImageField;
+          obj[thumbImageName] = thumbImageField;
+        }
+        resolve(true);
+      } catch (error) {
+        reject(error);
+      }
     });
   }
 

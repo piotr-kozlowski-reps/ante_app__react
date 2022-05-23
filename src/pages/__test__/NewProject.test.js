@@ -14,9 +14,9 @@ const MockApp = () => {
   );
 };
 
-// afterEach(() => {
-//   cleanup();
-// });
+afterEach(() => {
+  cleanup();
+});
 
 describe("NewProject", () => {
   it("shows CREATE_NEW_PROJECT / stages of a form / buttons.", async () => {
