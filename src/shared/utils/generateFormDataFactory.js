@@ -2,16 +2,16 @@ import genre from "./genre";
 import * as Yup from "yup";
 
 const commonData = {
-  projNamePl: "fgb",
-  projNameEn: "dfgb",
-  cityPl: "dfgb",
-  cityEn: "dfgb",
-  countryPl: "dfgb",
-  countryEn: "dfgb",
-  clientPl: "dfgb",
-  clientEn: "dfgb",
-  completionDate: new Date("2010-10-10"),
-  projectType: ["COMPETITION"],
+  projNamePl: "",
+  projNameEn: "",
+  cityPl: "",
+  cityEn: "",
+  countryPl: "",
+  countryEn: "",
+  clientPl: "",
+  clientEn: "",
+  completionDate: undefined,
+  projectType: [],
   icoImgFull: undefined,
 };
 
@@ -24,11 +24,11 @@ const commonValidation = {
   countryEn: Yup.string().required("Entering 'Country Name' is required."),
   clientPl: Yup.string().required("Entering 'Client Name' is required."),
   clientEn: Yup.string().required("Entering 'Client Name' is required."),
-  // completionDate: Yup.date()
-  //   .required("Entering 'Date' is required.")
-  //   .min(new Date("01-01-1990"), "Date should be after: 12.12.1989")
-  //   .max(new Date("01-01-2050"), "Date should be before: 12.12.2049")
-  //   .nullable(),
+  completionDate: Yup.date()
+    .required("Entering 'Date' is required.")
+    .min(new Date("01-01-1990"), "Date should be after: 12.12.1989")
+    .max(new Date("01-01-2050"), "Date should be before: 12.12.2049")
+    .nullable(),
   completionDate: Yup.string().required("Entering date is required."),
   projectType: Yup.array()
     .required("At least one choosen genre is required")

@@ -23,7 +23,6 @@ import FormikGraphicAttachments from "./FormikGraphicAttachments";
 import FormikPanoramaAttachments from "./FormikPanoramaAttachments";
 import ErrorModal from "../../shared/components/ErrorModal";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
-import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
 
 function FormikContainer() {
@@ -39,47 +38,6 @@ function FormikContainer() {
   const dispatch = useDispatch();
 
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
-
-  ////func
-  // const onSubmit = async (values, onSubmitProps) => {
-  //   try {
-  //     const formData = new FormData();
-  //     buildFormData(formData, values, null);
-
-  //     //logs
-  //     console.log("formData: ", [...formData]);
-
-  //     await sendRequest(
-  //       `${process.env.REACT_APP_BACKEND_URL}api/projects`,
-  //       "POST",
-  //       formData,
-  //       { Authorization: `Bearer ${token}` }
-  //     );
-
-  //     setShowConfirmModal(true);
-
-  //     const timer = () => {
-  //       setTimeout(() => {
-  //         setShowConfirmModal(false);
-  //       }, 1600);
-  //     };
-  //     timer();
-
-  //     clearTimeout(timer);
-  //   } catch (error) {}
-
-  //   const timer = () => {
-  //     setTimeout(() => {
-  //       onSubmitProps.setSubmitting(false);
-  //       onSubmitProps.setStatus({ success: true });
-  //       onSubmitProps.resetForm({});
-  //       dispatch(formActions.resetGenreOfProjectToNull());
-  //       navigate("../../api/projects");
-  //     }, 1750);
-  //   };
-  //   timer();
-  //   clearTimeout(timer);
-  // };
 
   const onSubmit = async (values, onSubmitProps) => {
     try {
@@ -135,9 +93,6 @@ function FormikContainer() {
 
         default:
       }
-
-      console.log({ originalValues });
-      console.log({ finalDataToBeSent });
 
       await sendRequest(
         `${process.env.REACT_APP_BACKEND_URL}api/projects`,
@@ -361,28 +316,6 @@ function FormikContainer() {
       resolve(resultPanoramas);
     });
   };
-
-  // function buildFormData(formData, data, parentKey) {
-  //   if (
-  //     data &&
-  //     typeof data === "object" &&
-  //     !(data instanceof Date) &&
-  //     !(data instanceof File) &&
-  //     !(data instanceof Blob)
-  //   ) {
-  //     Object.keys(data).forEach((key) => {
-  //       buildFormData(
-  //         formData,
-  //         data[key],
-  //         parentKey ? `${parentKey}[${key}]` : key
-  //       );
-  //     });
-  //   } else {
-  //     const value = data == null ? "" : data;
-
-  //     formData.append(parentKey, value);
-  //   }
-  // }
 
   ////jsx
   return (
