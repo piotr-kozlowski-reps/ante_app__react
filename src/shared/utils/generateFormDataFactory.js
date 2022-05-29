@@ -24,12 +24,23 @@ const commonValidation = {
   countryEn: Yup.string().required("Entering 'Country Name' is required."),
   clientPl: Yup.string().required("Entering 'Client Name' is required."),
   clientEn: Yup.string().required("Entering 'Client Name' is required."),
-  completionDate: Yup.date()
-    .required("Entering 'Date' is required.")
-    .min(new Date("01-01-1990"), "Date should be after: 12.12.1989")
-    .max(new Date("01-01-2050"), "Date should be before: 12.12.2049")
-    .nullable(),
-  completionDate: Yup.string().required("Entering date is required."),
+  completionDate: Yup.mixed()
+    .test(
+      `Completion date is not a string or is empty`,
+      checkIfDateInputIsGenerallyGood
+    )
+    .test(
+      `Completion date is in bad format (proper format example: "2022-05-11T22:00:00.000Z")`,
+      checkIfDateInputIsInGoodFormat
+    )
+    .test(
+      `Completion date is too early (It should be between 1989 and 2050)`,
+      checkIfDateIsLaterThan1989
+    )
+    .test(
+      `Completion date is too late (It should be between 1989 and 2050)`,
+      checkIfDateIsEarlierThan2050
+    ),
   projectType: Yup.array()
     .required("At least one choosen genre is required")
     .min(1, "Choose at least one project genre."),
@@ -260,3 +271,51 @@ export const generateValidation = (projectGenre) => {
       return null;
   }
 };
+
+//utils
+export function checkIfDateInputIsGenerallyGood(value) {
+  if (!value) return false;
+  if (Object.prototype.toString.call(value) !== "[object String]") return false;
+  return true;
+}
+
+export function checkIfDateInputIsInGoodFormat(value) {
+  return /^(\d){4}-(\d){2}-(\d){2}T(\d){2}:(\d){2}:(\d){2}\.(\d){3}Z$/.test(
+    value
+  );
+}
+
+export function checkIfDateIsLaterThan1989(value) {
+  const valueDate = new Date(value);
+  const minDate = new Date("12-31-1989");
+  return valueDate > minDate;
+}
+
+export function checkIfDateIsEarlierThan2050(value) {
+  const valueDate = new Date(value);
+  const maxDate = new Date("01-01-2050");
+  return valueDate < maxDate;
+}
+
+// completionDate: Yup.mixed()
+// .test(
+//   `Completion date may have bad format (proper format example: "2022-05-11T22:00:00.000Z") or the date is bad (it should be between 1990 and 2049)`,
+//   (value) => {
+//     if (!value) return;
+//     if (Object.prototype.toString.call(value) === "[object String]") {
+//       const isNotEmpty = value.trim().length > 0 ? true : false;
+//       return isNotEmpty;
+//     }
+
+//     const isValueInProperDateFormat = value.test(
+//       /^(\d){4}-(\d){2}-(\d){2}T(\d){2}:(\d){2}:(\d){2}\.(\d){3}Z$/
+//     );
+//     if (!isValueInProperDateFormat) return false;
+
+//     const valueParsedToDate = new Date(value);
+//     const isDateAfter1989Year = valueParsedToDate > new Date("01-01-1990");
+//     const isDateBefore2050Year = valueParsedToDate < new Date("01-01-2050");
+
+//     return isDateAfter1989Year && isDateBefore2050Year;
+//   }
+// ),
