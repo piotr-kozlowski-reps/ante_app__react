@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import DateView from "react-date-picker";
 
 import { Field, ErrorMessage } from "formik";
-import TextErrorFormik from "./TextErrorFormik";
 
 const DatePickerFormik = (props) => {
   const { label, name, errors, touched, ...rest } = props;

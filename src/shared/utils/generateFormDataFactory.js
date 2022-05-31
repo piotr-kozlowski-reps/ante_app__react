@@ -26,20 +26,30 @@ const commonValidation = {
   clientEn: Yup.string().required("Entering 'Client Name' is required."),
   completionDate: Yup.mixed()
     .test(
-      `Completion date is not a string or is empty`,
-      checkIfDateInputIsGenerallyGood
+      `checkIfDateInputIsGenerallyGood`,
+      `Completion date is not a Date object or is empty`,
+      (value) => {
+        if (!value) return false;
+        if (Object.prototype.toString.call(value) !== "[object Date]")
+          return false;
+        return true;
+      }
     )
     .test(
-      `Completion date is in bad format (proper format example: "2022-05-11T22:00:00.000Z")`,
-      checkIfDateInputIsInGoodFormat
-    )
-    .test(
+      `checkIfDateIsLaterThan1989`,
       `Completion date is too early (It should be between 1989 and 2050)`,
-      checkIfDateIsLaterThan1989
+      (value) => {
+        const minDate = new Date("12-31-1989");
+        return value > minDate;
+      }
     )
     .test(
+      `checkIfDateIsEarlierThan2050`,
       `Completion date is too late (It should be between 1989 and 2050)`,
-      checkIfDateIsEarlierThan2050
+      (value) => {
+        const maxDate = new Date("01-01-2050");
+        return value < maxDate;
+      }
     ),
   projectType: Yup.array()
     .required("At least one choosen genre is required")

@@ -96,35 +96,32 @@ const ImageUploadFormik = (props) => {
 
   //effects
   //set file thumbnail url if in updateForm mode and
-  useEffect(() => {
-    let urlResult = "";
-    let fieldPathRestored = "";
+  //TODO: teraz z cloudinary to raczej inaczej
+  useEffect(() => {}, []);
 
-    const nameChangedToThumbnail =
-      changeDesiredFieldNameToAppropriateThumbnail(name);
-
-    if (nameChangedToThumbnail.includes(".")) {
-      const urlElements = nameChangedToThumbnail.split(".");
-      urlElements.forEach((el, index) => {
-        if (isNaN(el)) fieldPathRestored += `.${el}`;
-        if (!isNaN(el)) fieldPathRestored += `[${el}]`;
-      });
-
-      urlResult += eval(`formikProps.values${fieldPathRestored}`);
-    }
-
-    if (!nameChangedToThumbnail.includes(".")) {
-      urlResult += `${formikProps.values[nameChangedToThumbnail]}`;
-    }
-
-    if (
-      urlResult.endsWith("/undefined") ||
-      urlResult.endsWith(process.env.REACT_APP_BACKEND_URL)
-    )
-      return;
-
-    setPreviewUrl(urlResult);
-  }, []);
+  // useEffect(() => {
+  // let urlResult = "";
+  // let fieldPathRestored = "";
+  // const nameChangedToThumbnail =
+  //   changeDesiredFieldNameToAppropriateThumbnail(name);
+  // if (nameChangedToThumbnail.includes(".")) {
+  //   const urlElements = nameChangedToThumbnail.split(".");
+  //   urlElements.forEach((el, index) => {
+  //     if (isNaN(el)) fieldPathRestored += `.${el}`;
+  //     if (!isNaN(el)) fieldPathRestored += `[${el}]`;
+  //   });
+  //   urlResult += eval(`formikProps.values${fieldPathRestored}`);
+  // }
+  // if (!nameChangedToThumbnail.includes(".")) {
+  //   urlResult += `${formikProps.values[nameChangedToThumbnail]}`;
+  // }
+  // if (
+  //   urlResult.endsWith("/undefined") ||
+  //   urlResult.endsWith(process.env.REACT_APP_BACKEND_URL)
+  // )
+  //   return;
+  // setPreviewUrl(urlResult);
+  // }, []);
 
   //if file changes and is valid, makes prev and sets "previewUrl" and sets Formik Value and clears error
   useEffect(() => {
@@ -173,6 +170,10 @@ const ImageUploadFormik = (props) => {
   const isErrorPresent = getNestedObject(formikProps.errors, name);
   const isTouched = getNestedObject(formikProps.touched, name);
 
+  console.log({ noImagePicked });
+  console.log({ previewUrl });
+  console.log(previewUrl ? previewUrl : noImagePicked);
+
   ////jsx
   return (
     <Fragment>
@@ -210,46 +211,6 @@ const ImageUploadFormik = (props) => {
               className={isErrorPresent && isTouched ? "image-error" : ""}
             ></img>
           </div>
-          {/* <Field id={name} name={name} {...rest}>
-            {(formik) => {
-              //logs
-              // console.log(formik);
-              // console.table(formik.form.errors);
-              // console.table(formik.form.values);
-
-              const { field, form } = formik;
-              const { value, onChange, onBlur } = field;
-              const { errors, touched } = form;
-
-              const isErrorPresent = getNestedObject(errors, name);
-              const isTouched = getNestedObject(touched, name);
-              console.log({ isErrorPresent });
-              console.log({ isTouched });
-
-              //// func
-              // const setImageInFormikHandler = (event) => {
-              //   console.log("setImageInFormik");
-              //   console.log(event);
-              //   event.preventDefault();
-              //   formik.form.setFieldValue(name, file);
-              // };
-
-              return (
-                <input
-                  id={name}
-                  name={name}
-                  type="file"
-                  {...rest}
-                  // onChange={setImageInFormikHandler}
-                  // onChange={pickHandler}
-                  onBlur={onBlur}
-                  style={{ display: "none" }}
-                  className={isErrorPresent && isTouched ? "input-invalid" : ""}
-                  accept=".jpg,.png,.jpeg,.gif"
-                />
-              );
-            }}
-          </Field> */}
 
           <Field id={name} name={name} style={{ display: "none" }}>
             {/* <input
