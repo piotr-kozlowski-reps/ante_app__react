@@ -1681,7 +1681,7 @@ pre code {
 .col-xs-10,
 .col-xs-11,
 .col-xs-12 {
-  /* float: left; */
+  float: left;
 }
 .col-xs-12 {
   width: 100%;

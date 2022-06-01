@@ -97,7 +97,32 @@ const ImageUploadFormik = (props) => {
   //effects
   //set file thumbnail url if in updateForm mode and
   //TODO: teraz z cloudinary to raczej inaczej
-  useEffect(() => {}, []);
+  useEffect(() => {
+    let urlResult = "";
+    let fieldPathRestored = "";
+
+    console.log({ formikProps });
+
+    const nameChangedToThumbnail =
+      changeDesiredFieldNameToAppropriateThumbnail(name);
+    if (nameChangedToThumbnail.includes(".")) {
+      const urlElements = nameChangedToThumbnail.split(".");
+      urlElements.forEach((el, index) => {
+        if (isNaN(el)) fieldPathRestored += `.${el}`;
+        if (!isNaN(el)) fieldPathRestored += `[${el}]`;
+      });
+      urlResult += eval(`formikProps.values${fieldPathRestored}`);
+    }
+    if (!nameChangedToThumbnail.includes(".")) {
+      urlResult += `${formikProps.values[nameChangedToThumbnail]}`;
+    }
+    if (
+      urlResult.endsWith("undefined") ||
+      urlResult.endsWith(process.env.REACT_APP_BACKEND_URL)
+    )
+      return;
+    setPreviewUrl(urlResult);
+  }, []);
 
   // useEffect(() => {
   // let urlResult = "";
@@ -171,7 +196,7 @@ const ImageUploadFormik = (props) => {
   const isTouched = getNestedObject(formikProps.touched, name);
 
   console.log({ noImagePicked });
-  console.log({ previewUrl });
+  // console.log({ previewUrl });
   console.log(previewUrl ? previewUrl : noImagePicked);
 
   ////jsx
