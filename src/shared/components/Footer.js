@@ -1,38 +1,12 @@
-import React, {
-  useRef,
-  forwardRef,
-  Fragment,
-  useEffect,
-  useState,
-} from "react";
+import React, { forwardRef, Fragment } from "react";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
 
 import logoImg from "../../images/ante-logo.png";
 
-const Footer = forwardRef((props, ref) => {
+const Footer = forwardRef(() => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
-  let grayFillDiv = useRef();
-  const [grayFillDivResultHeight, setGrayFillDivResultHeight] = useState(0);
-
-  // console.log({ grayFillDiv });
-
-  //topOfGrayFillDiv height;
-  useEffect(() => {
-    let topOfGrayFillDiv;
-    let fullHeightOfWindow;
-
-    if (grayFillDiv && grayFillDiv.current) {
-      topOfGrayFillDiv = grayFillDiv.current.offsetTop;
-      fullHeightOfWindow = window.innerHeight;
-      const resultHeigh = fullHeightOfWindow - topOfGrayFillDiv;
-      setGrayFillDivResultHeight(resultHeigh);
-    }
-  }, [grayFillDiv, grayFillDivResultHeight]);
-
-  // console.log(body.offsetHeight);
-  // console.log(window.innerHeight);
 
   ////content
   let companyName, companyAddress, companyPhone;
@@ -49,11 +23,7 @@ const Footer = forwardRef((props, ref) => {
   ////jsx
   return (
     <Fragment>
-      <div
-        ref={ref}
-        className={`footer ${props.isToMoveFooter ? "footer-bottom" : ""}`}
-        id="kontakt"
-      >
+      <div className={`footer`} id="kontakt">
         <div className="container">
           <div className="row">
             <div className="text-center col-lg-12">
@@ -75,11 +45,6 @@ const Footer = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
-      {/* <div
-        className="last-div-fill"
-        ref={grayFillDiv}
-        style={{ height: `${grayFillDivResultHeight}px` }}
-      ></div> */}
     </Fragment>
   );
 });

@@ -41,7 +41,7 @@ const Contact = () => {
       .required("Entering your contact message is required."),
   });
 
-  const onSubmit = async (values, onSubmitProps) => {
+  const onSubmitHandler = async (values, onSubmitProps) => {
     // console.log(values);
     // fetch
     try {
@@ -129,7 +129,7 @@ const Contact = () => {
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={onSubmitHandler}
         validateOnMount={true}
       >
         {(formik) => {

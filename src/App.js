@@ -238,7 +238,7 @@ function App(props) {
 
       {routes}
       <div id="footer-move-trigger" ref={refDivTriggerFooterMovement}></div>
-      <Footer ref={refDivFooter} isToMoveFooter={isToMoveFooter} />
+      <Footer />
     </Fragment>
   );
 }

@@ -114,7 +114,7 @@ describe(`CONTACT: `, () => {
     render(<MockApp />);
     resetLanguageToPolish();
     goToContactPageInPl();
-    const onSubmit = jest.fn();
+    const onSubmitHandler = jest.fn();
 
     userEvent.type(getFormField("imię"), "Imię");
     userEvent.type(getFormField("nazwisko"), "Nazwisko");
@@ -122,8 +122,10 @@ describe(`CONTACT: `, () => {
     userEvent.type(getFormField("numer telefonu"), "9649234");
     userEvent.type(getFormField("zapytanie"), "Zapytanie jakieś tutaj");
 
-    userEvent.click(getButton("wyślij"));
+    await screen.findByRole("button", { name: /WYŚLIJ/i });
 
+    // expect(onSubmit).toHaveBeenCalledWith({ lazy: true });
+    // expect(onSubmitHandler).toHaveBeenCalledTimes(1);
     // await waitFor(() => {
     //   expect(onSubmit).toHaveBeenCalledWith({ lazy: true });
     // });
@@ -131,7 +133,7 @@ describe(`CONTACT: `, () => {
     // await waitFor(() => {
     //   expect(onSubmit).toHaveBeenCalledTimes(1);
     // });
-    //TODO: how to check if there was submission
+    //TODO: how to check if there was submission ... still have no idea :(
   });
 
   it("should show all errors when empty form is sent", async () => {

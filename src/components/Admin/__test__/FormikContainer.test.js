@@ -9,7 +9,6 @@ import { BrowserRouter } from "react-router-dom";
 import userEvent from "@testing-library/user-event";
 
 import FormikContainer from "../FormikContainer";
-import { generateStringWithPath } from "../FormikContainer";
 
 const MockFormikContainer = () => {
   return (

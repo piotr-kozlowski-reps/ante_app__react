@@ -62,7 +62,7 @@ describe("NewProject", () => {
     ).toBeInTheDocument();
   });
 
-  it("goes though happy path of graphics_form", async () => {
+  it("goes through happy path of graphics_form", async () => {
     render(<MockApp />);
     await resetLanguageToPolish();
     await logoutIfNeeded();
@@ -79,6 +79,26 @@ describe("NewProject", () => {
         name: /nazwa projektu \(po polsku\)\./i,
       })
     ).toBeInTheDocument();
+
+    userEvent.type(
+      screen.getByRole("textbox", {
+        name: /nazwa projektu \(po polsku\)\./i,
+      }),
+      "nazwa projektu"
+    );
+
+    // const loginInput = screen.queryByPlaceholderText(/enter your login/i);
+    // const passwordInput =
+    //   screen.queryByPlaceholderText(/enter your password/i);
+    // userEvent.type(loginInput, "test");
+    // userEvent.type(passwordInput, "testTEST123##$$%");
+
+    // const loginSubmitButton = screen.getByRole("button", {
+    //   name: /login/i,
+    // });
+    // userEvent.click(loginSubmitButton);
+
+    // screen.getByRole("")
 
     //TODO: further test of happy path with Graphic form
 

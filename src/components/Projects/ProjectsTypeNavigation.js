@@ -1,4 +1,4 @@
-import React, { useRef, useLayoutEffect, useEffect } from "react";
+import React, { useRef, useState, useLayoutEffect, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, NavLink } from "react-router-dom";
 import { fadeFromRight, fadeInUp } from "../../shared/utils/animations";
@@ -10,6 +10,8 @@ const ProjectsTypeNavigation = (props) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const queryTypeExtracted = params.get("type") ? params.get("type") : "all";
+  const [hamburgerClicked, setHamburgerClicked] = useState(false);
+
   //refs
   let link1 = useRef(null);
   let link2 = useRef(null);
@@ -20,6 +22,12 @@ const ProjectsTypeNavigation = (props) => {
   let link7 = useRef(null);
   let link8 = useRef(null);
   let portfolioElement = useRef(null);
+
+  const hamburgerToggleHandler = () => {
+    setHamburgerClicked(
+      (hamburgerClicked) => (hamburgerClicked = !hamburgerClicked)
+    );
+  };
 
   //
   //logic
@@ -75,25 +83,30 @@ const ProjectsTypeNavigation = (props) => {
       >
         <div className="col-lg-12">
           <div className="navbar-header">
-            <button
-              type="button"
-              className="navbar-toggle collapsed"
-              data-toggle="collapse"
-              data-target="#defaultNavbar1"
-            >
-              <span className="sr-only">Toggle navigation</span> //TODO: toggle
-              navigaion in hamburger menu doesn't work
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-              <span className="icon-bar"></span>
-            </button>
+            <div className="menu-wrap">
+              <input
+                type="checkbox"
+                className="toggler"
+                onClick={hamburgerToggleHandler}
+              ></input>
+              <div class="hamburger">
+                <div></div>
+              </div>
+            </div>
           </div>
           <h2>{props.title}</h2>
         </div>
       </div>
       <div className="row menu">
         <div className="col-lg-12">
-          <div className="collapse navbar-collapse" id="defaultNavbar1">
+          <div
+            className={
+              hamburgerClicked
+                ? "navbar-collapse hamburger-visible"
+                : "collapse navbar-collapse"
+            }
+            id="defaultNavbar1"
+          >
             <ul className="nav navbar-nav">
               <li className="cat">
                 <NavLink
