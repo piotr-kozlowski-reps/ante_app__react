@@ -160,7 +160,7 @@ const MainNavigation = () => {
       //localStorageData
       const tokenExpirationDate =
         tokenExpirationDateState ||
-        new Date(new Date().getTime() + 1000 * 60 * 60);
+        new Date(new Date().getTime() + 1000 * 60 * 60 * 8);
 
       localStorage.setItem(
         "userData",
