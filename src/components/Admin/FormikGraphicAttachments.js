@@ -44,7 +44,7 @@ const FormikGraphicAttachments = (props) => {
                           <div className="project-details">
                             <FormikControl
                               control="image"
-                              label="Image"
+                              label={`Image - ${index + 1}`}
                               name={`images.${index}.imageSourceFull`}
                               additionalText="(Provide only one file. Formats supported: .jpg .jpeg .png
                   .gif.)"
