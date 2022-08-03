@@ -55,7 +55,7 @@ const UpdateProject = () => {
         dispatch(formActions.setDesiredStage(1));
         setValidationSchema(generateValidation(project.genre));
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
     fetchProject();
@@ -137,7 +137,7 @@ const UpdateProject = () => {
               );
             finalDataToBeSent.images = [...resultImagesArray];
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
           break;
 
@@ -149,16 +149,13 @@ const UpdateProject = () => {
               );
             finalDataToBeSent.panoramas = [...resultPanoramasArray];
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
           break;
 
         default:
           throw new Error(`Provided genre: ${genre} Was not matched.`);
       }
-
-      console.log({ originalValues });
-      console.log({ finalDataToBeSent });
 
       //final request
       await sendRequest(
@@ -186,7 +183,7 @@ const UpdateProject = () => {
       clearTimeout(timer);
     } catch (error) {
       setShowSpinner(false);
-      console.log(error);
+      console.error(error);
     }
 
     //full reset of form
@@ -375,7 +372,7 @@ const UpdateProject = () => {
         >
           {(formik) => {
             const { errors } = formik;
-            console.log({ formik });
+            // console.log({ formik });
 
             //
             let isNextActive = true;

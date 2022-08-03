@@ -101,8 +101,6 @@ const ImageUploadFormik = (props) => {
     let urlResult = "";
     let fieldPathRestored = "";
 
-    console.log({ formikProps });
-
     const nameChangedToThumbnail =
       changeDesiredFieldNameToAppropriateThumbnail(name);
     if (nameChangedToThumbnail.includes(".")) {
@@ -168,7 +166,6 @@ const ImageUploadFormik = (props) => {
     const isRejectedFile = rejectedFile;
 
     if (!isFileAlready && isRejectedFile) {
-      console.log("setting error and touched");
       setErrorAndTouched();
       return;
     }
@@ -195,9 +192,9 @@ const ImageUploadFormik = (props) => {
   const isErrorPresent = getNestedObject(formikProps.errors, name);
   const isTouched = getNestedObject(formikProps.touched, name);
 
-  console.log({ noImagePicked });
+  // console.log({ noImagePicked });
   // console.log({ previewUrl });
-  console.log(previewUrl ? previewUrl : noImagePicked);
+  // console.log(previewUrl ? previewUrl : noImagePicked);
 
   ////jsx
   return (

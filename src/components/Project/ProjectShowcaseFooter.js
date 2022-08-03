@@ -7,8 +7,6 @@ import Button from "../../shared/components/Button";
 const ProjectShowcaseFooter = ({ lang }) => {
   const navigate = useNavigate();
 
-  console.log(lang);
-
   return (
     <div id="portfolio" className="container">
       <div className="row" id="parent">

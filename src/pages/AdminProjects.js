@@ -25,6 +25,7 @@ const AdminProjects = () => {
         const responseData = await sendRequest(
           `${process.env.REACT_APP_BACKEND_URL}api/projects`
         );
+        // const sortedProjects = sortProjectsByData(responseData.projects);
         setCurrentProjectsArray(responseData.projects);
       } catch (error) {
         console.log(error);

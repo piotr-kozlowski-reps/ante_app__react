@@ -35,7 +35,7 @@ const Projects = () => {
         );
 
         setCurrentProjectsArray(responseData.projects);
-        console.log("Fetched projects: ", responseData.projects);
+        // console.log("Fetched projects: ", responseData.projects);
       } catch (error) {
         console.log(error);
       }

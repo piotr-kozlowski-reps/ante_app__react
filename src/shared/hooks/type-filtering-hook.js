@@ -45,7 +45,7 @@ export const useTypeFiltering = (
       if (currentType === type.ALL) return true;
       if (project.projectType.some((type) => type === currentType)) return true;
     })
-    .sort((a, b) => b.completionDate - a.completionDate);
+    .sort((a, b) => new Date(b.completionDate) - new Date(a.completionDate));
 
   return projectsFiltered;
 };
