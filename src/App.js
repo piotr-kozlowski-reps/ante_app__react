@@ -8,6 +8,7 @@ import React, {
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "./shared/store/auth-slice";
+import { AnimatePresence } from "framer-motion";
 
 import Projects from "./pages/Projects";
 import Contact from "./pages/Contact";
@@ -192,36 +193,40 @@ function App(props) {
   let routes;
   if (isLoggedIn) {
     routes = (
-      <Routes>
-        <Route path="/" element={<Navigate to={`/pl/projects`} />} />
-        <Route path="/pl/projects" element={<Projects />} />
-        <Route path="/en/projects" element={<Projects />} />
-        <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
-        <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
-        <Route path="/pl/contact" element={<Contact />} />
-        <Route path="/en/contact" element={<Contact />} />
-        <Route path="/pl/about" element={<About />} />
-        <Route path="/en/about" element={<About />} />
-        <Route path="/api/projects/new-project" element={<NewProject />} />
-        <Route path="/api/projects/:projectId" element={<UpdateProject />} />
-        <Route path="/api/projects" element={<AdminProjects />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <AnimatePresence>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Navigate to={`/pl/projects`} />} />
+          <Route path="/pl/projects" element={<Projects />} />
+          <Route path="/en/projects" element={<Projects />} />
+          <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
+          <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
+          <Route path="/pl/contact" element={<Contact />} />
+          <Route path="/en/contact" element={<Contact />} />
+          <Route path="/pl/about" element={<About />} />
+          <Route path="/en/about" element={<About />} />
+          <Route path="/api/projects/new-project" element={<NewProject />} />
+          <Route path="/api/projects/:projectId" element={<UpdateProject />} />
+          <Route path="/api/projects" element={<AdminProjects />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
     );
   } else {
     routes = (
-      <Routes>
-        <Route path="/" element={<Navigate to={`/pl/projects`} />} />
-        <Route path="/pl/projects" element={<Projects />} />
-        <Route path="/en/projects" element={<Projects />} />
-        <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
-        <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
-        <Route path="/pl/contact" element={<Contact />} />
-        <Route path="/en/contact" element={<Contact />} />
-        <Route path="/pl/about" element={<About />} />
-        <Route path="/en/about" element={<About />} />
-        <Route path="*" element={<NotFound />} />
-      </Routes>
+      <AnimatePresence>
+        <Routes location={location} key={location.pathname}>
+          <Route path="/" element={<Navigate to={`/pl/projects`} />} />
+          <Route path="/pl/projects" element={<Projects />} />
+          <Route path="/en/projects" element={<Projects />} />
+          <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
+          <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
+          <Route path="/pl/contact" element={<Contact />} />
+          <Route path="/en/contact" element={<Contact />} />
+          <Route path="/pl/about" element={<About />} />
+          <Route path="/en/about" element={<About />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </AnimatePresence>
     );
   }
 

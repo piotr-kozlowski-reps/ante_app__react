@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
 import { useHttpClient } from "../shared/hooks/http-hook";
+import { motion } from "framer-motion";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 import ProjectsList from "../components/Projects/ProjectsList";
 import Carousel from "../components/Projects/Carousel";
@@ -104,7 +106,12 @@ const Projects = () => {
 
   ////jsx
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <div data-testid="projects-page"></div>
       <ErrorModal
         error={error}
@@ -122,7 +129,7 @@ const Projects = () => {
         />
       )}
       <div id="pagination-trigger" ref={refDivTriggeringPagination}></div>
-    </Fragment>
+    </motion.div>
   );
 };
 

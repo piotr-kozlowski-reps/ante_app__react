@@ -4,12 +4,14 @@ import { format } from "date-fns";
 import { useNavigate } from "react-router-dom";
 import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
 import ErrorModal from "../../shared/components/ErrorModal";
 import Separator from "../../shared/components/Separator";
+import { adminProjectsVariants } from "../../shared/utils/framerMotionAnimationsVariants";
 
 const AdminProjectItem = (props) => {
   // console.log(props);
@@ -82,7 +84,7 @@ const AdminProjectItem = (props) => {
 
   ////jsx
   return (
-    <Fragment>
+    <div>
       <Modal
         header="Information"
         headerClass="modal-header-mine__show-header-login"
@@ -125,16 +127,26 @@ const AdminProjectItem = (props) => {
       {/* modal delete - end */}
 
       <li data-testid="project-item-admin">
-        <div className="thumbnail-admin">
+        <motion.div
+          className="thumbnail-admin"
+          variants={adminProjectsVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
+        >
           <img
             src={icoImgThumb}
             alt={projNamePl}
             onClick={navigateToEditProject}
             style={{ cursor: "pointer" }}
           ></img>
-        </div>
+        </motion.div>
 
-        <div
+        <motion.div
+          variants={adminProjectsVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
           className="project-text"
           onClick={navigateToEditProject}
           style={{ cursor: "pointer" }}
@@ -150,7 +162,7 @@ const AdminProjectItem = (props) => {
             <br />
             {`${cityPl}/${cityEn}`} <br /> {`${countryPl}/${countryEn}`}
           </p>
-        </div>
+        </motion.div>
 
         <div className="lang buttons-edit-delete">
           <Button
@@ -168,7 +180,7 @@ const AdminProjectItem = (props) => {
           </Button>
         </div>
       </li>
-    </Fragment>
+    </div>
   );
 };
 

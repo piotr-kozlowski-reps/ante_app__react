@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import { useLocation, NavLink } from "react-router-dom";
 import { fadeFromRight, fadeInUp } from "../../shared/utils/animations";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
+import { linksHoverVariants } from "../../shared/utils/framerMotionAnimationsVariants";
 
 const ProjectsTypeNavigation = (props) => {
   ////vars
@@ -89,7 +91,7 @@ const ProjectsTypeNavigation = (props) => {
                 className="toggler"
                 onClick={hamburgerToggleHandler}
               ></input>
-              <div class="hamburger">
+              <div className="hamburger">
                 <div></div>
               </div>
             </div>
@@ -108,7 +110,13 @@ const ProjectsTypeNavigation = (props) => {
             id="defaultNavbar1"
           >
             <ul className="nav navbar-nav">
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link1 = el)}
                   to={`?type=all`}
@@ -120,9 +128,15 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "Wszystkie" : "all"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link2 = el)}
                   to={`?type=competitions`}
@@ -134,9 +148,15 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "Konkursy" : "competitions"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link3 = el)}
                   to={`?type=interiors`}
@@ -148,9 +168,15 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "Wnętrza" : "Interiors"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link4 = el)}
                   to={`?type=exteriors`}
@@ -162,9 +188,15 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "Zewnętrza" : "Exteriors"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link5 = el)}
                   to={`?type=animations`}
@@ -176,9 +208,15 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "Animacje" : "Animations"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link6 = el)}
                   to={`?type=3dmodeling`}
@@ -192,9 +230,15 @@ const ProjectsTypeNavigation = (props) => {
                     ? "Modelowanie produktów"
                     : "Products Modeling"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link7 = el)}
                   to={`?type=panoramas`}
@@ -206,9 +250,15 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "Panoramy 360°" : "360° Panoramas"}
                 </NavLink>
-              </li>
+              </motion.li>
 
-              <li className="cat">
+              <motion.li
+                className="cat"
+                variants={linksHoverVariants}
+                initial="hidden"
+                animate="visible"
+                whileHover="hover"
+              >
                 <NavLink
                   ref={(el) => (link8 = el)}
                   to={`?type=apps`}
@@ -220,7 +270,7 @@ const ProjectsTypeNavigation = (props) => {
                 >
                   {lang === "pl" ? "AR apps" : "AR apps"}
                 </NavLink>
-              </li>
+              </motion.li>
             </ul>
           </div>
         </div>

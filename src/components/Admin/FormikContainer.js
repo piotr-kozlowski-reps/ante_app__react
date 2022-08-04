@@ -10,6 +10,7 @@ import { useHttpClient } from "../../shared/hooks/http-hook";
 import { useNavigate } from "react-router-dom";
 import { formActions } from "../../shared/store/form-slice";
 import _ from "lodash";
+import { motion } from "framer-motion";
 
 import AdminFormStage from "./AdminFormStage";
 import AdminGenreChooser from "./AdminGenreChooser";
@@ -24,6 +25,7 @@ import FormikPanoramaAttachments from "./FormikPanoramaAttachments";
 import ErrorModal from "../../shared/components/ErrorModal";
 import LoadingSpinner from "../../shared/components/LoadingSpinner";
 import Modal from "../../shared/components/Modal";
+import { containerVariants } from "../../shared/utils/framerMotionAnimationsVariants";
 
 function FormikContainer() {
   ////vars
@@ -79,7 +81,7 @@ function FormikContainer() {
               await generateArrayForGraphicsWithCloudinaryUrls(originalValues);
             finalDataToBeSent.images = [...resultImagesArray];
           } catch (error) {
-            console.log(error);
+            console.error(error);
           }
           break;
 
@@ -116,7 +118,7 @@ function FormikContainer() {
       clearTimeout(timer);
     } catch (error) {
       setShowSpinner(false);
-      console.log(error);
+      console.error(error);
     }
 
     //full reset of form
@@ -273,8 +275,6 @@ function FormikContainer() {
       const resultPanoramas = [];
       try {
         for (let panorama of originalValues.panoramas) {
-          console.log({ panorama });
-
           const newPanoramaArrayDataSet = {};
 
           newPanoramaArrayDataSet.panoramaTitlePl = panorama.panoramaTitlePl;
@@ -349,7 +349,7 @@ function FormikContainer() {
         >
           {(formik) => {
             const { errors } = formik;
-            console.log({ formik });
+            // console.log({ formik });
 
             //
             let isNextActive = true;

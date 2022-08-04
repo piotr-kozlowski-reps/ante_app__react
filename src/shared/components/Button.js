@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
+import { linksHoverVariants } from "../utils/framerMotionAnimationsVariants";
 
 /**
  * Button
@@ -26,14 +28,18 @@ import PropTypes from "prop-types";
 const Button = (props) => {
   if (props.href) {
     return (
-      <a
+      <motion.a
         className={`button button--${props.size || "default"} ${
           props.additionalClass ? props.additionalClass : ""
         }`}
         href={props.href}
+        variants={linksHoverVariants}
+        initial="hidden"
+        animate="visible"
+        whileHover="hover"
       >
         {props.children}
-      </a>
+      </motion.a>
     );
   }
   if (props.to) {
@@ -50,16 +56,20 @@ const Button = (props) => {
     );
   }
   return (
-    <button
+    <motion.button
       className={`button button--${props.size || "default"} ${
         props.additionalClass ? props.additionalClass : ""
       }`}
       type={props.type}
       onClick={props.onClick}
       disabled={props.disabled}
+      variants={linksHoverVariants}
+      initial="hidden"
+      animate="visible"
+      whileHover="hover"
     >
       {props.children}
-    </button>
+    </motion.button>
   );
 };
 

@@ -67,6 +67,7 @@ body {
   font-size: 13px;
   color: #555;
   height: 100%;
+  overflow: scroll;
 }
 
 .bigger-text {
@@ -602,6 +603,10 @@ div.project {
 }
 .main-nav-link:hover {
   color: #000;
+}
+.main-nav-link-active {
+  color: #000;
+  cursor: not-allowed;
 }
 .cat .main-nav-link-active {
   color: #000;

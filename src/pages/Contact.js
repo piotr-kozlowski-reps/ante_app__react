@@ -11,6 +11,8 @@ import Separator from "../shared/components/Separator";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
 import FormikControl from "../components/Admin/FormikControl";
 import Button from "../shared/components/Button";
+import { motion } from "framer-motion";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 const Contact = () => {
   ////vars
@@ -83,7 +85,12 @@ const Contact = () => {
 
   ////jsx
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <div id="about" className="container" data-testid="contact-page">
         <Modal
           header="Information"
@@ -238,7 +245,7 @@ const Contact = () => {
           );
         }}
       </Formik>
-    </Fragment>
+    </motion.div>
   );
 };
 

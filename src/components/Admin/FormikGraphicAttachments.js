@@ -10,6 +10,8 @@ const FormikGraphicAttachments = (props) => {
     { key: "no - it's not BIG", value: "false" },
   ];
 
+  console.log(props);
+
   ////jsx
   return (
     <div className="form-row small-my">

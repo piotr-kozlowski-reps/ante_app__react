@@ -13,6 +13,8 @@ import ProjectShowcasePanorama from "../components/Project/ProjectShowcasePanora
 import ProjectShowcaseFooter from "../components/Project/ProjectShowcaseFooter";
 import ErrorModal from "../shared/components/ErrorModal";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
+import { motion } from "framer-motion";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 const ProjectShowcase = () => {
   ////vars
@@ -42,7 +44,12 @@ const ProjectShowcase = () => {
 
   ////jsx
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <ErrorModal error={error} onClear={clearError} />
       {isLoading && <LoadingSpinner asOverlay />}
       {isProjectFetched && (
@@ -124,7 +131,7 @@ const ProjectShowcase = () => {
       <ProjectShowcaseFooter lang={lang} />
 
       {/* <Footer /> */}
-    </Fragment>
+    </motion.div>
   );
 };
 

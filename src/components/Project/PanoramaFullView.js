@@ -1,26 +1,28 @@
 import React from "react";
 import PropTypes from "prop-types";
 import ReactPannellum, { getConfig } from "react-pannellum";
+import { v4 as uuidv4 } from "uuid";
 
 const PanoramaFullView = ({ panoramaImageSource, panoramaTitle }) => {
   ////vars
   const config = {
-    autoRotate: -2,
-    autoLoad: true,
+    autoRotate: -1,
+    autoRotateInactivityDelay: 2000,
+    autoLoad: false,
+    author: "ANTE",
   };
 
   ////jsx
   return (
     <ReactPannellum
-      id={panoramaTitle}
+      id={panoramaTitle + uuidv4()}
       sceneId={panoramaTitle}
       imageSource={panoramaImageSource}
-      author="ANTE"
       style={{
         maxWidth: "1500px",
         height: "500px",
-        padding: "0px",
-        margin: 0,
+        marginTop: "30px",
+        // margin: 0,
       }}
       uiText={{
         loadButtonLabel: "Click to<br>Load<br>Panorama",

@@ -1,8 +1,10 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import ProjectShowcaseFooter from "../components/Project/ProjectShowcaseFooter";
+import { motion } from "framer-motion";
 
 import imageFourOFour from "../images/404.png";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 const NotFound = () => {
   ////vars
@@ -24,7 +26,12 @@ const NotFound = () => {
 
   ////jsx
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <div data-testid="404-page"></div>
       <div id="gallery">
         <div className="container">
@@ -46,7 +53,7 @@ const NotFound = () => {
           </div>
         </div>
       </div>
-    </Fragment>
+    </motion.div>
   );
 };
 

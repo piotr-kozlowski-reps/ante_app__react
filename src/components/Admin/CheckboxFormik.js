@@ -16,9 +16,6 @@ const CheckboxFormik = (props) => {
 
   return (
     <div className={`input-box`}>
-      {/* <label htmlFor={name} className="details">
-        {label}
-      </label> */}
       <Field id={name} name={name} {...rest}>
         {(formik) => {
           const { field, form } = formik;
@@ -36,6 +33,7 @@ const CheckboxFormik = (props) => {
                 id={name}
                 {...form}
                 value={value}
+                checked={value}
                 onChange={(val) => onChange(val)}
                 onBlur={onBlur}
                 className={`checkbox__input ${
@@ -45,19 +43,6 @@ const CheckboxFormik = (props) => {
               <div className="checkbox__box"></div>
               {label}
             </label>
-
-            // <input
-            //   id={name}
-            //   name={name}
-            //   value={value}
-            //   type="checkbox"
-            //   {...rest}
-            //   onChange={(val) => onChange(val)}
-            //   onBlur={onBlur}
-            //   className={`${
-            //     isErrorPresent && isTouched ? "input-invalid" : ""
-            //   } ${props.additionalClass ? props.additionalClass : ""}`}
-            // />
           );
         }}
       </Field>
@@ -67,11 +52,3 @@ const CheckboxFormik = (props) => {
 };
 
 export default CheckboxFormik;
-
-// <label>
-//   <Field
-//     type="checkbox"
-//     name={`images.${index}.isBig`}
-//   />
-//   Is image big?
-// </label>;

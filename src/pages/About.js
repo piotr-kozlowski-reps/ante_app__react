@@ -1,9 +1,11 @@
 import React, { Fragment } from "react";
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import AdminTitle from "../components/Admin/AdminTitle";
 import Footer from "../shared/components/Footer";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 const About = () => {
   ////vars
@@ -169,7 +171,12 @@ const About = () => {
 
   ////jsx
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <div id="about" className="container" data-testid="about-page">
         <div className="row">
           <div className="col-lg-12">
@@ -244,7 +251,7 @@ const About = () => {
         {clientsContent}
       </div>
       {/* <Footer /> */}
-    </Fragment>
+    </motion.div>
   );
 };
 

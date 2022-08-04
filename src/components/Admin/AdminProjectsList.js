@@ -4,9 +4,11 @@ import { formActions } from "../../shared/store/form-slice";
 import { useNavigate } from "react-router-dom";
 import type from "../../shared/utils/type";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
 import Button from "../../shared/components/Button";
 import AdminProjectItem from "./AdminProjectItem";
+import { adminProjectsVariants } from "../../shared/utils/framerMotionAnimationsVariants";
 
 const AdminProjectsList = (props) => {
   ////vars
@@ -53,7 +55,7 @@ const AdminProjectsList = (props) => {
 
   ////jsx
   return (
-    <Fragment>
+    <div>
       <div id="portfolio" className="container">
         <div className="row" id="parent">
           <div className="row create-project-button">
@@ -84,7 +86,7 @@ const AdminProjectsList = (props) => {
               </div>
             ))}
 
-          <div className="row">
+          <motion.div className="row">
             <ol>
               {props.projectsList.map((project) => (
                 <AdminProjectItem
@@ -103,10 +105,10 @@ const AdminProjectsList = (props) => {
                 />
               ))}
             </ol>
-          </div>
+          </motion.div>
         </div>
       </div>
-    </Fragment>
+    </div>
   );
 };
 

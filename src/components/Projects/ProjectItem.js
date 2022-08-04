@@ -1,9 +1,11 @@
 import React, { forwardRef } from "react";
 import { format } from "date-fns";
 import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
 import PropTypes from "prop-types";
+import { iconsItemVariants } from "../../shared/utils/framerMotionAnimationsVariants";
 
-const ProjectItem = forwardRef((props, ref) => {
+const ProjectItem = (props) => {
   ////vars
   const { id, projName, completionDate, city, country, icoImg } = props.project;
   const lang = props.lang;
@@ -14,9 +16,9 @@ const ProjectItem = forwardRef((props, ref) => {
 
   ////jsx
   return (
-    <div
-      ref={ref}
+    <motion.div
       className="box-outer col-lg-3 col-md-3 col-sm-4 col-xs-6 col-xxxs-12 ext"
+      variants={iconsItemVariants}
     >
       <div className="box" data-testid="project-item">
         <img src={icoImg} alt={alt} />
@@ -42,9 +44,9 @@ const ProjectItem = forwardRef((props, ref) => {
           </div>
         </div>
       </div>
-    </div>
+    </motion.div>
   );
-});
+};
 
 ProjectItem.propTypes = {
   project: PropTypes.exact({

@@ -7,6 +7,7 @@ import { Formik, Form } from "formik";
 import genre from "../shared/utils/genre";
 import { generateValidation } from "../shared/utils/generateFormDataFactory";
 import _ from "lodash";
+import { motion } from "framer-motion";
 
 import ErrorModal from "../shared/components/ErrorModal";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
@@ -21,6 +22,7 @@ import FormikGraphicAttachments from "../components/Admin/FormikGraphicAttachmen
 import FormikPanoramaAttachments from "../components/Admin/FormikPanoramaAttachments";
 import Separator from "../shared/components/Separator";
 import Modal from "../shared/components/Modal";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 const UpdateProject = () => {
   ////vars
@@ -342,7 +344,12 @@ const UpdateProject = () => {
   };
 
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       <Modal
         header="Information"
         headerClass="modal-header-mine__show-header-login"
@@ -430,7 +437,7 @@ const UpdateProject = () => {
           }}
         </Formik>
       )}
-    </Fragment>
+    </motion.div>
   );
 };
 

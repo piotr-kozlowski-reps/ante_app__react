@@ -3,11 +3,13 @@ import { useTypeFiltering } from "../shared/hooks/type-filtering-hook";
 import { useLocation } from "react-router-dom";
 import { useHttpClient } from "../shared/hooks/http-hook";
 import { useSelector } from "react-redux";
+import { motion } from "framer-motion";
 
 import ProjectsTypeNavigation from "../components/Projects/ProjectsTypeNavigation";
 import AdminProjectsList from "../components/Admin/AdminProjectsList";
 import LoadingSpinner from "../shared/components/LoadingSpinner";
 import ErrorModal from "../shared/components/ErrorModal";
+import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
 const AdminProjects = () => {
   ////vars
@@ -62,7 +64,12 @@ const AdminProjects = () => {
 
   ////jsx
   return (
-    <Fragment>
+    <motion.div
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
       {isLoading && <LoadingSpinner asOverlay />}
 
       <ErrorModal
@@ -79,8 +86,7 @@ const AdminProjects = () => {
         projectType={typeGotFromQuery}
         onDelete={deleteProjectHandler}
       />
-      {/* <Footer /> */}
-    </Fragment>
+    </motion.div>
   );
 };
 

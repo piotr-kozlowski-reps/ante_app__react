@@ -3,9 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { formActions } from "../../shared/store/form-slice";
 import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
+import { motion } from "framer-motion";
 
 import Button from "../../shared/components/Button";
 import Modal from "../../shared/components/Modal";
+import { linksHoverVariants } from "../../shared/utils/framerMotionAnimationsVariants";
 
 const AdminFormFooter = (props) => {
   ////vars
@@ -45,6 +47,10 @@ const AdminFormFooter = (props) => {
           onClick={confirmCancelWarningHandler}
           className={`button button--default`}
           style={{ fontSize: "16px" }}
+          variants={linksHoverVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
         >
           CANCEL
         </button>
@@ -57,6 +63,10 @@ const AdminFormFooter = (props) => {
           type="button"
           onClick={cancelHandler}
           className={`button button--default`}
+          variants={linksHoverVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
         >
           CANCEL
         </button>
@@ -65,6 +75,10 @@ const AdminFormFooter = (props) => {
           onClick={backHandler}
           className={`button button--default`}
           disabled={formStageCounter === 0}
+          variants={linksHoverVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
         >
           BACK
         </button>
@@ -73,6 +87,10 @@ const AdminFormFooter = (props) => {
           onClick={isNextActive ? nextHandler : null}
           className={`button button--default`}
           disabled={formStageCounter === 2 || !isNextActive}
+          variants={linksHoverVariants}
+          initial="hidden"
+          animate="visible"
+          whileHover="hover"
         >
           NEXT
         </button>
