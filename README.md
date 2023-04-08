@@ -11,3 +11,7 @@ React front-end app for showcasing 3D graphics portfolio of Ante Company.
 - Integrates with API to fetch data
 - Includes routing for seamless navigation between pages
 - Implements unit tests using a testing frameworks as Jest, RTL
+
+##
+
+For any inquiries, please contact [Contact Email].
