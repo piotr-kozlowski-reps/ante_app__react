@@ -1,0 +1,9 @@
+# deployment to firebase (front)
+
+1. `npm run build` - make new build
+2. `firebase login` - if needed
+3. `firebase deploy` - deploy new version
+
+-- if a problem with deployment:
+`firebase logout`
+`firebase login`
