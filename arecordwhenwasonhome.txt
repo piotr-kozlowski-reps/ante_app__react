@@ -1,0 +1,11 @@
+A 
+ante.pl. 
+89.161.178.195 3600
+
+TXT
+dkim._domainkey.ante.pl.
+v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAsjv3KQPrBcewd1ya63jZ1Yr3FBW79Jg6PV1jKdU5Fv+5gBTP7wUrr4FN+WrTlgPjLVeC18FwsiOqCcM9S9laQnRREuu7WfXtcy+cns/WTlh24/CVb1Xhv+0UUZ0kjztddYEXWFx5XimkyZBPI61nJOA02Mg23n0DgctxEcrk4F2wit8060KSkd0ckNrjDds+PCoSlld67XUofvjP/AhrOx7d7Z4KUovRzctpfdo/bQkMlUJKO6t3cqqIm8sHm58P2dZkzd0HriNmmfZFLvatO3OsjWdtomeZ2xsqbeh2mYQQzc/to+WmerDysWHh6xrMQmRp2jU4SPpr9cANV/5sBwIDAQAB
+
+TXT
+ante.pl.
+v=spf1 ip4:89.161.178.195 a mx -all

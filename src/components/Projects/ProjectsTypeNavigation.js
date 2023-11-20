@@ -12,7 +12,7 @@ const ProjectsTypeNavigation = (props) => {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
   const queryTypeExtracted = params.get("type") ? params.get("type") : "all";
-  const [hamburgerClicked, setHamburgerClicked] = useState(false);
+  // const [hamburgerClicked, setHamburgerClicked] = useState(false);
 
   //refs
   let link1 = useRef(null);
@@ -25,50 +25,11 @@ const ProjectsTypeNavigation = (props) => {
   let link8 = useRef(null);
   let portfolioElement = useRef(null);
 
-  const hamburgerToggleHandler = () => {
-    setHamburgerClicked(
-      (hamburgerClicked) => (hamburgerClicked = !hamburgerClicked)
-    );
-  };
-
-  //
-  //logic
-  // initial animation effect
-  // useLayoutEffect(() => {
-  //   fadeFromRight(
-  //     0.6,
-  //     0.8,
-  //     40,
-  //     0.3,
-  //     link1,
-  //     link2,
-  //     link3,
-  //     link4,
-  //     link5,
-  //     link6,
-  //     link7,
-  //     link8
+  // const hamburgerToggleHandler = () => {
+  //   setHamburgerClicked(
+  //     (hamburgerClicked) => (hamburgerClicked = !hamburgerClicked)
   //   );
-  //   fadeInUp(0.4, 0.8, 20, 0.1, portfolioElement);
-  // }, []);
-
-  // link clicked animation effect
-  // useEffect(() => {
-  //   fadeFromRight(
-  //     0.4,
-  //     0,
-  //     40,
-  //     0.3,
-  //     link1,
-  //     link2,
-  //     link3,
-  //     link4,
-  //     link5,
-  //     link6,
-  //     link7,
-  //     link8
-  //   );
-  // }, [queryTypeExtracted, lang]);
+  // };
 
   ////jsx
   return (
@@ -84,29 +45,30 @@ const ProjectsTypeNavigation = (props) => {
         }`}
       >
         <div className="col-lg-12">
-          <div className="navbar-header">
-            <div className="menu-wrap">
-              <input
+          {/* <div className="navbar-header">
+            <div className="menu-wrap ">
+               <input
                 type="checkbox"
-                className="toggler"
+                className="toggler "
                 onClick={hamburgerToggleHandler}
-              ></input>
+              ></input> 
               <div className="hamburger">
                 <div></div>
               </div>
             </div>
-          </div>
-          <h2>{props.title}</h2>
+          </div> */}
+          <h2 className="portfolio-padding">{props.title}</h2>
         </div>
       </div>
       <div className="row menu">
         <div className="col-lg-12">
           <div
-            className={
-              hamburgerClicked
-                ? "navbar-collapse hamburger-visible"
-                : "collapse navbar-collapse"
-            }
+            // className={
+            //   hamburgerClicked
+            //     ? "navbar-collapse hamburger-visible "
+            //     : "collapse navbar-collapse"
+            // }
+            className="navbar-collapse hamburger-visible collapse"
             id="defaultNavbar1"
           >
             <ul className="nav navbar-nav">

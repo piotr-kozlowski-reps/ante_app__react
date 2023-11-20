@@ -391,6 +391,10 @@ div.project {
 .menu-top {
   margin-top: 5px;
 }
+
+.menu-main-links {
+  visibility: visible;
+}
 .top-nav {
   text-align: right;
 }
@@ -601,12 +605,21 @@ div.project {
   font-size: 13;
   position: relative;
 }
+.main-mobile-nav-link {
+  font-size: 20px !important;
+  /* color: red; */
+}
 .main-nav-link:hover {
   color: #000;
 }
 .main-nav-link-active {
   color: #000;
   cursor: not-allowed;
+}
+.main-mobile-nav-link-active {
+  font-size: 20px !important;
+  /* margin-left: auto;
+  float: right; */
 }
 .cat .main-nav-link-active {
   color: #000;
@@ -1439,8 +1452,21 @@ input[type="radio"] {
   visibility: hidden;
 }
 
+.red-bg {
+  background-color: red;
+}
+
 @media (max-width: 768px) {
+  .menu-main-links {
+    visibility: hidden;
+  }
+
   /* mineHamburger - start  */
+
+  .hamburger-details {
+    margin-top: 5px;
+    /* z-index: 120; */
+  }
   .menu-wrap {
     visibility: visible;
     position: relative;
@@ -1803,7 +1829,6 @@ input[type="radio"] {
   /* width: 100%; */
 }
 .footer-bottom-fill {
-  background-color: red;
   height: 100%;
   flex-grow: 1;
   overflow: auto;
@@ -1821,4 +1846,39 @@ input[type="radio"] {
   background-color: #e9e9e9;
   flex-grow: 1;
   height: 100%;
+}
+
+.portfolio-padding {
+  padding-bottom: 24px;
+}
+
+.mobile-menu {
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  width: 100vw;
+  height: 100vh;
+  z-index: 2;
+  background-color: white;
+}
+
+.mobile-ul {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 8px;
+  height: 100vh;
+  margin-right: 39px;
+  list-style: none;
+  text-align: right !important;
+}
+
+/* .mobile-li {
+  list-style: none;
+} */
+
+.hamburger-z-index {
+  z-index: 12 !important;
 }
