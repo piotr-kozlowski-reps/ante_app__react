@@ -14,13 +14,15 @@ import Button from "../shared/components/Button";
 import { motion } from "framer-motion";
 import { containerVariants } from "../shared/utils/framerMotionAnimationsVariants";
 
-const Contact = () => {
+const Contact = (props) => {
   ////vars
   const lang = useSelector((state) => state.language.lang);
   const [modalInfoPl, setModalInfoPl] = useState("");
   const [modalInfoEn, setModalInfoEn] = useState("");
   const [showConfirmModal, setShowConfirmModal] = useState(false);
   const { isLoading, error, sendRequest, clearError } = useHttpClient();
+  const { isMobile } = props;
+  // console.log({ isMobile });
 
   //formik
   const initialValues = {
@@ -140,67 +142,145 @@ const Contact = () => {
         validateOnMount={true}
       >
         {(formik) => {
-          // console.log({ formik });
           return (
             <Form className="form">
               <div id="portfolio" className="container">
-                <div className="row" id="parent" style={{ marginTop: "6rem" }}>
-                  <div className="form-row">
-                    <div className="project-details">
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        label={lang === "pl" ? "Imię" : "Name"}
-                        name="name"
-                        placeholder={lang === "pl" ? "Twoje imię" : "Your name"}
-                      />
-                    </div>
+                {!isMobile ? (
+                  <Fragment>
+                    <div
+                      className="row"
+                      id="parent"
+                      style={{ marginTop: "6rem" }}
+                    >
+                      <div className="form-row">
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label={lang === "pl" ? "Imię" : "Name"}
+                            name="name"
+                            placeholder={
+                              lang === "pl" ? "Twoje imię" : "Your name"
+                            }
+                          />
+                        </div>
 
-                    <div className="project-details">
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        label={lang === "pl" ? "Nazwisko" : "Surname"}
-                        name="surname"
-                        placeholder={
-                          lang === "pl" ? "Twoje nazwisko" : "Your surname"
-                        }
-                      />
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label={lang === "pl" ? "Nazwisko" : "Surname"}
+                            name="surname"
+                            placeholder={
+                              lang === "pl" ? "Twoje nazwisko" : "Your surname"
+                            }
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                    <div className="row" id="parent">
+                      <div className="form-row">
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label="E-mail"
+                            name="email"
+                            placeholder={
+                              lang === "pl" ? "Twój e-mail" : "Your e-mail"
+                            }
+                          />
+                        </div>
 
-                <div className="row" id="parent">
-                  <div className="form-row">
-                    <div className="project-details">
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        label="E-mail"
-                        name="email"
-                        placeholder={
-                          lang === "pl" ? "Twój e-mail" : "Your e-mail"
-                        }
-                      />
-                    </div>
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label={
+                              lang === "pl" ? "Numer telefonu" : "Phone number"
+                            }
+                            name="phone"
+                            placeholder={
+                              lang === "pl"
+                                ? "Twój numer telefonu (nie wymagane)"
+                                : "Your phone number (not required)"
+                            }
+                          />
+                        </div>
+                      </div>
+                    </div>{" "}
+                  </Fragment>
+                ) : null}
 
-                    <div className="project-details">
-                      <FormikControl
-                        control="input"
-                        type="text"
-                        label={
-                          lang === "pl" ? "Numer telefonu" : "Phone number"
-                        }
-                        name="phone"
-                        placeholder={
-                          lang === "pl"
-                            ? "Twój numer telefonu (nie wymagane)"
-                            : "Your phone number (not required)"
-                        }
-                      />
+                {isMobile ? (
+                  <Fragment>
+                    <div
+                      className="row"
+                      id="parent"
+                      style={{ marginTop: "6rem" }}
+                    >
+                      <div className="form-row">
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label={lang === "pl" ? "Imię" : "Name"}
+                            name="name"
+                            placeholder={
+                              lang === "pl" ? "Twoje imię" : "Your name"
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="form-row">
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label={lang === "pl" ? "Nazwisko" : "Surname"}
+                            name="surname"
+                            placeholder={
+                              lang === "pl" ? "Twoje nazwisko" : "Your surname"
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="form-row">
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label="E-mail"
+                            name="email"
+                            placeholder={
+                              lang === "pl" ? "Twój e-mail" : "Your e-mail"
+                            }
+                          />
+                        </div>
+                      </div>
+
+                      <div className="form-row">
+                        <div className="project-details">
+                          <FormikControl
+                            control="input"
+                            type="text"
+                            label={
+                              lang === "pl" ? "Numer telefonu" : "Phone number"
+                            }
+                            name="phone"
+                            placeholder={
+                              lang === "pl"
+                                ? "Twój numer telefonu (nie wymagane)"
+                                : "Your phone number (not required)"
+                            }
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  </Fragment>
+                ) : null}
 
                 <div className="row" id="parent">
                   <div className="form-row">

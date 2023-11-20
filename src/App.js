@@ -22,12 +22,14 @@ import NewProject from "./pages/NewProject";
 import UpdateProject from "./pages/UpdateProject";
 import AdminProjects from "./pages/AdminProjects";
 import Footer from "./shared/components/Footer";
+import { useIsMobile } from "./shared/hooks/useIsMobile";
 
 let logoutTimer;
 
 function App(props) {
   ////vars
   const isLoggedIn = useSelector((state) => state.auth.isLoggedIn);
+  const isMobile = useIsMobile();
   const token = useSelector((state) => state.auth.token);
   const tokenExpirationDate = useSelector(
     (state) => state.auth.tokenExpirationDate
@@ -200,8 +202,8 @@ function App(props) {
           <Route path="/en/projects" element={<Projects />} />
           <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
           <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
-          <Route path="/pl/contact" element={<Contact />} />
-          <Route path="/en/contact" element={<Contact />} />
+          <Route path="/pl/contact" element={<Contact isMobile={isMobile} />} />
+          <Route path="/en/contact" element={<Contact isMobile={isMobile} />} />
           <Route path="/pl/about" element={<About />} />
           <Route path="/en/about" element={<About />} />
           <Route path="/api/projects/new-project" element={<NewProject />} />
@@ -220,8 +222,8 @@ function App(props) {
           <Route path="/en/projects" element={<Projects />} />
           <Route path="/en/projects/:projectId" element={<ProjectShowcase />} />
           <Route path="/pl/projects/:projectId" element={<ProjectShowcase />} />
-          <Route path="/pl/contact" element={<Contact />} />
-          <Route path="/en/contact" element={<Contact />} />
+          <Route path="/pl/contact" element={<Contact isMobile={isMobile} />} />
+          <Route path="/en/contact" element={<Contact isMobile={isMobile} />} />
           <Route path="/pl/about" element={<About />} />
           <Route path="/en/about" element={<About />} />
           <Route path="*" element={<NotFound />} />
