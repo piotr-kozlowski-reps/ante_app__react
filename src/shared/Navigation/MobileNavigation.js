@@ -66,7 +66,6 @@ export default function MobileNavigation(props) {
       // initial="hidden"
       // animate="visible"
       // exit="exit"
-      className=""
       aria-labelledby="main_navigation_heading"
     >
       <AnimatePresence mode="wait">
@@ -75,9 +74,9 @@ export default function MobileNavigation(props) {
           initial="hidden"
           animate="visible"
           exit="exit"
-          className="mobile-menu z-10 bg-skin-main-bg"
+          className="mobile-menu z-10 bg-skin-main-bg "
         >
-          <div className="bg-skin-fill">
+          <div className="bg-skin-fill ">
             <ul className="mobile-ul">
               <motion.li
                 variants={linksHoverVariants}
@@ -90,7 +89,7 @@ export default function MobileNavigation(props) {
                 <NavLink
                   to={`../../${lang}/projects`}
                   className={({ isActive }) =>
-                    "main-nav-link main-mobile-nav-link" +
+                    "main-nav-link main-mobile-nav-link " +
                     (isActive
                       ? "main-nav-link-active main-mobile-nav-link-active"
                       : "")

@@ -78,7 +78,7 @@ const MainNavigation = () => {
       />
       {isLoading ? <LoadingSpinner asOverlay /> : null}
       <div className="col-lg-12 hamburger-z-index">
-        <div className="navbar-header">
+        <div className="navbar-header navbar-hamburger">
           <div className="menu-wrap">
             <input
               ref={hamburgerRef}
